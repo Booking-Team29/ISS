@@ -1,4 +1,4 @@
-package com.booking.controllers;
+package com.booking.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,7 +9,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/api/getNotifications")
-public class getNotificationsController {
+public class GetNotificationsController {
     // TODO: implement
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<Boolean>> getNotifications() {

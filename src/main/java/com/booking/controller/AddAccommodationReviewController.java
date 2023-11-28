@@ -1,4 +1,4 @@
-package com.booking.controllers;
+package com.booking.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/reportUser")
-public class reportUserController {
+@RequestMapping("/api/addAccommodationReview")
+public class AddAccommodationReviewController {
     // TODO: implement
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> reportUser(@RequestBody Boolean data) throws Exception {
-        // Boolean success = userService.report(data);
+    public ResponseEntity<Boolean> createAccommodationReview(@RequestBody Boolean data) throws Exception {
+        // Boolean success = reviewService.create(data);
         // if (success) {
            return new ResponseEntity<>(HttpStatus.CREATED);
         // }

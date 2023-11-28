@@ -1,4 +1,4 @@
-package com.booking.controllers;
+package com.booking.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,7 +11,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/api/getFavoriteAccommodations")
-public class getFavoriteAccommodationsController {
+public class GetFavoriteAccommodationsController {
     // TODO: implement
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<Boolean>> getFavoriteAccommodations() {
