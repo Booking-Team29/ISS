@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/blockUser")
-public class blockUserController {
+@RequestMapping("/api/confirmEmail")
+public class ConfirmEmailController {
     // TODO: implement
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> blockUser(@RequestBody Boolean data) throws Exception {
-        // Boolean success = userService.block(data);
+    public ResponseEntity<Boolean> confirmEmail(@RequestBody Boolean data) throws Exception {
+        // Boolean success = userService.confirmEmail(data);
         // if (success) {
            return new ResponseEntity<>(HttpStatus.CREATED);
         // }

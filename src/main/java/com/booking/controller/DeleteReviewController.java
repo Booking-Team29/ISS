@@ -1,13 +1,12 @@
 package com.booking.controllers;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/deleteReview")
-public class deleteReviewController {
+public class DeleteReviewController {
     // TODO: implement
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Boolean> deleteReview(@PathVariable("id") Long id) {

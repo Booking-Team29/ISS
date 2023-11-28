@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/addAccommodationReview")
-public class addAccommodationReviewController {
+@RequestMapping("/api/addUserReview")
+public class AddUserReviewController {
     // TODO: implement
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> createAccommodationReview(@RequestBody Boolean data) throws Exception {
+    public ResponseEntity<Boolean> createUserReview(@RequestBody Boolean data) throws Exception {
         // Boolean success = reviewService.create(data);
         // if (success) {
            return new ResponseEntity<>(HttpStatus.CREATED);

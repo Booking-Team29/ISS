@@ -10,14 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/api/getNotifications")
-public class getFinancialReportController {
+@RequestMapping("/api/getFavoriteAccommodations")
+public class GetFavoriteAccommodationsController {
     // TODO: implement
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<Boolean>> getFinancialReport() {
-        // FinancialReport financialReport = someService.getFinancialReport();
+    public ResponseEntity<Collection<Boolean>> getFavoriteAccommodations() {
+        // Collection<Boolean> favoriteAccommodations = favoriteAccommodationService.findAll();
 
-        // return new ResponseEntity<Collection<Boolean>>(financialReport, HttpStatus.OK);
+        // Boolean success = reviewService.delete(data);
+        // if (success) {
+        // return new ResponseEntity<Collection<Boolean>>(favoriteAccommodations, HttpStatus.OK);
+        // }
+        // return a 4XX status
 
         return new ResponseEntity<Collection<Boolean>>(HttpStatus.OK);
     }

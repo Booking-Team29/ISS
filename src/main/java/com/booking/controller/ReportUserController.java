@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/reportUser")
-public class reportUserController {
+public class ReportUserController {
     // TODO: implement
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> reportUser(@RequestBody Boolean data) throws Exception {
