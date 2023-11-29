@@ -1,8 +1,6 @@
 package com.booking.controller;
 
-import com.booking.dto.ChangeUserDataDTO;
-import com.booking.dto.LoginDTO;
-import com.booking.dto.RegisterDTO;
+import com.booking.dto.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -51,4 +49,26 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping(
+            path = "/confirmEmail",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<ConfirmEmailDTO> confirmEmail(@RequestBody ConfirmEmailDTO emailConfirmation) {
+        // implement service
+
+        return new ResponseEntity<>(emailConfirmation, HttpStatus.OK);
+    }
+
+    @GetMapping(
+            path = "/financialReport",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<FinancialReportDTO> getFinancialReport() {
+        // implement service
+
+        FinancialReportDTO report = new FinancialReportDTO();
+
+        return new ResponseEntity<>(report, HttpStatus.OK);
+    }
 }
