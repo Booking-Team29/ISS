@@ -49,6 +49,6 @@ public class ReportController {
     public ResponseEntity<ReviewReportDTO> updateReivewReport(@RequestBody ReviewReportDTO reviewReportDTO, @PathVariable Long reportId) {
         ReviewReportDTO report = new ReviewReportDTO();
         if (report.equals(null)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 }

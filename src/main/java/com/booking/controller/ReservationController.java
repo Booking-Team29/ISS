@@ -42,7 +42,7 @@ public class ReservationController {
     public ResponseEntity<ReservationDTO> updateReservation(@RequestBody ReservationDTO reservationDTO, @PathVariable Long reservationId) {
         ReservationDTO reservation = new ReservationDTO();
         if (reservation.equals(null)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
     @DeleteMapping(
