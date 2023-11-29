@@ -61,7 +61,7 @@ public class AccountController {
     }
 
     @GetMapping(
-            path = "/financialReport",
+            path = "/financialReport/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<FinancialReportDTO> getFinancialReport() {

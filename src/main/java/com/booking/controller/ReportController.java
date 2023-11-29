@@ -51,4 +51,22 @@ public class ReportController {
         if (report.equals(null)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(report, HttpStatus.OK);
     }
+
+    @GetMapping(
+            path = "/getUserReport/{userReportId}",
+            produces =  MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<UserReportDTO> getUserReport(@PathVariable Long userReportId) {
+        UserReportDTO report = new UserReportDTO();
+        return new ResponseEntity<>(report, HttpStatus.OK);
+    }
+
+    @GetMapping(
+            path = "/getReviewReport/{reviewReportId}",
+            produces =  MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<ReviewReportDTO> getReviewReport(@PathVariable Long reviewReportId) {
+        ReviewReportDTO report = new ReviewReportDTO();
+        return new ResponseEntity<>(report, HttpStatus.OK);
+    }
 }

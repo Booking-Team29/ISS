@@ -74,7 +74,7 @@ public class AccommodationController {
             @RequestParam(required = false) String location,
             @RequestParam(required = false) Date start,
             @RequestParam(required = false) Date end,
-            @RequestParam(required = false) int peopleNumber
+            @RequestParam(required = false) Integer peopleNumber
             ) {
         //IMPLEMENT SERVICE
         Collection<AccommodationDTO> searchedAccommodations = new ArrayList<>();
