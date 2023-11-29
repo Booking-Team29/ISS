@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class User {
-    private long ID;
+    private Long ID;
     private String firstName;
     private String lastName;
     private String emailAddress;

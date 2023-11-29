@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class CreateAccommodationReviewDTO extends ReviewDTO {
-    private long AccommodationId;
+    private Long AccommodationId;
 
     protected CreateAccommodationReviewDTO() {}
     protected CreateAccommodationReviewDTO(Date reviewDate, String description, float rating, Long accommodationId) {

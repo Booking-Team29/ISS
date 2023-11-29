@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class UserReport {
 
-    private long reportId;
+    private Long reportId;
     private Date reportDate;
     private String description;
-    private long reporterId;
-    private long reporteeId;
+    private Long reporterId;
+    private Long reporteeId;
 
 
     public UserReport() {
