@@ -3,9 +3,9 @@ package com.booking.domain;
 import java.util.Date;
 
 public class OwnerReview extends Review {
-    private long OwnerId;
+    private Long OwnerId;
 
-    public OwnerReview(int reviewId, Date reviewDate, String description, float rating, long ownerId) {
+    public OwnerReview(int reviewId, Date reviewDate, String description, float rating, Long ownerId) {
         super(reviewId, reviewDate, description, rating);
         OwnerId = ownerId;
     }

@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class CreateOwnerReviewDTO extends ReviewDTO {
-    private long OwnerId;
+    private Long OwnerId;
 
     public CreateOwnerReviewDTO() {}
 

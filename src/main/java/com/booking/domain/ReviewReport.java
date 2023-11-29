@@ -3,7 +3,7 @@ package com.booking.domain;
 import java.util.Date;
 
 public class ReviewReport {
-    private int ReportId;
+    private Long ReportId;
     private Date ReportDate;
     private String Description;
     private ReviewType Type;
