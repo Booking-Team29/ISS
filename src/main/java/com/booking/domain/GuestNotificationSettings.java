@@ -1,18 +1,14 @@
 package com.booking.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class GuestNotificationSettings {
 
     private boolean response;
 
     public GuestNotificationSettings(){
-
-    }
-
-    public boolean isResponse() {
-        return response;
-    }
-
-    public void setResponse(boolean response) {
-        this.response = response;
     }
 }
