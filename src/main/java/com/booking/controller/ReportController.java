@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/report")
 public class ReportController {
     @PostMapping(
-            path = "/createUserReport",
+            path = "/userReport",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -21,7 +21,7 @@ public class ReportController {
     }
 
     @PutMapping(
-            path = "/updateUserReport/{reportId}",
+            path = "/userReport/{reportId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -32,7 +32,7 @@ public class ReportController {
     }
 
     @PostMapping(
-            path = "/createReviewReport",
+            path = "/reviewReport",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -42,18 +42,18 @@ public class ReportController {
     }
 
     @PutMapping(
-            path = "/updateReviewReport/{reportId}",
+            path = "/reviewReport/{reportId}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<ReviewReportDTO> updateReivewReport(@RequestBody ReviewReportDTO reviewReportDTO, @PathVariable Long reportId) {
+    public ResponseEntity<ReviewReportDTO> updateReviewReport(@RequestBody ReviewReportDTO reviewReportDTO, @PathVariable Long reportId) {
         ReviewReportDTO report = new ReviewReportDTO();
         if (report.equals(null)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
     @GetMapping(
-            path = "/getUserReport/{userReportId}",
+            path = "/userReport/{userReportId}",
             produces =  MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<UserReportDTO> getUserReport(@PathVariable Long userReportId) {
@@ -62,7 +62,7 @@ public class ReportController {
     }
 
     @GetMapping(
-            path = "/getReviewReport/{reviewReportId}",
+            path = "/reviewReport/{reviewReportId}",
             produces =  MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<ReviewReportDTO> getReviewReport(@PathVariable Long reviewReportId) {
