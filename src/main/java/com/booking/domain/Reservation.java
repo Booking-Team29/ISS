@@ -3,14 +3,14 @@ package com.booking.domain;
 import java.util.Date;
 
 public class Reservation {
-    private int id;
+    private Long id;
     private Date startDate;
     private Date endDate;
     private int guestCount;
     private ReservationStatus status;
     private int totalPrice;
 
-    public Reservation(int id, Date startDate, Date endDate, int guestCount,
+    public Reservation(Long id, Date startDate, Date endDate, int guestCount,
                        ReservationStatus status, int totalPrice) {
         this.id = id;
         this.startDate = startDate;
@@ -21,11 +21,11 @@ public class Reservation {
     }
 
     // Getters and setters for each field
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -3,7 +3,7 @@ package com.booking.domain;
 import java.util.Date;
 
 public class Accommodation {
-    private long ID;
+    private Long ID;
     private String Name;
     private String Description;
     private String Location;

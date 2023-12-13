@@ -9,7 +9,7 @@ import java.util.Date;
 @Setter
 public class Notification {
 
-    private long notificationId;
+    private Long notificationId;
     private String content;
     private Date creationTime;
     private boolean read;
