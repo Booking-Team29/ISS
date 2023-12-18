@@ -1,6 +1,9 @@
 package com.booking.controller;
 
+import com.booking.domain.Accommodation;
 import com.booking.dto.*;
+import com.booking.service.AccommodationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +15,19 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/api/v1/accommodation")
+@CrossOrigin(
+        origins = "*",
+        methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.PUT},
+        allowedHeaders = "*"
+)
 public class AccommodationController {
+    private AccommodationService accommodationService;
 
-    @CrossOrigin
+    @Autowired
+    public AccommodationController(AccommodationService service) {
+        this.accommodationService = service;
+    }
+
     @PostMapping(
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -24,7 +37,6 @@ public class AccommodationController {
         return new ResponseEntity<>(newAccommodation, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PutMapping(
             path = "/approve/{accommodationId}",
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -36,7 +48,6 @@ public class AccommodationController {
         return new ResponseEntity<>(approveAccommodation, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PutMapping(
             path = "/{accommodationId}",
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -49,7 +60,6 @@ public class AccommodationController {
         return new ResponseEntity<>(changeAccommodationData, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @GetMapping(
             path = "/favorite/{guestId}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -61,18 +71,16 @@ public class AccommodationController {
         return new ResponseEntity<Collection<AccommodationDTO>>(favoriteAccommodations, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @GetMapping(
             value = "/{accommodationId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<GetAccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
-
-        //IMPLEMENT SERVICE
+        Accommodation acc =  accommodationService.findOne(accommodationId);
         GetAccommodationDTO accommodation = new GetAccommodationDTO();
+        accommodation.setName("test");
         return new ResponseEntity<GetAccommodationDTO>(accommodation, HttpStatus.OK);
     }
-    @CrossOrigin
     @GetMapping(
             path = "/accommodationSearch",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -88,7 +96,6 @@ public class AccommodationController {
         return new ResponseEntity<Collection<AccommodationDTO>>(searchedAccommodations, HttpStatus.OK);
     }
 
-    @CrossOrigin
     @PutMapping(
             path = "/define/{accommodationId}",
             produces = MediaType.APPLICATION_JSON_VALUE,
