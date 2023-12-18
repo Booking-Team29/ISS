@@ -1,25 +1,64 @@
 package com.booking.domain;
 
+import lombok.*;
+import org.hibernate.annotations.Where;
+
+//import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
 
+@ToString
+@EqualsAndHashCode
+@Entity
+@Table(name = "accommodation")
+@NoArgsConstructor
+@Getter
+@Setter
+@Where(clause = "is_deleted = false")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Accommodation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
+    @Column(name = "name")
     private String Name;
+    @Column(name = "description")
     private String Description;
+    @Column(name = "location")
     private String Location;
-    private int[] LocationCoordinates;
+
+    @Column(name = "locationcoordinates")
+    @ElementCollection
+    private List<Float> LocationCoordinates;
+
+    @Column(name = "minguests")
     private int MinGuests;
+    @Column(name = "maxguests")
     private int MaxGuests;
-    private Price[] prices;
+
+    @Column(name = "prices")
+    @ElementCollection
+    private List<Integer> prices;
+    @Column(name = "pricingtype")
     private PricingType PricingType;
+    @Column(name = "daysfrocancellation")
     private int DaysForCancellation;
-    private String[] Amenities;
+    @Column(name = "amenities")
+    @ElementCollection
+    private List<String> Amenities;
+    @Column(name = "accommodationstatus")
     private AccommodationStatus AccommodationStatus;
-    private String[] Images;
+    @Column(name = "images")
+    @ElementCollection
+    private List<String> Images;
+    @Column(name = "type")
     private AccommodationType Type;
-    private Date[] AvaiableDates;
+    @Column(name = "avaiabledates")
+    @ElementCollection
+    private List<Date> AvaiableDates;
 
-    public Accommodation(long ID, String name, String description, String location, int[] locationCoordinates, int minGuests, int maxGuests, Price[] prices, com.booking.domain.PricingType pricingType, int daysForCancellation, String[] amenities, com.booking.domain.AccommodationStatus accommodationStatus, String[] images, AccommodationType type, Date[] avaiableDates) {
+    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Integer> prices, com.booking.domain.PricingType pricingType, int daysForCancellation, List<String> amenities, com.booking.domain.AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<Date> avaiableDates) {
         this.ID = ID;
         Name = name;
         Description = description;
@@ -34,126 +73,6 @@ public class Accommodation {
         AccommodationStatus = accommodationStatus;
         Images = images;
         Type = type;
-        AvaiableDates = avaiableDates;
-    }
-
-    public long getID() {
-        return ID;
-    }
-
-    public void setID(long ID) {
-        this.ID = ID;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
-    }
-
-    public String getLocation() {
-        return Location;
-    }
-
-    public void setLocation(String location) {
-        Location = location;
-    }
-
-    public int[] getLocationCoordinates() {
-        return LocationCoordinates;
-    }
-
-    public void setLocationCoordinates(int[] locationCoordinates) {
-        LocationCoordinates = locationCoordinates;
-    }
-
-    public int getMinGuests() {
-        return MinGuests;
-    }
-
-    public void setMinGuests(int minGuests) {
-        MinGuests = minGuests;
-    }
-
-    public int getMaxGuests() {
-        return MaxGuests;
-    }
-
-    public void setMaxGuests(int maxGuests) {
-        MaxGuests = maxGuests;
-    }
-
-    public Price[] getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Price[] prices) {
-        this.prices = prices;
-    }
-
-    public com.booking.domain.PricingType getPricingType() {
-        return PricingType;
-    }
-
-    public void setPricingType(com.booking.domain.PricingType pricingType) {
-        PricingType = pricingType;
-    }
-
-    public int getDaysForCancellation() {
-        return DaysForCancellation;
-    }
-
-    public void setDaysForCancellation(int daysForCancellation) {
-        DaysForCancellation = daysForCancellation;
-    }
-
-    public String[] getAmenities() {
-        return Amenities;
-    }
-
-    public void setAmenities(String[] amenities) {
-        Amenities = amenities;
-    }
-
-    public com.booking.domain.AccommodationStatus getAccommodationStatus() {
-        return AccommodationStatus;
-    }
-
-    public void setAccommodationStatus(com.booking.domain.AccommodationStatus accommodationStatus) {
-        AccommodationStatus = accommodationStatus;
-    }
-
-    public String[] getImages() {
-        return Images;
-    }
-
-    public void setImages(String[] images) {
-        Images = images;
-    }
-
-    public AccommodationType getType() {
-        return Type;
-    }
-
-    public void setType(AccommodationType type) {
-        Type = type;
-    }
-
-    public Date[] getAvaiableDates() {
-        return AvaiableDates;
-    }
-
-    public void setAvaiableDates(Date[] avaiableDates) {
         AvaiableDates = avaiableDates;
     }
 }
