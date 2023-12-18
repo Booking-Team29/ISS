@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@Where(clause = "is_deleted = false")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Accommodation {
     @Id
