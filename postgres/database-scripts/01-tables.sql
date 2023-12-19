@@ -25,6 +25,7 @@ CREATE TABLE Accommodation (
     id SERIAL PRIMARY KEY,
     Name VARCHAR(255),
     Description TEXT,
+    Location TEXT,
     LocationCoordinates INT[],
     MinGuests INT,
     MaxGuests INT,

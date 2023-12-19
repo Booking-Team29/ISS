@@ -7,6 +7,7 @@ import com.booking.domain.PricingType;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @ToString
 @Setter
@@ -18,7 +19,7 @@ public class CreateAccommodationDTO {
     private String Name;
     private String Description;
     private String Location;
-    private int[] LocationCoordinates;
+    private Float[] LocationCoordinates;
     private int MinGuests;
     private int MaxGuests;
     private Price[] prices;

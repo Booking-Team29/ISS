@@ -5,11 +5,11 @@ VALUES
     ('Bob', 'Johnson', 'bob.johnson@example.com', 'hashed_password_3', '789 Pine St', '555-9876', 'Blocked');
 
 -- Insert dummy data into Accommodation table
-INSERT INTO Accommodation (Name, Description, LocationCoordinates, MinGuests, MaxGuests, Prices, PricingType, DaysForCancellation, Amenities, Status, Images, Type, AvailableDates, AutoAccept)
+INSERT INTO Accommodation (Name, Description, Location, LocationCoordinates, MinGuests, MaxGuests, Prices, PricingType, DaysForCancellation, Amenities, Status, Images, Type, AvailableDates, AutoAccept)
 VALUES
-    ('Cozy Studio', 'A small and cozy studio apartment', ARRAY[40.7128, -74.0060], 1, 2, '{100, 150}', 'Guest', 7, '{"Wi-Fi", "Kitchen"}', 'Approved', '{"image1.jpg", "image2.jpg"}', 'Studio', '{"2023-01-01", "2023-01-15"}', true),
-    ('Spacious Apartment', 'A spacious and modern apartment', ARRAY[34.0522, -118.2437], 2, 4, '{200, 250}', 'Accommodation', 14, '{"Swimming Pool", "Gym"}', 'Created', '{"image3.jpg", "image4.jpg"}', 'Apartment', '{"2023-02-01", "2023-02-28"}', false),
-    ('Luxury Hotel', 'A luxurious hotel with all amenities', ARRAY[51.5074, -0.1278], 2, 6, '{300, 400}', 'Weekend', 30, '{"Spa", "Valet Parking"}', 'Denied', '{"image5.jpg", "image6.jpg"}', 'Hotel', '{"2023-03-01", "2023-03-31"}', true);
+    ('Cozy Studio', 'A small and cozy studio apartment', 'Nevada', ARRAY[40.7128, -74.0060], 1, 2, '{100, 150}', 'Guest', 7, '{"Wi-Fi", "Kitchen"}', 'Approved', '{"image1.jpg", "image2.jpg"}', 'Studio', '{"2023-01-01", "2023-01-15"}', true),
+    ('Spacious Apartment', 'A spacious and modern apartment', 'Ohio', ARRAY[34.0522, -118.2437], 2, 4, '{200, 250}', 'Accommodation', 14, '{"Swimming Pool", "Gym"}', 'Created', '{"image3.jpg", "image4.jpg"}', 'Apartment', '{"2023-02-01", "2023-02-28"}', false),
+    ('Luxury Hotel', 'A luxurious hotel with all amenities', 'Oregon', ARRAY[51.5074, -0.1278], 2, 6, '{300, 400}', 'Weekend', 30, '{"Spa", "Valet Parking"}', 'Denied', '{"image5.jpg", "image6.jpg"}', 'Hotel', '{"2023-03-01", "2023-03-31"}', true);
 
 
 -- Insert dummy data into Reservation table

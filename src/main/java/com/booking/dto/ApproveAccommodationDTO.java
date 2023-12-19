@@ -13,10 +13,11 @@ import java.util.Date;
 @EqualsAndHashCode
 public class ApproveAccommodationDTO {
 
+    private Long ID;
     private String Name;
     private String Description;
     private String Location;
-    private int[] LocationCoordinates;
+    private Float[] LocationCoordinates;
     private int MinGuests;
     private int MaxGuests;
     private Price[] prices;
