@@ -67,3 +67,11 @@ VALUES
     (1, 1),
     (2, 2),
     (3, 3);
+
+-- Insert dummy data into Favorite table
+INSERT INTO Favorite (UserId, AccommodationId)
+VALUES
+    (1, 1),  -- John Doe's favorite accommodation
+    (1, 2),  -- John Doe's another favorite accommodation
+    (2, 3),  -- Jane Smith's favorite accommodation
+    (3, 1);  -- Bob Johnson's favorite accommodation
