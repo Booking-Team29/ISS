@@ -110,3 +110,9 @@ CREATE TABLE AccommodationReview (
     ReviewId INT REFERENCES Review (ReviewId),
     AccommodationId INT REFERENCES Accommodation (id)
 );
+
+CREATE TABLE Favorite (
+    FavoriteId SERIAL PRIMARY KEY,
+    UserId INT REFERENCES "User" (UserId),
+    AccommodationId INT REFERENCES Accommodation (id)
+);
