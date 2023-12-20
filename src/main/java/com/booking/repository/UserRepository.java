@@ -1,11 +1,12 @@
 package com.booking.repository;
 
-import com.booking.domain.User;
+import com.booking.domain.Account;
+import com.booking.dto.RegisterDTO;
 import org.springframework.data.jpa.repository.Query;
 
-public interface UserRepository extends GenericRepository<User> {
-    @Query("select u from User u where u.emailAddress = ?1")
-    public User findOneByEmail(String email);
+public interface UserRepository extends GenericRepository<Account> {
+    @Query(value = "select u from Account u where u.emailAddress = ?1")
+    public Account findOneByEmail(String email);
 
-    public User save(User user);
+    public Account save(Account account);
 }

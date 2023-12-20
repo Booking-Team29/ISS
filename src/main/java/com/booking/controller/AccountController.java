@@ -1,6 +1,6 @@
 package com.booking.controller;
 
-import com.booking.domain.User;
+import com.booking.domain.Account;
 import com.booking.dto.*;
 import com.booking.security.TokenUtils;
 import com.booking.service.UserService;
@@ -10,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,8 +32,8 @@ public class AccountController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @PreAuthorize("hasAnyAuthority('Guest', 'Owner', 'Admin')")
-    public ResponseEntity<UserDTO> getByEmail(@RequestParam() String email) {
-        User acc = userService.findByEmail(email);
+    public ResponseEntity<UserDTO> getByEmail(@PathVariable String email) {
+        Account acc = userService.findByEmail(email);
         UserDTO accDto = new UserDTO();
         accDto.FromUser(acc);
         return new ResponseEntity<>(accDto, HttpStatus.OK);
@@ -41,9 +44,20 @@ public class AccountController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginData) {
-        //IMPLEMENT SERVICE
-        return new ResponseEntity<>(loginData, HttpStatus.OK);
+    public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO loginData) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginData.getUsername(),
+                        loginData.getPassword()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        Account account = (Account) authentication.getPrincipal();
+        String jwt = tokenUtils.generateToken(account);
+        Long valid_for = tokenUtils.getExpiration();
+        TokenDTO token = new TokenDTO(jwt, valid_for);
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     @PostMapping(
@@ -51,8 +65,12 @@ public class AccountController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> register(@RequestBody RegisterDTO registerData) {
-        //IMPLEMENT SERVICE
+    public ResponseEntity<RegisterDTO> register(@RequestBody RegisterDTO registerData) {
+        Account acc = userService.findByEmail(registerData.getEmailAddress());
+        if (acc != null) throw new RuntimeException("Email already exists");
+        Account new_acc = new Account();
+        new_acc.fromRegisterDTO(registerData);
+        userService.save(new_acc);
         return new ResponseEntity<>(registerData, HttpStatus.CREATED);
     }
 

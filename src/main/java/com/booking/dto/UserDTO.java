@@ -1,6 +1,6 @@
 package com.booking.dto;
 
-import com.booking.domain.User;
+import com.booking.domain.Account;
 import com.booking.domain.UserStatus;
 import com.booking.domain.UserType;
 import lombok.Getter;
@@ -35,15 +35,15 @@ public class UserDTO {
         this.userStatus = userStatus;
     }
 
-    public void FromUser(User user) {
-        this.UserId = user.getUserId();
-        this.userType = user.getUserType();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.emailAddress = user.getEmailAddress();
-        this.hashedPassword = user.getHashedPassword();
-        this.homeAddress = user.getHomeAddress();
-        this.phoneNumber = user.getPhoneNumber();
-        this.userStatus = user.getUserStatus();
+    public void FromUser(Account account) {
+        this.UserId = account.getUserId();
+        this.userType = account.getUserType();
+        this.firstName = account.getFirstName();
+        this.lastName = account.getLastName();
+        this.emailAddress = account.getEmailAddress();
+        this.hashedPassword = account.getHashedPassword();
+        this.homeAddress = account.getHomeAddress();
+        this.phoneNumber = account.getPhoneNumber();
+        this.userStatus = account.getUserStatus();
     }
 }

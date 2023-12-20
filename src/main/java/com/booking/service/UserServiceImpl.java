@@ -1,12 +1,13 @@
 package com.booking.service;
 
-import com.booking.domain.User;
+import com.booking.domain.Account;
 import com.booking.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,14 +16,18 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
-    public User save(User user) {
-        return userRepository.save(user);
+    public Account save(Account account) {
+        account.setHashedPassword(passwordEncoder.encode(account.getPassword()));
+        return userRepository.save(account);
     }
 
     @Override
-    public User findByEmail(String email) {
+    public Account findByEmail(String email) {
         return userRepository.findOneByEmail(email);
     }
 

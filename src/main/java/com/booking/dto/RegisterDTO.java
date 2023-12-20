@@ -1,5 +1,8 @@
 package com.booking.dto;
 
+import com.booking.domain.UserType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @ToString
@@ -11,9 +14,9 @@ public class RegisterDTO {
 
     private String firstName;
     private String lastName;
-    private String username;
+    private String emailAddress;
     private String password;
     private String address;
-    private int phone;
-
+    private String phone;
+    private UserType userType;
 }

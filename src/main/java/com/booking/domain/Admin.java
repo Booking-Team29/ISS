@@ -1,6 +1,6 @@
 package com.booking.domain;
 
-public class Admin extends User {
+public class Admin extends Account {
     private AdminNotificationSettings notificationSettings;
 
     public Admin(

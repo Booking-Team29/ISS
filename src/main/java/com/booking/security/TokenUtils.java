@@ -1,10 +1,12 @@
 package com.booking.security;
 
-import com.booking.domain.User;
+import com.booking.domain.Account;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,8 @@ public class TokenUtils {
     private String secret;
 
     @Value("1209600000")
+    @Getter
+    @Setter
     private Long expiration;
 
     public String getUsernameFromToken(String token) {
@@ -71,10 +75,10 @@ public class TokenUtils {
         return expiration.before(this.generateCurrentDate());
     }
 
-    public String generateToken(User user) {
+    public String generateToken(Account account) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("sub", user.getEmailAddress());
-        claims.put("role", user.getUserType());
+        claims.put("sub", account.getEmailAddress());
+        claims.put("role", account.getUserType());
         claims.put("created", this.generateCurrentDate());
         return this.generateToken(claims);
     }
@@ -101,9 +105,9 @@ public class TokenUtils {
         return null;
     }
     public Boolean validateToken(String token, UserDetails userDetails) {
-        User user = (User) userDetails;
+        Account account = (Account) userDetails;
         final String username = this.getUsernameFromToken(token);
-        return (username.equals(user.getEmailAddress()) && !(this.isTokenExpired(token)));
+        return (username.equals(account.getEmailAddress()) && !(this.isTokenExpired(token)));
     }
 }
 

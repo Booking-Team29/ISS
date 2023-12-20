@@ -1,5 +1,6 @@
 package com.booking.domain;
 
+import com.booking.dto.RegisterDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,42 +16,43 @@ import java.util.List;
 @Setter
 @Entity
 @ToString
-@Table(name = "user")
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User implements UserDetails  {
+@Table(name = "Account")
+public class Account implements UserDetails  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UserId;
+    @Column(name="userid")
+    private Long userId;
 
-    @Column(name="userType")
+    @Column(name="usertype")
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
-    @Column(name = "firstName")
+    @Column(name = "firstname")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "lastname")
     private String lastName;
 
-    @Column(name = "emailAddress")
+    @Column(name = "emailaddress")
     private String emailAddress;
 
-    @Column(name = "hashedPassword")
+    @Column(name = "hashedpassword")
     private String hashedPassword;
 
-    @Column(name = "homeAddress")
+    @Column(name = "homeaddress")
     private String homeAddress;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phonenumber")
     private String phoneNumber;
 
-    @Column(name = "userStatus")
+    @Column(name = "userstatus")
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
-    protected User(long ID, String firstName, String lastName, String emailAddress, String hashedPassword,
-                   String homeAddress, String phoneNumber, UserStatus userStatus) {
-        this.UserId = ID;
+    protected Account(long ID, String firstName, String lastName, String emailAddress, String hashedPassword,
+                      String homeAddress, String phoneNumber, UserStatus userStatus) {
+        this.userId = ID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -60,8 +62,8 @@ public class User implements UserDetails  {
         this.userStatus = userStatus;
     }
 
-    public User(Long userId, UserType userType, String firstName, String lastName, String emailAddress, String hashedPassword, String homeAddress, String phoneNumber, UserStatus userStatus) {
-        UserId = userId;
+    public Account(Long userId, UserType userType, String firstName, String lastName, String emailAddress, String hashedPassword, String homeAddress, String phoneNumber, UserStatus userStatus) {
+        this.userId = userId;
         this.userType = userType;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -70,6 +72,18 @@ public class User implements UserDetails  {
         this.homeAddress = homeAddress;
         this.phoneNumber = phoneNumber;
         this.userStatus = userStatus;
+    }
+
+    public void fromRegisterDTO(RegisterDTO dto) {
+        this.userType = dto.getUserType();
+        this.firstName = dto.getFirstName();
+        this.lastName = dto.getLastName();
+        this.emailAddress = dto.getEmailAddress();
+        this.hashedPassword = dto.getPassword();
+        this.homeAddress = dto.getAddress();
+        this.phoneNumber = dto.getPhone();
+        this.userStatus = UserStatus.UNACTIVATED;
+        this.userType = dto.getUserType();
     }
 
     // ToString method

@@ -1,6 +1,6 @@
 package com.booking.domain;
 
-public class Guest extends User {
+public class Guest extends Account {
     private GuestNotificationSettings notificationSettings;
 
     public Guest(

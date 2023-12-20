@@ -73,11 +73,12 @@ public class WebSecurityConfiguration {
         httpSecurity.exceptionHandling(exceptionHandling ->
                 exceptionHandling.authenticationEntryPoint(restAuthenticationEntryPoint));
         httpSecurity.authorizeHttpRequests(request -> {
-            request.requestMatchers(new AntPathRequestMatcher("/authentication/*")).permitAll()
-                    .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
+            request.requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/accommodation").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/accommodation/{id}").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/accommodation/accommodationSearch").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/v1/account/login").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/v1/account/register").permitAll()
                     .anyRequest().authenticated();
         });
         httpSecurity.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userDetailsService),

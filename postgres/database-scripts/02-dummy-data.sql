@@ -1,8 +1,8 @@
-INSERT INTO "User" (FirstName, LastName, EmailAddress, HashedPassword, HomeAddress, PhoneNumber, UserStatus, UserType)
+INSERT INTO Account (FirstName, LastName, EmailAddress, HashedPassword, HomeAddress, PhoneNumber, UserStatus, UserType)
 VALUES
-    ('John', 'Doe', 'john.doe@example.com', 'hashed_password_1', '123 Main St', '555-1234', 'ACTIVATED', "GUEST"),
-    ('Jane', 'Smith', 'jane.smith@example.com', 'hashed_password_2', '456 Oak St', '555-5678', 'ACTIVATED', "ADMIN"),
-    ('Bob', 'Johnson', 'bob.johnson@example.com', 'hashed_password_3', '789 Pine St', '555-9876', 'BLOCKED', "OWNER");
+    ('John', 'Doe', 'john.doe@example.com', '$2a$10$vudjSlPv/HU4rH9n/uwXXezmoG9zCZb1KKhTvErQTWRp9Ln5gwdQe', '123 Main St', '555-1234', 'ACTIVATED', 'GUEST'),
+    ('Jane', 'Smith', 'jane.smith@example.com', '$2a$10$vudjSlPv/HU4rH9n/uwXXezmoG9zCZb1KKhTvErQTWRp9Ln5gwdQe', '456 Oak St', '555-5678', 'ACTIVATED', 'ADMIN'),
+    ('Bob', 'Johnson', 'bob.johnson@example.com', '$2a$10$vudjSlPv/HU4rH9n/uwXXezmoG9zCZb1KKhTvErQTWRp9Ln5gwdQe', '789 Pine St', '555-9876', 'BLOCKED', 'OWNER');
 
 -- Insert dummy data into Accommodation table
 INSERT INTO Accommodation (Name, Description, Location, LocationCoordinates, MinGuests, MaxGuests, Prices, PricingType, DaysForCancellation, Amenities, Status, Images, Type, AvailableDates, AutoAccept)
@@ -38,7 +38,7 @@ INSERT INTO UserReport (ReportDate, Description, ReporterId, ReportedId)
 VALUES
     ('2023-01-20', 'User violated terms of service', 2, 1),
     ('2023-02-25', 'Report against inappropriate behavior', 3, 2),
-    ('2023-03-30', 'Concerns about user account', 1, 3);
+    ('2023-03-30', 'Concerns about account account', 1, 3);
 
 -- Insert dummy data into ReviewReport table
 INSERT INTO ReviewReport (ReportDate, Description, Type, ReviewId)

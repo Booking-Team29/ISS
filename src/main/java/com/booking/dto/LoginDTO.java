@@ -7,7 +7,6 @@ import lombok.*;
 @Getter
 @Data
 @EqualsAndHashCode
-
 public class LoginDTO {
 
     private String username;

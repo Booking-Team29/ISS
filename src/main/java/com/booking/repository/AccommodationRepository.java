@@ -17,7 +17,7 @@ public interface AccommodationRepository extends GenericRepository<Accommodation
 
     public void delete(Accommodation accommodation);
 
-    @Query("SELECT f.accommodation FROM Favorite f WHERE f.user.id = :userId")
+    @Query("SELECT f.accommodation FROM Favorite f WHERE f.account.userId = :userId")
     List<Accommodation> findFavoritesByUserId(Long userId);
 
     @Query("SELECT a FROM Accommodation a WHERE a.location LIKE %:destination% AND :people >= a.minGuests and :people <= a.maxGuests")
