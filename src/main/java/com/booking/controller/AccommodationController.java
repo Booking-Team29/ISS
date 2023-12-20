@@ -9,10 +9,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/accommodation")
@@ -76,10 +78,10 @@ public class AccommodationController {
             value = "/{accommodationId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Accommodation> getAccommodation(@PathVariable Long accommodationId) {
-        // I don't feel like writing another stupid fromAccommodation method so if it is needed it will be written
+    public ResponseEntity<GetAccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
         Accommodation acc =  accommodationService.findOne(accommodationId);
-        return new ResponseEntity<Accommodation>(acc, HttpStatus.OK);
+        GetAccommodationDTO accommodation = new GetAccommodationDTO();
+        return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
     // NOTE:  the last 2 methods are unimplemented
@@ -89,13 +91,20 @@ public class AccommodationController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Collection<AccommodationDTO>> searchAccommodation(
-            @RequestParam(required = false) String location,
-            @RequestParam(required = false) Date start,
-            @RequestParam(required = false) Date end,
-            @RequestParam(required = false) Integer peopleNumber
+            @RequestParam(required = true) String location,
+            @RequestParam(required = false) LocalDate start,
+            @RequestParam(required = false) LocalDate end,
+            @RequestParam(required = true) Integer peopleNumber
             ) {
-        //IMPLEMENT SERVICE
-        Collection<AccommodationDTO> searchedAccommodations = new ArrayList<>();
+        Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
+        if (start != null && end != null) {
+            System.out.println(start);
+            System.out.println(end);
+            accs = accs.stream().filter(a -> a.getAvailableDates().stream().noneMatch(date ->
+                    (start.isBefore(date) || start.isEqual(date)) && (end.isAfter(date) || end.isEqual(date))
+                )).collect(Collectors.toList());
+        }
+        Collection<AccommodationDTO> searchedAccommodations = accs.stream().map(AccommodationDTO::fromAccommodation).collect(Collectors.toList());
         return new ResponseEntity<Collection<AccommodationDTO>>(searchedAccommodations, HttpStatus.OK);
     }
 
