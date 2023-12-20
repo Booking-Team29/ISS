@@ -17,8 +17,8 @@ public class Favorite {
     private Long favoriteId;
 
     @ManyToOne
-    @JoinColumn(name = "UserId", referencedColumnName = "UserId")
-    private User user;
+    @JoinColumn(name = "userid", referencedColumnName = "userid")
+    private Account account;
 
     @ManyToOne
     @JoinColumn(name = "AccommodationId", referencedColumnName = "id")
