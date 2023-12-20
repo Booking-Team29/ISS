@@ -78,9 +78,9 @@ public class AccommodationController {
             value = "/{accommodationId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<GetAccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
+    public ResponseEntity<AccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
         Accommodation acc =  accommodationService.findOne(accommodationId);
-        GetAccommodationDTO accommodation = new GetAccommodationDTO();
+        AccommodationDTO accommodation = AccommodationDTO.fromAccommodation(acc);
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
