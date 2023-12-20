@@ -1,8 +1,8 @@
 package com.booking.domain;
 
 public enum AccommodationStatus {
-    Created,
-    Approved,
-    Denied,
-    Edited
+    CREATED,
+    APPROVED,
+    DENIED,
+    EDITED
 }
