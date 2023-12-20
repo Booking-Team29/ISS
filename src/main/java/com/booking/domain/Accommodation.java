@@ -32,7 +32,6 @@ public class Accommodation {
     private String location;
 
     @Column(name = "locationcoordinates")
-    @ElementCollection
     private List<Float> locationCoordinates;
 
     @Column(name = "minguests")
@@ -40,25 +39,35 @@ public class Accommodation {
     @Column(name = "maxguests")
     private int maxGuests;
 
-    @Column(name = "prices")
-    @ElementCollection
+    @OneToMany(
+            mappedBy = "accommodation",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
     private List<Price> prices;
+
     @Column(name = "pricingtype")
+    @Enumerated(EnumType.STRING)
     private PricingType pricingType;
+
     @Column(name = "daysforcancellation")
     private int daysForCancellation;
+
     @Column(name = "amenities")
-    @ElementCollection
     private List<String> amenities;
+
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private AccommodationStatus accommodationStatus;
+
     @Column(name = "images")
-    @ElementCollection
     private List<String> images;
+
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private AccommodationType type;
+
     @Column(name = "availabledates")
-    @ElementCollection
     private List<Date> availableDates;
 
     public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, com.booking.domain.PricingType pricingType, int daysForCancellation, List<String> amenities, com.booking.domain.AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<Date> availableDates) {

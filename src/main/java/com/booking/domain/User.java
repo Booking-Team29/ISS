@@ -32,6 +32,7 @@ public abstract class User {
     private String phoneNumber;
 
     @Column(name = "userStatus")
+    @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
     protected User(long ID, String firstName, String lastName, String emailAddress, String hashedPassword,
                    String homeAddress, String phoneNumber, UserStatus userStatus) {
