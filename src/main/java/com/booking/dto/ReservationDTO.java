@@ -3,7 +3,7 @@ package com.booking.dto;
 import com.booking.domain.ReservationStatus;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @ToString
 @EqualsAndHashCode
@@ -11,8 +11,8 @@ import java.util.Date;
 @Getter
 @Data
 public class ReservationDTO {
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private int guestCount;
     private ReservationStatus status;
     private int totalPrice;

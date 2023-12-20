@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "price")
@@ -28,10 +28,10 @@ public class Price {
     private double amount;
 
     @Column(name = "startdate")
-    private Date start;
+    private LocalDate start;
 
     @Column(name = "enddate")
-    private Date end;
+    private LocalDate end;
 
     @ManyToOne(
             fetch = FetchType.EAGER
@@ -40,7 +40,7 @@ public class Price {
     @JsonIgnore // avoid infinite recursion (dont serialize ?)
     private Accommodation accommodation;
 
-    public Price(PriceType type, double amount, Date start, Date end, Accommodation accommodation) {
+    public Price(PriceType type, double amount, LocalDate start, LocalDate end, Accommodation accommodation) {
         Type = type;
         this.amount = amount;
         this.start = start;
