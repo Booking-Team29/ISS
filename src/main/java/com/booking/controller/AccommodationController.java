@@ -98,8 +98,6 @@ public class AccommodationController {
             ) {
         Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
         if (start != null && end != null) {
-            System.out.println(start);
-            System.out.println(end);
             accs = accs.stream().filter(a -> a.getAvailableDates().stream().noneMatch(date ->
                     (start.isBefore(date) || start.isEqual(date)) && (end.isAfter(date) || end.isEqual(date))
                 )).collect(Collectors.toList());
