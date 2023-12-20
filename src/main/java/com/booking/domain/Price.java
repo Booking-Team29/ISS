@@ -40,7 +40,7 @@ public class Price {
 
     public Price(PriceType type, double amount, Date start, Date end, Accommodation accommodation) {
         Type = type;
-        this.price = price;
+        this.amount = amount;
         this.start = start;
         this.end = end;
     }
