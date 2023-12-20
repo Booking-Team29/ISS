@@ -1,6 +1,8 @@
 package com.booking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jdk.jfr.Name;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,5 +45,6 @@ public class Price {
         this.amount = amount;
         this.start = start;
         this.end = end;
+        this.accommodation = accommodation;
     }
 }
