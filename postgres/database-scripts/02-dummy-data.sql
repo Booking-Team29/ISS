@@ -1,8 +1,8 @@
-INSERT INTO "User" (FirstName, LastName, EmailAddress, HashedPassword, HomeAddress, PhoneNumber, UserStatus)
+INSERT INTO "User" (FirstName, LastName, EmailAddress, HashedPassword, HomeAddress, PhoneNumber, UserStatus, UserType)
 VALUES
-    ('John', 'Doe', 'john.doe@example.com', 'hashed_password_1', '123 Main St', '555-1234', 'ACTIVATED'),
-    ('Jane', 'Smith', 'jane.smith@example.com', 'hashed_password_2', '456 Oak St', '555-5678', 'ACTIVATED'),
-    ('Bob', 'Johnson', 'bob.johnson@example.com', 'hashed_password_3', '789 Pine St', '555-9876', 'BLOCKED');
+    ('John', 'Doe', 'john.doe@example.com', 'hashed_password_1', '123 Main St', '555-1234', 'ACTIVATED', "GUEST"),
+    ('Jane', 'Smith', 'jane.smith@example.com', 'hashed_password_2', '456 Oak St', '555-5678', 'ACTIVATED', "ADMIN"),
+    ('Bob', 'Johnson', 'bob.johnson@example.com', 'hashed_password_3', '789 Pine St', '555-9876', 'BLOCKED', "OWNER");
 
 -- Insert dummy data into Accommodation table
 INSERT INTO Accommodation (Name, Description, Location, LocationCoordinates, MinGuests, MaxGuests, Prices, PricingType, DaysForCancellation, Amenities, Status, Images, Type, AvailableDates, AutoAccept)

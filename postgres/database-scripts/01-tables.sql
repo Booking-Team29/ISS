@@ -19,7 +19,8 @@ CREATE TABLE "User" (
     HashedPassword VARCHAR(255),
     HomeAddress VARCHAR(255),
     PhoneNumber VARCHAR(20),
-    UserStatus VARCHAR(255)
+    UserStatus VARCHAR(255),
+    UserType VARCHAR(255)
 );
 
 -- Create Accommodation table
