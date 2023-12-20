@@ -8,6 +8,8 @@ import org.hibernate.annotations.Where;
 
 //import javax.persistence.*;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +24,7 @@ import java.util.List;
 public class Accommodation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long ID;
     @Column(name = "name")
     private String name;
@@ -68,9 +71,9 @@ public class Accommodation {
     private AccommodationType type;
 
     @Column(name = "availabledates")
-    private List<Date> availableDates;
+    private List<LocalDate> availableDates;
 
-    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, com.booking.domain.PricingType pricingType, int daysForCancellation, List<String> amenities, com.booking.domain.AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<Date> availableDates) {
+    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, com.booking.domain.PricingType pricingType, int daysForCancellation, List<String> amenities, com.booking.domain.AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<LocalDate> availableDates) {
         this.ID = ID;
         this.name = name;
         this.description = description;

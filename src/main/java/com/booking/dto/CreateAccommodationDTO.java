@@ -6,6 +6,7 @@ import com.booking.domain.Price;
 import com.booking.domain.PricingType;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,6 @@ public class CreateAccommodationDTO {
     private com.booking.domain.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
-    private List<Date> AvaliableDates;
+    private List<LocalDate> AvaliableDates;
 
 }

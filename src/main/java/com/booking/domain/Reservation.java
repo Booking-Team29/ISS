@@ -1,16 +1,16 @@
 package com.booking.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Reservation {
     private Long id;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private int guestCount;
     private ReservationStatus status;
     private int totalPrice;
 
-    public Reservation(Long id, Date startDate, Date endDate, int guestCount,
+    public Reservation(Long id, LocalDate startDate, LocalDate endDate, int guestCount,
                        ReservationStatus status, int totalPrice) {
         this.id = id;
         this.startDate = startDate;
@@ -29,19 +29,19 @@ public class Reservation {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

@@ -68,4 +68,8 @@ public class AccommodationServiceImpl implements AccommodationService {
     public List<Accommodation> getFavoriteAccommodations(Long guestId) {
         return accommodationRepository.findFavoritesByUserId(guestId);
     }
+
+    public List<Accommodation> filterAccommodation(String destination, int numberOfPeople) {
+        return accommodationRepository.filterAccommodation(destination, numberOfPeople);
+    }
 }
