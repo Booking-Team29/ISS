@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/accommodation")
@@ -33,8 +34,8 @@ public class AccommodationController {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> createAccommodation(@RequestBody CreateAccommodationDTO newAccommodation) {
-        //IMPLEMENT SERVICE
-        return new ResponseEntity<>(newAccommodation, HttpStatus.OK);
+        Accommodation accommodation = accommodationService.saveAccommodation(newAccommodation);
+        return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
     @PutMapping(
@@ -44,8 +45,9 @@ public class AccommodationController {
     )
     public ResponseEntity<?> approveAccommodation(@RequestBody ApproveAccommodationDTO approveAccommodation,
                                                   @PathVariable Long accommodationId) {
-        //IMPLEMENT SERVICE
-        return new ResponseEntity<>(approveAccommodation, HttpStatus.OK);
+
+        Accommodation accommodation = accommodationService.approveAccommodation(approveAccommodation);
+        return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
     @PutMapping(
@@ -56,31 +58,32 @@ public class AccommodationController {
     )
     public ResponseEntity<?> changeAccommodationData(@PathVariable Long accommodationId,
                                                                      @RequestBody ChangeAccommodationDTO changeAccommodationData) {
-        //IMPLEMENT SERVICE
-        return new ResponseEntity<>(changeAccommodationData, HttpStatus.OK);
+        Accommodation accommodation = accommodationService.changeAccommodation(changeAccommodationData);
+        return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
     @GetMapping(
             path = "/favorite/{guestId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Collection<AccommodationDTO>> getFavoriteAccommodations(@PathVariable Long guestId) {
-        //IMPLEMENT SERVICE
-        Collection<AccommodationDTO> favoriteAccommodations = new ArrayList<>();
+    public ResponseEntity<List<Accommodation>> getFavoriteAccommodations(@PathVariable Long guestId) {
 
-        return new ResponseEntity<Collection<AccommodationDTO>>(favoriteAccommodations, HttpStatus.OK);
+        List<Accommodation> accommodations = accommodationService.getFavoriteAccommodations(guestId);
+        return new ResponseEntity<>(accommodations, HttpStatus.OK);
     }
 
     @GetMapping(
             value = "/{accommodationId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<GetAccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
+    public ResponseEntity<Accommodation> getAccommodation(@PathVariable Long accommodationId) {
+        // I don't feel like writing another stupid fromAccommodation method so if it is needed it will be written
         Accommodation acc =  accommodationService.findOne(accommodationId);
-        GetAccommodationDTO accommodation = new GetAccommodationDTO();
-        accommodation.setName("test");
-        return new ResponseEntity<GetAccommodationDTO>(accommodation, HttpStatus.OK);
+        return new ResponseEntity<Accommodation>(acc, HttpStatus.OK);
     }
+
+    // NOTE:  the last 2 methods are unimplemented
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping(
             path = "/accommodationSearch",
             produces = MediaType.APPLICATION_JSON_VALUE

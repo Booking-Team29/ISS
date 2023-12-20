@@ -5,6 +5,8 @@ import com.booking.domain.Price;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
+
 @ToString
 @Setter
 @Getter
@@ -16,16 +18,16 @@ public class GetAccommodationDTO {
     private String Name;
     private String Description;
     private String Location;
-    private int[] LocationCoordinates;
+    private List<Float> LocationCoordinates;
     private int MinGuests;
     private int MaxGuests;
-    private Price[] prices;
+    private List<Price> prices;
     private com.booking.domain.PricingType PricingType;
     private int DaysForCancellation;
-    private String[] Amenities;
+    private List<String> Amenities;
     private com.booking.domain.AccommodationStatus AccommodationStatus;
-    private String[] Images;
+    private List<String> Images;
     private AccommodationType Type;
-    private Date[] AvaliableDates;
+    private List<Date> AvaliableDates;
 
 }
