@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface AccommodationRepository extends GenericRepository<Accommodation> {
-    public Accommodation getById(Long id);
 
     public List<Accommodation> findAll();
 
