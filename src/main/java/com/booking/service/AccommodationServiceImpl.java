@@ -23,7 +23,9 @@ public class AccommodationServiceImpl implements AccommodationService {
     private AccommodationRepository accommodationRepository;
 
     public Accommodation findOne(Long id) {
-        return accommodationRepository.getById(id);
+        // findById is an eager operation unlike getById
+        // NOTE: findById returns an Optional<> type, so maybe it should be handled with .isPresent()
+        return accommodationRepository.findById(id).get();
     }
 
     public List<AccommodationDTO> findAll() {
