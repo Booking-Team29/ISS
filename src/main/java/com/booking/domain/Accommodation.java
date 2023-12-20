@@ -94,17 +94,17 @@ public class Accommodation {
         accommodation.setName(dto.getName());
         accommodation.setDescription(dto.getDescription());
         accommodation.setLocation(dto.getLocation());
-        accommodation.setLocationCoordinates(List.of(dto.getLocationCoordinates()));
+        accommodation.setLocationCoordinates(dto.getLocationCoordinates());
         accommodation.setMinGuests(dto.getMinGuests());
         accommodation.setMaxGuests(dto.getMaxGuests());
-        accommodation.setPrices(List.of(dto.getPrices()));
+        accommodation.setPrices(dto.getPrices());
         accommodation.setPricingType(dto.getPricingType());
         accommodation.setDaysForCancellation(dto.getDaysForCancellation());
-        accommodation.setAmenities(List.of(dto.getAmenities()));
+        accommodation.setAmenities(dto.getAmenities());
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
-        accommodation.setImages(List.of(dto.getImages()));
+        accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
-        accommodation.setAvailableDates(List.of(dto.getAvaliableDates()));
+        accommodation.setAvailableDates(dto.getAvaliableDates());
         return accommodation;
     }
 
@@ -116,17 +116,17 @@ public class Accommodation {
         accommodation.setName(dto.getName());
         accommodation.setDescription(dto.getDescription());
         accommodation.setLocation(dto.getLocation());
-        accommodation.setLocationCoordinates(List.of(dto.getLocationCoordinates()));
+        accommodation.setLocationCoordinates(dto.getLocationCoordinates());
         accommodation.setMinGuests(dto.getMinGuests());
         accommodation.setMaxGuests(dto.getMaxGuests());
-        accommodation.setPrices(List.of(dto.getPrices()));
+        accommodation.setPrices(dto.getPrices());
         accommodation.setPricingType(dto.getPricingType());
         accommodation.setDaysForCancellation(dto.getDaysForCancellation());
-        accommodation.setAmenities(List.of(dto.getAmenities()));
+        accommodation.setAmenities(dto.getAmenities());
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
-        accommodation.setImages(List.of(dto.getImages()));
+        accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
-        accommodation.setAvailableDates(List.of(dto.getAvaliableDates()));
+        accommodation.setAvailableDates(dto.getAvaliableDates());
         return accommodation;
     }
 
@@ -136,17 +136,17 @@ public class Accommodation {
         accommodation.setName(dto.getName());
         accommodation.setDescription(dto.getDescription());
         accommodation.setLocation(dto.getLocation());
-        accommodation.setLocationCoordinates(List.of(dto.getLocationCoordinates()));
+        accommodation.setLocationCoordinates(dto.getLocationCoordinates());
         accommodation.setMinGuests(dto.getMinGuests());
         accommodation.setMaxGuests(dto.getMaxGuests());
-        accommodation.setPrices(List.of(dto.getPrices()));
+        accommodation.setPrices(dto.getPrices());
         accommodation.setPricingType(dto.getPricingType());
         accommodation.setDaysForCancellation(dto.getDaysForCancellation());
-        accommodation.setAmenities(List.of(dto.getAmenities()));
+        accommodation.setAmenities(dto.getAmenities());
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
-        accommodation.setImages(List.of(dto.getImages()));
+        accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
-        accommodation.setAvailableDates(List.of(dto.getAvaliableDates()));
+        accommodation.setAvailableDates(dto.getAvaliableDates());
         return accommodation;
     }
 }
