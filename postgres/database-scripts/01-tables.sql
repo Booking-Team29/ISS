@@ -1,15 +1,17 @@
-DROP TABLE IF EXISTS Reservation, Notification, UserReport, "User", Guest, Owner, Admin, Accommodation, ReviewReport, Review, Price, OwnerReview, AccommodationReview CASCADE;
+DROP TABLE IF EXISTS Reservation, Notification, UserReport, Account, Guest, Owner, Admin, Accommodation, ReviewReport, Review, Price, OwnerReview, AccommodationReview CASCADE;
 
 -- Define custom ENUM types
-CREATE TYPE UserStatus AS ENUM ('Unactivated', 'Activated', 'Blocked', 'Deleted');
-CREATE TYPE AccommodationStatus AS ENUM ('Created', 'Approved', 'Denied', 'Edited');
-CREATE TYPE AccommodationType AS ENUM ('Studio', 'Apartment', 'Hotel');
-CREATE TYPE PricingType AS ENUM ('Guest', 'Accommodation', 'Weekend', 'Custom');
-CREATE TYPE ReservationStatus AS ENUM ('Requested', 'Approved', 'Denied', 'Active', 'Completed', 'Deleted');
-CREATE TYPE ReviewType AS ENUM ('Accommodation', 'Owner');
+
+-- NOTE: fuck this, I'm not writing UserType classes for each of these
+-- CREATE TYPE UserStatus AS ENUM ('Unactivated', 'Activated', 'Blocked', 'Deleted');
+-- CREATE TYPE AccommodationStatus AS ENUM ('Created', 'Approved', 'Denied', 'Edited');
+-- CREATE TYPE AccommodationType AS ENUM ('Studio', 'Apartment', 'Hotel');
+-- CREATE TYPE PricingType AS ENUM ('Guest', 'Accommodation', 'Weekend', 'Custom');
+-- CREATE TYPE ReservationStatus AS ENUM ('Requested', 'Approved', 'Denied', 'Active', 'Completed', 'Deleted');
+-- CREATE TYPE ReviewType AS ENUM ('Accommodation', 'Owner');
 
 -- Create User table
-CREATE TABLE "User" (
+CREATE TABLE Account (
     UserId SERIAL PRIMARY KEY,
     FirstName VARCHAR(255),
     LastName VARCHAR(255),
@@ -17,7 +19,8 @@ CREATE TABLE "User" (
     HashedPassword VARCHAR(255),
     HomeAddress VARCHAR(255),
     PhoneNumber VARCHAR(20),
-    UserStatus UserStatus
+    UserStatus VARCHAR(255),
+    UserType VARCHAR(255)
 );
 
 -- Create Accommodation table
@@ -25,16 +28,17 @@ CREATE TABLE Accommodation (
     id SERIAL PRIMARY KEY,
     Name VARCHAR(255),
     Description TEXT,
+    Location TEXT,
     LocationCoordinates INT[],
     MinGuests INT,
     MaxGuests INT,
     Prices INT[],
-    PricingType PricingType,
+    PricingType VARCHAR(255),
     DaysForCancellation INT,
     Amenities TEXT[],
-    Status AccommodationStatus,
+    Status VARCHAR(255),
     Images TEXT[],
-    Type AccommodationType,
+    Type VARCHAR(255),
     AvailableDates DATE[],
     AutoAccept BOOLEAN
 );
@@ -45,9 +49,9 @@ CREATE TABLE Reservation (
     StartDate DATE,
     EndDate DATE,
     GuestsCount INT,
-    Status ReservationStatus,
+    Status VARCHAR(255),
     TotalPrice INT,
-    UserId INT REFERENCES "User" (UserId)
+    UserId INT REFERENCES Account (UserId)
 );
 
 -- Create Review table
@@ -58,7 +62,7 @@ CREATE TABLE Review (
     Rating FLOAT,
     Approved BOOLEAN,
     ReservationId INT REFERENCES Reservation (ID),
-    UserId INT REFERENCES "User" (UserId)
+    UserId INT REFERENCES Account (UserId)
 );
 
 -- Create Notification table
@@ -67,7 +71,7 @@ CREATE TABLE Notification (
     Content TEXT,
     CreationTime DATE,
     Read BOOLEAN,
-    UserId INT REFERENCES "User" (UserId)
+    UserId INT REFERENCES Account (UserId)
 );
 
 -- Create UserReport table
@@ -75,8 +79,8 @@ CREATE TABLE UserReport (
     ReportId SERIAL PRIMARY KEY,
     ReportDate DATE,
     Description TEXT,
-    ReporterId INT REFERENCES "User" (UserId),
-    ReportedId INT REFERENCES "User" (UserId)
+    ReporterId INT REFERENCES Account (UserId),
+    ReportedId INT REFERENCES Account (UserId)
 );
 
 -- Create ReviewReport table
@@ -84,29 +88,36 @@ CREATE TABLE ReviewReport (
     ReportId SERIAL PRIMARY KEY,
     ReportDate DATE,
     Description TEXT,
-    Type ReviewType,
+    Type VARCHAR(255),
     ReviewId INT REFERENCES Review (ReviewId)
 );
 
 -- Create Price table
 CREATE TABLE Price (
     PriceId SERIAL PRIMARY KEY,
-    Type PricingType,
+    Type VARCHAR(255),
     Amount FLOAT,
     StartDate DATE,
-    EndDate DATE
+    EndDate DATE,
+    AccommodationId INT REFERENCES Accommodation (id)
 );
 
 -- Create OwnerReview table
 CREATE TABLE OwnerReview (
     OwnerReviewId SERIAL PRIMARY KEY,
     ReviewId INT REFERENCES Review (ReviewId),
-    OwnerId INT REFERENCES "User" (UserId)
+    OwnerId INT REFERENCES Account (UserId)
 );
 
 -- Create AccommodationReview table
 CREATE TABLE AccommodationReview (
     AccommodationReviewId SERIAL PRIMARY KEY,
     ReviewId INT REFERENCES Review (ReviewId),
+    AccommodationId INT REFERENCES Accommodation (id)
+);
+
+CREATE TABLE Favorite (
+    FavoriteId SERIAL PRIMARY KEY,
+    UserId INT REFERENCES Account (UserId),
     AccommodationId INT REFERENCES Accommodation (id)
 );

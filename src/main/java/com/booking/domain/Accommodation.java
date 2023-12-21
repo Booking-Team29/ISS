@@ -1,10 +1,15 @@
 package com.booking.domain;
 
+import com.booking.dto.ApproveAccommodationDTO;
+import com.booking.dto.ChangeAccommodationDTO;
+import com.booking.dto.CreateAccommodationDTO;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
 //import javax.persistence.*;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -19,59 +24,132 @@ import java.util.List;
 public class Accommodation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long ID;
     @Column(name = "name")
-    private String Name;
+    private String name;
     @Column(name = "description")
-    private String Description;
+    private String description;
+
     @Column(name = "location")
-    private String Location;
+    private String location;
 
     @Column(name = "locationcoordinates")
-    @ElementCollection
-    private List<Float> LocationCoordinates;
+    private List<Float> locationCoordinates;
 
     @Column(name = "minguests")
-    private int MinGuests;
+    private int minGuests;
     @Column(name = "maxguests")
-    private int MaxGuests;
+    private int maxGuests;
 
-    @Column(name = "prices")
-    @ElementCollection
-    private List<Integer> prices;
+    @OneToMany(
+            mappedBy = "accommodation",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private List<Price> prices;
+
     @Column(name = "pricingtype")
-    private PricingType PricingType;
-    @Column(name = "daysfrocancellation")
-    private int DaysForCancellation;
-    @Column(name = "amenities")
-    @ElementCollection
-    private List<String> Amenities;
-    @Column(name = "accommodationstatus")
-    private AccommodationStatus AccommodationStatus;
-    @Column(name = "images")
-    @ElementCollection
-    private List<String> Images;
-    @Column(name = "type")
-    private AccommodationType Type;
-    @Column(name = "avaiabledates")
-    @ElementCollection
-    private List<Date> AvaiableDates;
+    @Enumerated(EnumType.STRING)
+    private PricingType pricingType;
 
-    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Integer> prices, com.booking.domain.PricingType pricingType, int daysForCancellation, List<String> amenities, com.booking.domain.AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<Date> avaiableDates) {
+    @Column(name = "daysforcancellation")
+    private int daysForCancellation;
+
+    @Column(name = "amenities")
+    private List<String> amenities;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private AccommodationStatus accommodationStatus;
+
+    @Column(name = "images")
+    private List<String> images;
+
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private AccommodationType type;
+
+    @Column(name = "availabledates")
+    private List<LocalDate> availableDates;
+
+    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, com.booking.domain.PricingType pricingType, int daysForCancellation, List<String> amenities, com.booking.domain.AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<LocalDate> availableDates) {
         this.ID = ID;
-        Name = name;
-        Description = description;
-        Location = location;
-        LocationCoordinates = locationCoordinates;
-        MinGuests = minGuests;
-        MaxGuests = maxGuests;
+        this.name = name;
+        this.description = description;
+        this.location = location;
+        this.locationCoordinates = locationCoordinates;
+        this.minGuests = minGuests;
+        this.maxGuests = maxGuests;
         this.prices = prices;
-        PricingType = pricingType;
-        DaysForCancellation = daysForCancellation;
-        Amenities = amenities;
-        AccommodationStatus = accommodationStatus;
-        Images = images;
-        Type = type;
-        AvaiableDates = avaiableDates;
+        this.pricingType = pricingType;
+        this.daysForCancellation = daysForCancellation;
+        this.amenities = amenities;
+        this.accommodationStatus = accommodationStatus;
+        this.images = images;
+        this.type = type;
+        this.availableDates = availableDates;
+    }
+
+    // Static factory method
+    public static Accommodation fromCreateDTO(CreateAccommodationDTO dto) {
+        Accommodation accommodation = new Accommodation();
+        accommodation.setName(dto.getName());
+        accommodation.setDescription(dto.getDescription());
+        accommodation.setLocation(dto.getLocation());
+        accommodation.setLocationCoordinates(dto.getLocationCoordinates());
+        accommodation.setMinGuests(dto.getMinGuests());
+        accommodation.setMaxGuests(dto.getMaxGuests());
+        accommodation.setPrices(dto.getPrices());
+        accommodation.setPricingType(dto.getPricingType());
+        accommodation.setDaysForCancellation(dto.getDaysForCancellation());
+        accommodation.setAmenities(dto.getAmenities());
+        accommodation.setAccommodationStatus(dto.getAccommodationStatus());
+        accommodation.setImages(dto.getImages());
+        accommodation.setType(dto.getType());
+        accommodation.setAvailableDates(dto.getAvaliableDates());
+        return accommodation;
+    }
+
+
+    // Static factory method
+    public static Accommodation fromApproveDTO(ApproveAccommodationDTO dto) {
+        Accommodation accommodation = new Accommodation();
+        accommodation.setID(dto.getID());
+        accommodation.setName(dto.getName());
+        accommodation.setDescription(dto.getDescription());
+        accommodation.setLocation(dto.getLocation());
+        accommodation.setLocationCoordinates(dto.getLocationCoordinates());
+        accommodation.setMinGuests(dto.getMinGuests());
+        accommodation.setMaxGuests(dto.getMaxGuests());
+        accommodation.setPrices(dto.getPrices());
+        accommodation.setPricingType(dto.getPricingType());
+        accommodation.setDaysForCancellation(dto.getDaysForCancellation());
+        accommodation.setAmenities(dto.getAmenities());
+        accommodation.setAccommodationStatus(dto.getAccommodationStatus());
+        accommodation.setImages(dto.getImages());
+        accommodation.setType(dto.getType());
+        accommodation.setAvailableDates(dto.getAvaliableDates());
+        return accommodation;
+    }
+
+    public static Accommodation fromChangeDTO(ChangeAccommodationDTO dto) {
+        Accommodation accommodation = new Accommodation();
+        accommodation.setID(dto.getID());
+        accommodation.setName(dto.getName());
+        accommodation.setDescription(dto.getDescription());
+        accommodation.setLocation(dto.getLocation());
+        accommodation.setLocationCoordinates(dto.getLocationCoordinates());
+        accommodation.setMinGuests(dto.getMinGuests());
+        accommodation.setMaxGuests(dto.getMaxGuests());
+        accommodation.setPrices(dto.getPrices());
+        accommodation.setPricingType(dto.getPricingType());
+        accommodation.setDaysForCancellation(dto.getDaysForCancellation());
+        accommodation.setAmenities(dto.getAmenities());
+        accommodation.setAccommodationStatus(dto.getAccommodationStatus());
+        accommodation.setImages(dto.getImages());
+        accommodation.setType(dto.getType());
+        accommodation.setAvailableDates(dto.getAvaliableDates());
+        return accommodation;
     }
 }

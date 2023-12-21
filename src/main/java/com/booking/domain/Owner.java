@@ -1,6 +1,6 @@
 package com.booking.domain;
 
-public class Owner extends User {
+public class Owner extends Account {
     private OwnerNotificationSettings notificationSettings;
 
     public Owner(

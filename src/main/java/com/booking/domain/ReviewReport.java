@@ -1,10 +1,10 @@
 package com.booking.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ReviewReport {
     private Long ReportId;
-    private Date ReportDate;
+    private LocalDate ReportDate;
     private String Description;
     private ReviewType Type;
 }

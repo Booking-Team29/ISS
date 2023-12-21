@@ -1,11 +1,11 @@
 package com.booking.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class UserReport {
 
     private Long reportId;
-    private Date reportDate;
+    private LocalDate reportDate;
     private String description;
     private Long reporterId;
     private Long reporteeId;
@@ -23,11 +23,11 @@ public class UserReport {
         this.reportId = reportID;
     }
 
-    public Date getReportDate() {
+    public LocalDate getReportDate() {
         return reportDate;
     }
 
-    public void setReportDate(Date reportDate) {
+    public void setReportDate(LocalDate reportDate) {
         this.reportDate = reportDate;
     }
 

@@ -3,7 +3,7 @@ package com.booking.dto;
 import com.booking.domain.ReviewType;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @ToString
 @EqualsAndHashCode
@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 public class ReviewReportDTO {
     private Long ReportId = null;
-    private Date ReportDate;
+    private LocalDate ReportDate;
     private String Description;
     private ReviewType Type;
 }

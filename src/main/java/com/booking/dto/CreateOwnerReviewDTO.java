@@ -3,6 +3,7 @@ package com.booking.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -12,7 +13,7 @@ public class CreateOwnerReviewDTO extends ReviewDTO {
 
     public CreateOwnerReviewDTO() {}
 
-    public CreateOwnerReviewDTO(Date reviewDate, String description, float rating, long ownerId) {
+    public CreateOwnerReviewDTO(LocalDate reviewDate, String description, float rating, long ownerId) {
         super(reviewDate, description, rating);
         OwnerId = ownerId;
     }

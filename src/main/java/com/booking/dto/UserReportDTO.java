@@ -2,7 +2,7 @@ package com.booking.dto;
 
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @EqualsAndHashCode
@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 public class UserReportDTO {
     private Long reportId = null;
-    private Date reportDate;
+    private LocalDate reportDate;
     private String description;
     private Long reporterId;
     private Long reporteeId;

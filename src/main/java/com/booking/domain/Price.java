@@ -1,11 +1,13 @@
 package com.booking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jdk.jfr.Name;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "price")
@@ -14,25 +16,35 @@ import java.util.Date;
 @Setter
 public class Price {
     @Id
+    @Column(name = "priceid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private PriceType Type;
 
-    @Column(name = "price")
-    private double price;
+    @Column(name = "amount")
+    private double amount;
 
-    @Column(name = "start")
-    private Date start;
+    @Column(name = "startdate")
+    private LocalDate start;
 
-    @Column(name = "end")
-    private Date end;
+    @Column(name = "enddate")
+    private LocalDate end;
 
-    public Price(PriceType type, double price, Date start, Date end) {
+    @ManyToOne(
+            fetch = FetchType.EAGER
+    )
+    @JoinColumn(name = "accommodationid")
+    @JsonIgnore // avoid infinite recursion (dont serialize ?)
+    private Accommodation accommodation;
+
+    public Price(PriceType type, double amount, LocalDate start, LocalDate end, Accommodation accommodation) {
         Type = type;
-        this.price = price;
+        this.amount = amount;
         this.start = start;
         this.end = end;
+        this.accommodation = accommodation;
     }
 }
