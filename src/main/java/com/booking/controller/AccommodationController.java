@@ -31,6 +31,15 @@ public class AccommodationController {
         this.accommodationService = service;
     }
 
+    @GetMapping(
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<AccommodationDTO>> getAllAccommodations() {
+        List<AccommodationDTO> accs =  accommodationService.findAll();
+
+        return new ResponseEntity<>(accs, HttpStatus.OK);
+    }
+
     @PostMapping(
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE

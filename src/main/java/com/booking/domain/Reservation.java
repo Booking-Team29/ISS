@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Date;
 import java.util.List;
+import com.booking.dto.ReservationDTO;
 
 @ToString
 @EqualsAndHashCode
@@ -48,67 +49,15 @@ public class Reservation {
         this.status = status;
         this.totalPrice = totalPrice;
     }
-}
 
-    // Getters and setters for each field
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public int getGuestCount() {
-        return guestCount;
-    }
-
-    public void setGuestCount(int guestCount) {
-        this.guestCount = guestCount;
-    }
-
-    public ReservationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ReservationStatus status) {
-        this.status = status;
-    }
-
-    public int getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    // ToString method to represent reservation details as a String
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", guestCount=" + guestCount +
-                ", status=" + status +
-                ", totalPrice=" + totalPrice +
-                '}';
+    public static Reservation fromReservationDTO(ReservationDTO reservationDTO) {
+        return new Reservation(
+                reservationDTO.getId(),
+                reservationDTO.getStartDate(),
+                reservationDTO.getEndDate(),
+                reservationDTO.getGuestCount(),
+                reservationDTO.getStatus(),
+                reservationDTO.getTotalPrice()
+        );
     }
 }

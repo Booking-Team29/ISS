@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/reservation")
@@ -29,6 +30,14 @@ public class ReservationController {
         this._reservationService = service;
     }
 
+
+    @GetMapping(
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<ReservationDTO>> getReservationRequests() {
+        List<ReservationDTO> reservations = this._reservationService.findAll();
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
 
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,

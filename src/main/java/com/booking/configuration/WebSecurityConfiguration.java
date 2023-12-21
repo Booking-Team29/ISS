@@ -75,6 +75,15 @@ public class WebSecurityConfiguration {
         httpSecurity.authorizeHttpRequests(request -> {
             request.requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/accommodation").permitAll()
+
+
+                    // goofy ahh
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/accommodation").permitAll()
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/accommodation/{id}").permitAll()
+                    .requestMatchers(HttpMethod.PUT, "/api/v1/accommodation/approve/{id}").permitAll()
+                    ////////////////////////
+
+
                     .requestMatchers(HttpMethod.GET, "/api/v1/accommodation/{id}").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/accommodation/accommodationSearch").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/account/login").permitAll()

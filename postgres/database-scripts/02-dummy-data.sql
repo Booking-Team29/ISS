@@ -7,9 +7,9 @@ VALUES
 -- Insert dummy data into Accommodation table
 INSERT INTO Accommodation (Name, Description, Location, LocationCoordinates, MinGuests, MaxGuests, Prices, PricingType, DaysForCancellation, Amenities, Status, Images, Type, AvailableDates, AutoAccept)
 VALUES
-    ('Cozy Studio', 'A small and cozy studio apartment', 'Nevada', ARRAY[40.7128, -74.0060], 1, 2, '{100, 150}', 'GUEST', 7, '{"Wi-Fi", "Kitchen"}', 'APPROVED', '{"image1.jpg", "image2.jpg"}', 'STUDIO', '{"2023-01-01", "2023-01-15"}', true),
-    ('Spacious Apartment', 'A spacious and modern apartment', 'Ohio', ARRAY[34.0522, -118.2437], 2, 4, '{200, 250}', 'ACCOMMODATION', 14, '{"Swimming Pool", "Gym"}', 'CREATED', '{"image3.jpg", "image4.jpg"}', 'APARTMENT', '{"2023-02-01", "2023-02-28"}', false),
-    ('Luxury Hotel', 'A luxurious hotel with all amenities', 'Oregon', ARRAY[51.5074, -0.1278], 2, 6, '{300, 400}', 'GUEST', 30, '{"Spa", "Valet Parking"}', 'DENIED', '{"image5.jpg", "image6.jpg"}', 'HOTEL', '{"2023-03-01", "2023-03-31"}', true);
+    ('Cozy Studio', 'A small and cozy studio apartment', 'Nevada', ARRAY[40.7128, -74.0060], 1, 2, '{100, 150}', 'GUEST', 7, '{"Wi-Fi", "Kitchen"}', 'APPROVED', '{"https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'STUDIO', '{"2023-01-01", "2023-01-15"}', true),
+    ('Spacious Apartment', 'A spacious and modern apartment', 'Ohio', ARRAY[34.0522, -118.2437], 2, 4, '{200, 250}', 'ACCOMMODATION', 14, '{"Swimming Pool", "Gym"}', 'CREATED', '{"https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/172872/pexels-photo-172872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'APARTMENT', '{"2023-02-01", "2023-02-28"}', false),
+    ('Luxury Hotel', 'A luxurious hotel with all amenities', 'Oregon', ARRAY[51.5074, -0.1278], 2, 6, '{300, 400}', 'GUEST', 30, '{"Spa", "Valet Parking"}', 'DENIED', '{"https://images.pexels.com/photos/97083/pexels-photo-97083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'HOTEL', '{"2023-03-01", "2023-03-31"}', true);
 
 
 -- Insert dummy data into Reservation table
