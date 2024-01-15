@@ -1,5 +1,6 @@
 package com.booking.dto;
 
+import com.booking.domain.Reservation;
 import com.booking.domain.ReservationStatus;
 import com.booking.domain.Reservation;
 import lombok.*;
