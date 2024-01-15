@@ -9,16 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
-@RestController
-@RequestMapping("/api/getNotifications")
-public class getFinancialReportController {
-    // TODO: implement
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<Boolean>> getFinancialReport() {
-        // FinancialReport financialReport = someService.getFinancialReport();
 
-        // return new ResponseEntity<Collection<Boolean>>(financialReport, HttpStatus.OK);
-
-        return new ResponseEntity<Collection<Boolean>>(HttpStatus.OK);
-    }
-}
+// what the fuck
+// @RestController
+// @RequestMapping("/api/getNotifications")
+// public class getFinancialReportController {
+//     // TODO: implement
+//     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//     public ResponseEntity<Collection<Boolean>> getFinancialReport() {
+//         // FinancialReport financialReport = someService.getFinancialReport();
+//
+//         // return new ResponseEntity<Collection<Boolean>>(financialReport, HttpStatus.OK);
+//
+//         return new ResponseEntity<Collection<Boolean>>(HttpStatus.OK);
+//     }
+// }

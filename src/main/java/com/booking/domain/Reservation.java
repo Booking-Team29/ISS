@@ -1,7 +1,12 @@
 package com.booking.domain;
 
+import com.booking.dto.ReservationDTO;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.time.LocalDate;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,19 +30,19 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "startDate")
+    @Column(name = "startdate")
     private LocalDate startDate;
 
-    @Column(name = "endDate")
+    @Column(name = "enddate")
     private LocalDate endDate;
 
-    @Column(name = "guestCount")
+    @Column(name = "guestcount")
     private int guestCount;
 
-    @Column(name = "reservationStatus")
+    @Column(name = "reservationstatus")
     private ReservationStatus status;
 
-    @Column(name = "totalPrice")
+    @Column(name = "totalprice")
     private int totalPrice;
 
     public Reservation(Long id, LocalDate startDate, LocalDate endDate, int guestCount,
