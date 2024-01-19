@@ -21,8 +21,7 @@ public class Price {
     Long id;
 
     @Column(name = "type")
-    @Enumerated(EnumType.STRING)
-    private PriceType Type;
+    private String Type;
 
     @Column(name = "amount")
     private double amount;
@@ -40,7 +39,7 @@ public class Price {
     @JsonIgnore // avoid infinite recursion (dont serialize ?)
     private Accommodation accommodation;
 
-    public Price(PriceType type, double amount, LocalDate start, LocalDate end, Accommodation accommodation) {
+    public Price(String type, double amount, LocalDate start, LocalDate end, Accommodation accommodation) {
         Type = type;
         this.amount = amount;
         this.start = start;
