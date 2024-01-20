@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/v1/account")
 public class AccountController {
@@ -33,9 +35,10 @@ public class AccountController {
     )
     @PreAuthorize("hasAnyAuthority('Guest', 'Owner', 'Admin')")
     public ResponseEntity<UserDTO> getByEmail(@PathVariable String email) {
-        Account acc = userService.findByEmail(email);
+        Optional<Account> acc = userService.findByEmail(email);
+        if (acc.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         UserDTO accDto = new UserDTO();
-        accDto.FromUser(acc);
+        accDto.FromUser(acc.get());
         return new ResponseEntity<>(accDto, HttpStatus.OK);
     }
 
@@ -66,8 +69,8 @@ public class AccountController {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<RegisterDTO> register(@RequestBody RegisterDTO registerData) {
-        Account acc = userService.findByEmail(registerData.getEmailAddress());
-        if (acc != null) throw new RuntimeException("Email already exists");
+        Optional<Account> acc = userService.findByEmail(registerData.getEmailAddress());
+        if (!acc.isEmpty()) throw new RuntimeException("Email already exists");
         Account new_acc = new Account();
         new_acc.fromRegisterDTO(registerData);
         userService.save(new_acc);

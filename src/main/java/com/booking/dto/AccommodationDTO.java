@@ -25,7 +25,7 @@ public class AccommodationDTO {
     private int MinGuests;
     private int MaxGuests;
     private List<Price> prices;
-    private com.booking.domain.PricingType PricingType;
+    private String PricingType;
     private int DaysForCancellation;
     private List<String> Amenities;
     private com.booking.domain.AccommodationStatus AccommodationStatus;

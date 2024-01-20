@@ -50,8 +50,7 @@ public class Accommodation {
     private List<Price> prices;
 
     @Column(name = "pricingtype")
-    @Enumerated(EnumType.STRING)
-    private PricingType pricingType;
+    private String pricingType;
 
     @Column(name = "daysforcancellation")
     private int daysForCancellation;
@@ -106,7 +105,7 @@ public class Accommodation {
         accommodation.setMinGuests(dto.getMinGuests());
         accommodation.setMaxGuests(dto.getMaxGuests());
         accommodation.setPrices(dto.getPrices());
-        accommodation.setPricingType(dto.getPricingType());
+        accommodation.setPricingType(dto.getPricingType().toString());
         accommodation.setDaysForCancellation(dto.getDaysForCancellation());
         accommodation.setAmenities(dto.getAmenities());
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
@@ -129,7 +128,7 @@ public class Accommodation {
         accommodation.setMinGuests(dto.getMinGuests());
         accommodation.setMaxGuests(dto.getMaxGuests());
         accommodation.setPrices(dto.getPrices());
-        accommodation.setPricingType(dto.getPricingType());
+        accommodation.setPricingType(dto.getPricingType().toString());
         accommodation.setDaysForCancellation(dto.getDaysForCancellation());
         accommodation.setAmenities(dto.getAmenities());
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
@@ -149,7 +148,7 @@ public class Accommodation {
         accommodation.setMinGuests(dto.getMinGuests());
         accommodation.setMaxGuests(dto.getMaxGuests());
         accommodation.setPrices(dto.getPrices());
-        accommodation.setPricingType(dto.getPricingType());
+        accommodation.setPricingType(dto.getPricingType().toString());
         accommodation.setDaysForCancellation(dto.getDaysForCancellation());
         accommodation.setAmenities(dto.getAmenities());
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
