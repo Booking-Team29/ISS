@@ -31,7 +31,7 @@ public class AccommodationDTO {
     private com.booking.domain.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
-    private List<DateRange> AvaliableDates;
+    private List<List<LocalDate>> AvaliableDates;
 
     public static AccommodationDTO fromAccommodation(Accommodation acc) {
         AccommodationDTO dto = new AccommodationDTO();

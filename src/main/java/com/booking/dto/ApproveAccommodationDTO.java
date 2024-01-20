@@ -31,5 +31,5 @@ public class ApproveAccommodationDTO {
     private com.booking.domain.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
-    private List<DateRange> AvaliableDates;
+    private List<List<LocalDate>> AvaliableDates;
 }
