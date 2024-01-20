@@ -95,25 +95,25 @@ public class AccommodationController {
 
     // NOTE:  the last 2 methods are unimplemented
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @GetMapping(
-            path = "/accommodationSearch",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<Collection<AccommodationDTO>> searchAccommodation(
-            @RequestParam(required = true) String location,
-            @RequestParam(required = false) LocalDate start,
-            @RequestParam(required = false) LocalDate end,
-            @RequestParam(required = true) Integer peopleNumber
-            ) {
-        Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
-        if (start != null && end != null) {
-            accs = accs.stream().filter(a -> a.getAvailableDates().stream().noneMatch(date ->
-                    (start.isBefore(date.getStartDate()) || start.isEqual(date.getStartDate())) && (end.isAfter(date.getEndDate()) || end.isEqual(date.getEndDate()))
-                )).collect(Collectors.toList());
-        }
-        Collection<AccommodationDTO> searchedAccommodations = accs.stream().map(AccommodationDTO::fromAccommodation).collect(Collectors.toList());
-        return new ResponseEntity<Collection<AccommodationDTO>>(searchedAccommodations, HttpStatus.OK);
-    }
+//    @GetMapping(
+//            path = "/accommodationSearch",
+//            produces = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    public ResponseEntity<Collection<AccommodationDTO>> searchAccommodation(
+//            @RequestParam(required = true) String location,
+//            @RequestParam(required = false) LocalDate start,
+//            @RequestParam(required = false) LocalDate end,
+//            @RequestParam(required = true) Integer peopleNumber
+//            ) {
+//        Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
+//        if (start != null && end != null) {
+//            accs = accs.stream().filter(a -> a.getAvailableDates().stream().noneMatch(date ->
+//                    (start.isBefore(date) || start.isEqual(date)) && (end.isAfter(date) || end.isEqual(date))
+//                )).collect(Collectors.toList());
+//        }
+//        Collection<AccommodationDTO> searchedAccommodations = accs.stream().map(AccommodationDTO::fromAccommodation).collect(Collectors.toList());
+//        return new ResponseEntity<Collection<AccommodationDTO>>(searchedAccommodations, HttpStatus.OK);
+//    }
 
     @PutMapping(
             path = "/define/{accommodationId}",
