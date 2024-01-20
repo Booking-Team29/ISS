@@ -2,6 +2,7 @@ package com.booking.dto;
 
 import com.booking.domain.Accommodation;
 import com.booking.domain.AccommodationType;
+import com.booking.domain.DateRange;
 import com.booking.domain.Price;
 import lombok.*;
 
@@ -30,7 +31,7 @@ public class AccommodationDTO {
     private com.booking.domain.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
-    private List<LocalDate> AvaliableDates;
+    private List<List<LocalDate>> AvaliableDates;
 
     public static AccommodationDTO fromAccommodation(Accommodation acc) {
         AccommodationDTO dto = new AccommodationDTO();

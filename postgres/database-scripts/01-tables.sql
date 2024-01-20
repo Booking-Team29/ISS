@@ -39,7 +39,8 @@ CREATE TABLE Accommodation (
     Status VARCHAR(255),
     Images TEXT[],
     Type VARCHAR(255),
-    AvailableDates DATE[],
+    AvailableDates DATE[][],
+    ConfirmationMethod VARCHAR(255),
     AutoAccept BOOLEAN
 );
 

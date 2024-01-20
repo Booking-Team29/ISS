@@ -70,9 +70,13 @@ public class Accommodation {
     private AccommodationType type;
 
     @Column(name = "availabledates")
-    private List<LocalDate> availableDates;
+    private List<List<LocalDate>> availableDates;
 
-    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, com.booking.domain.AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<LocalDate> availableDates) {
+    @Column(name = "confirmationmethod")
+    @Enumerated(EnumType.STRING)
+    private ConfirmationMethod confirmationMethod;
+
+    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, com.booking.domain.PricingType pricingType, int daysForCancellation, List<String> amenities, com.booking.domain.AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<List<LocalDate>> availableDates, ConfirmationMethod confirmationMethod) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -88,6 +92,7 @@ public class Accommodation {
         this.images = images;
         this.type = type;
         this.availableDates = availableDates;
+        this.confirmationMethod = confirmationMethod;
     }
 
     // Static factory method
@@ -107,6 +112,7 @@ public class Accommodation {
         accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
         accommodation.setAvailableDates(dto.getAvaliableDates());
+        accommodation.setConfirmationMethod(dto.getConfirmationMethod());
         return accommodation;
     }
 
@@ -149,6 +155,7 @@ public class Accommodation {
         accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
         accommodation.setAvailableDates(dto.getAvaliableDates());
+        accommodation.setConfirmationMethod(dto.getConfirmationMethod());
         return accommodation;
     }
 }
