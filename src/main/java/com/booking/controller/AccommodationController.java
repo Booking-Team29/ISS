@@ -108,7 +108,7 @@ public class AccommodationController {
         Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
         if (start != null && end != null) {
             accs = accs.stream().filter(a -> a.getAvailableDates().stream().noneMatch(date ->
-                    (start.isBefore(date) || start.isEqual(date)) && (end.isAfter(date) || end.isEqual(date))
+                    (start.isBefore(date.getStartDate()) || start.isEqual(date.getStartDate())) && (end.isAfter(date.getEndDate()) || end.isEqual(date.getEndDate()))
                 )).collect(Collectors.toList());
         }
         Collection<AccommodationDTO> searchedAccommodations = accs.stream().map(AccommodationDTO::fromAccommodation).collect(Collectors.toList());

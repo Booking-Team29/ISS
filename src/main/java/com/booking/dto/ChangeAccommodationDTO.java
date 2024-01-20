@@ -1,6 +1,8 @@
 package com.booking.dto;
 
 import com.booking.domain.AccommodationType;
+import com.booking.domain.ConfirmationMethod;
+import com.booking.domain.DateRange;
 import com.booking.domain.Price;
 import lombok.*;
 
@@ -29,6 +31,7 @@ public class ChangeAccommodationDTO {
     private com.booking.domain.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
-    private List<LocalDate> AvaliableDates;
+    private List<DateRange> AvaliableDates;
+    private ConfirmationMethod confirmationMethod;
 
 }
