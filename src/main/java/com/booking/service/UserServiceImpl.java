@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Getter
 @Setter
@@ -27,12 +29,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Account findByEmail(String email) {
+    public Optional<Account> findByEmail(String email) {
         return userRepository.findOneByEmail(email);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findOneByEmail(username);
+        Optional<Account> acc = userRepository.findOneByEmail(username);
+        if (acc.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
+        return acc.get();
     }
 }
