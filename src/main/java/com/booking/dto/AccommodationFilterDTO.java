@@ -13,7 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AccommodationFilterDTO extends AccommodationDTO {
+public class AccommodationFilterDTO {
+    private Long ID;
     private String Name;
     private String Description;
     private String Location;
@@ -27,9 +28,9 @@ public class AccommodationFilterDTO extends AccommodationDTO {
     private com.booking.domain.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
-    private List<LocalDate> AvaliableDates;
+    private List<List<LocalDate>> AvaliableDates;
     private Double rating;
-     public static AccommodationDTO fromAccommodation(Accommodation acc, Double rating) {
+     public static AccommodationFilterDTO fromAccommodation(Accommodation acc, Double rating) {
         AccommodationFilterDTO dto = new AccommodationFilterDTO();
         dto.setID(acc.getID());
         dto.setName(acc.getName());

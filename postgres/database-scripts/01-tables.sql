@@ -63,7 +63,8 @@ CREATE TABLE Review (
     Rating FLOAT,
     Approved BOOLEAN,
     ReservationId INT REFERENCES Reservation (ID),
-    UserId INT REFERENCES Account (UserId)
+    UserId INT REFERENCES Account (UserId),
+    AccommodationId INT REFERENCES Accommodation (id)
 );
 
 -- Create Notification table

@@ -20,11 +20,11 @@ VALUES
     ('2023-03-15', '2023-03-20', 4, 'ACTIVE', 400, 3);
 
 -- Insert dummy data into Review table
-INSERT INTO Review (ReviewDate, Description, Rating, Approved, ReservationId, UserId)
+INSERT INTO Review (ReviewDate, Description, Rating, Approved, ReservationId, UserId, AccommodationId)
 VALUES
-    ('2023-01-12', 'Great stay at the cozy studio!', 4.5, true, 1, 1),
-    ('2023-02-18', 'Spacious apartment with excellent amenities', 5.0, true, 2, 2),
-    ('2023-03-22', 'Luxurious hotel experience', 4.0, false, 3, 3);
+    ('2023-01-12', 'Great stay at the cozy studio!', 4.5, true, 1, 1, 1),
+    ('2023-02-18', 'Spacious apartment with excellent amenities', 5.0, true, 2, 2, 1),
+    ('2023-03-22', 'Luxurious hotel experience', 4.0, false, 3, 3, 1);
 
 -- Insert dummy data into Notification table
 INSERT INTO Notification (Content, CreationTime, Read, UserId)
