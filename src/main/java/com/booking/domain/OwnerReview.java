@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class OwnerReview extends Review {
     private Long OwnerId;
 
-    public OwnerReview(Long reviewId, LocalDate reviewDate, String description, float rating, Long ownerId) {
+    public OwnerReview(Long reviewId, LocalDate reviewDate, String description, Double rating, Long ownerId) {
         super(reviewId, reviewDate, description, rating);
         OwnerId = ownerId;
     }

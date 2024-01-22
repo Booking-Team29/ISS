@@ -3,6 +3,7 @@ package com.booking.controller;
 import com.booking.domain.Accommodation;
 import com.booking.dto.*;
 import com.booking.service.AccommodationService;
+import com.booking.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,11 +26,15 @@ import java.util.stream.Collectors;
 )
 public class AccommodationController {
     private AccommodationService accommodationService;
+    private ReviewService reviewService;
 
     @Autowired
-    public AccommodationController(AccommodationService service) {
+    public AccommodationController(AccommodationService service, ReviewService review) {
         this.accommodationService = service;
+        this.reviewService = review;
     }
+
+
 
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -95,25 +100,30 @@ public class AccommodationController {
 
     // NOTE:  the last 2 methods are unimplemented
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    @GetMapping(
-//            path = "/accommodationSearch",
-//            produces = MediaType.APPLICATION_JSON_VALUE
-//    )
-//    public ResponseEntity<Collection<AccommodationDTO>> searchAccommodation(
-//            @RequestParam(required = true) String location,
-//            @RequestParam(required = false) LocalDate start,
-//            @RequestParam(required = false) LocalDate end,
-//            @RequestParam(required = true) Integer peopleNumber
-//            ) {
-//        Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
-//        if (start != null && end != null) {
-//            accs = accs.stream().filter(a -> a.getAvailableDates().stream().noneMatch(date ->
-//                    (start.isBefore(date) || start.isEqual(date)) && (end.isAfter(date) || end.isEqual(date))
-//                )).collect(Collectors.toList());
-//        }
-//        Collection<AccommodationDTO> searchedAccommodations = accs.stream().map(AccommodationDTO::fromAccommodation).collect(Collectors.toList());
-//        return new ResponseEntity<Collection<AccommodationDTO>>(searchedAccommodations, HttpStatus.OK);
-//    }
+    @GetMapping(
+            path = "/accommodationSearch",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<AccommodationFilterDTO>> searchAccommodation(
+            @RequestParam(required = true) String location,
+            @RequestParam(required = false) LocalDate start,
+            @RequestParam(required = false) LocalDate end,
+            @RequestParam(required = true) Integer peopleNumber
+            ) {
+        Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
+        if (start != null && end != null) {
+            accs = accs.stream().filter(a -> a.getAvailableDates().stream().anyMatch(availableRange ->
+                    (start.isAfter(availableRange.get(0)) || start.isEqual(availableRange.get(0))) && (end.isBefore(availableRange.get(1)) || end.isEqual(availableRange.get(1)))
+                )).collect(Collectors.toList());
+        }
+        Collection<AccommodationFilterDTO> filterDTOS =
+                accs
+                .stream()
+                .map(a -> AccommodationFilterDTO.fromAccommodation(a, this.reviewService.accommodationRating(a.getID())))
+                .toList();
+
+        return new ResponseEntity<Collection<AccommodationFilterDTO>>(filterDTOS, HttpStatus.OK);
+    }
 
     @PutMapping(
             path = "/define/{accommodationId}",

@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Reservation, Notification, UserReport, Account, Guest, Owner, Admin, Accommodation, ReviewReport, Review, Price, OwnerReview, AccommodationReview CASCADE;
+DROP TABLE IF EXISTS Reservation, Notification, UserReport, Account, Guest, Owner, Admin, Accommodation, ReviewReport, Review, Price, OwnerReview, AccommodationReview, Favorite CASCADE;
 
 -- Define custom ENUM types
 
@@ -63,7 +63,8 @@ CREATE TABLE Review (
     Rating FLOAT,
     Approved BOOLEAN,
     ReservationId INT REFERENCES Reservation (ID),
-    UserId INT REFERENCES Account (UserId)
+    UserId INT REFERENCES Account (UserId),
+    AccommodationId INT REFERENCES Accommodation (id)
 );
 
 -- Create Notification table

@@ -1,14 +1,22 @@
 package com.booking.domain;
 
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
-public abstract class Review {
+@Entity
+@NoArgsConstructor
+public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     protected Long reviewId;
     protected LocalDate reviewDate;
     protected String description;
-    protected float rating;
+    protected Double rating;
 
-    protected Review(Long reviewId, LocalDate reviewDate, String description, float rating) {
+    protected Review(Long reviewId, LocalDate reviewDate, String description, Double rating) {
         this.reviewId = reviewId;
         this.reviewDate = reviewDate;
         this.description = description;
