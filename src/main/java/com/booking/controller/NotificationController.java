@@ -1,6 +1,6 @@
 package com.booking.controller;
-import com.booking.dto.CreateNotificationDTO;
-import com.booking.dto.RetrieveNotificationDTO;
+import com.booking.dto.Notification.CreateNotificationDTO;
+import com.booking.dto.Notification.RetrieveNotificationDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

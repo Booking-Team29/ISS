@@ -1,7 +1,6 @@
 package com.booking.repository;
 
-import com.booking.domain.Account;
-import com.booking.dto.RegisterDTO;
+import com.booking.domain.User.Account;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;

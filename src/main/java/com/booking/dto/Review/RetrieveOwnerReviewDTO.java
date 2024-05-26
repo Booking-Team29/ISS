@@ -1,4 +1,4 @@
-package com.booking.dto;
+package com.booking.dto.Review;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.booking.dto;
+package com.booking.dto.Notification;
 
 import lombok.Getter;
 import lombok.Setter;

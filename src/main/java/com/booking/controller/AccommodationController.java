@@ -1,7 +1,7 @@
 package com.booking.controller;
 
-import com.booking.domain.Accommodation;
-import com.booking.dto.*;
+import com.booking.domain.Accommodation.Accommodation;
+import com.booking.dto.Accommodation.*;
 import com.booking.service.AccommodationService;
 import com.booking.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,8 +1,6 @@
-package com.booking.dto;
+package com.booking.dto.User;
 
-import com.booking.domain.UserType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.booking.domain.User.UserType;
 import lombok.*;
 
 @ToString

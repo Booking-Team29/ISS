@@ -1,8 +1,8 @@
-package com.booking.dto;
+package com.booking.dto.User;
 
-import com.booking.domain.Account;
-import com.booking.domain.UserStatus;
-import com.booking.domain.UserType;
+import com.booking.domain.User.Account;
+import com.booking.domain.User.UserStatus;
+import com.booking.domain.User.UserType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

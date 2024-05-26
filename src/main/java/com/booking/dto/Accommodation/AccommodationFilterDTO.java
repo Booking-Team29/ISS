@@ -1,8 +1,8 @@
-package com.booking.dto;
+package com.booking.dto.Accommodation;
 
-import com.booking.domain.Accommodation;
-import com.booking.domain.AccommodationType;
-import com.booking.domain.Price;
+import com.booking.domain.Accommodation.Accommodation;
+import com.booking.domain.Accommodation.AccommodationType;
+import com.booking.domain.Accommodation.Price;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +25,7 @@ public class AccommodationFilterDTO {
     private String PricingType;
     private int DaysForCancellation;
     private List<String> Amenities;
-    private com.booking.domain.AccommodationStatus AccommodationStatus;
+    private com.booking.domain.Accommodation.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
     private List<List<LocalDate>> AvaliableDates;

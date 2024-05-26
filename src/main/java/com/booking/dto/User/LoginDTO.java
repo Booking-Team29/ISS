@@ -1,4 +1,4 @@
-package com.booking.dto;
+package com.booking.dto.User;
 
 import lombok.*;
 

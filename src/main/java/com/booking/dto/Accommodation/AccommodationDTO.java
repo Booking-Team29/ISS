@@ -1,13 +1,11 @@
-package com.booking.dto;
+package com.booking.dto.Accommodation;
 
-import com.booking.domain.Accommodation;
-import com.booking.domain.AccommodationType;
-import com.booking.domain.DateRange;
-import com.booking.domain.Price;
+import com.booking.domain.Accommodation.Accommodation;
+import com.booking.domain.Accommodation.AccommodationType;
+import com.booking.domain.Accommodation.Price;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @ToString
@@ -28,7 +26,7 @@ public class AccommodationDTO {
     private String PricingType;
     private int DaysForCancellation;
     private List<String> Amenities;
-    private com.booking.domain.AccommodationStatus AccommodationStatus;
+    private com.booking.domain.Accommodation.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
     private List<List<LocalDate>> AvaliableDates;

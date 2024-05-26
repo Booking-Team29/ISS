@@ -1,8 +1,7 @@
-package com.booking.dto;
+package com.booking.dto.Reservation;
 
-import com.booking.domain.Reservation;
-import com.booking.domain.ReservationStatus;
-import com.booking.domain.Reservation;
+import com.booking.domain.Reservation.Reservation;
+import com.booking.domain.Reservation.ReservationStatus;
 import lombok.*;
 
 import java.time.LocalDate;

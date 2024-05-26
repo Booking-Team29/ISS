@@ -1,6 +1,6 @@
-package com.booking.dto;
+package com.booking.dto.Report;
 
-import com.booking.domain.ReviewType;
+import com.booking.domain.Review.ReviewType;
 import lombok.*;
 
 import java.time.LocalDate;

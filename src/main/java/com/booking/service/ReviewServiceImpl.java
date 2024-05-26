@@ -1,6 +1,5 @@
 package com.booking.service;
 
-import com.booking.domain.Review;
 import com.booking.repository.ReviewsRepository;
 import lombok.Getter;
 import lombok.Setter;
