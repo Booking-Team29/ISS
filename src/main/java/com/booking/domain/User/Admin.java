@@ -1,4 +1,6 @@
-package com.booking.domain;
+package com.booking.domain.User;
+
+import com.booking.domain.Notification.AdminNotificationSettings;
 
 public class Admin extends Account {
     private AdminNotificationSettings notificationSettings;

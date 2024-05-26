@@ -1,4 +1,4 @@
-package com.booking.domain;
+package com.booking.domain.Review;
 
 import java.time.LocalDate;
 

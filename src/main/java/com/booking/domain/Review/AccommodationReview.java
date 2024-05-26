@@ -1,12 +1,11 @@
-package com.booking.domain;
+package com.booking.domain.Review;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-public class AccommodaitonReview extends Review{
-    private long AccommodationId;
+public class AccommodationReview extends Review {
+    private Long AccommodationId;
 
-    public AccommodaitonReview(Long reviewId, LocalDate reviewDate, String description, Double rating, long accommodationId) {
+    public AccommodationReview(Long reviewId, LocalDate reviewDate, String description, Double rating, long accommodationId) {
         super(reviewId, reviewDate, description, rating);
         AccommodationId = accommodationId;
     }

@@ -1,16 +1,14 @@
-package com.booking.domain;
+package com.booking.domain.Accommodation;
 
-import com.booking.dto.ApproveAccommodationDTO;
-import com.booking.dto.ChangeAccommodationDTO;
-import com.booking.dto.CreateAccommodationDTO;
+import com.booking.dto.Accommodation.ApproveAccommodationDTO;
+import com.booking.dto.Accommodation.ChangeAccommodationDTO;
+import com.booking.dto.Accommodation.CreateAccommodationDTO;
 import lombok.*;
-import org.hibernate.annotations.Where;
 
 //import javax.persistence.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @ToString
@@ -76,7 +74,7 @@ public class Accommodation {
     @Enumerated(EnumType.STRING)
     private ConfirmationMethod confirmationMethod;
 
-    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, com.booking.domain.AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<List<LocalDate>> availableDates, ConfirmationMethod confirmationMethod) {
+    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<List<LocalDate>> availableDates, ConfirmationMethod confirmationMethod) {
         this.ID = ID;
         this.name = name;
         this.description = description;

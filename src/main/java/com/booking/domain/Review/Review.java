@@ -1,4 +1,4 @@
-package com.booking.domain;
+package com.booking.domain.Review;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;

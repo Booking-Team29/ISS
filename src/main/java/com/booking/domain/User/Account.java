@@ -1,6 +1,6 @@
-package com.booking.domain;
+package com.booking.domain.User;
 
-import com.booking.dto.RegisterDTO;
+import com.booking.dto.User.RegisterDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

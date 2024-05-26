@@ -1,5 +1,6 @@
-package com.booking.domain;
+package com.booking.domain.Accommodation;
 
+import com.booking.domain.User.Account;
 import jakarta.persistence.*;
 import lombok.*;
 

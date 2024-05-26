@@ -1,4 +1,4 @@
-package com.booking.domain;
+package com.booking.domain.User;
 
 public enum UserStatus {
     UNACTIVATED,

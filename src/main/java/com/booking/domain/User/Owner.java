@@ -1,4 +1,6 @@
-package com.booking.domain;
+package com.booking.domain.User;
+
+import com.booking.domain.Notification.OwnerNotificationSettings;
 
 public class Owner extends Account {
     private OwnerNotificationSettings notificationSettings;

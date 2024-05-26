@@ -1,4 +1,6 @@
-package com.booking.domain;
+package com.booking.domain.User;
+
+import com.booking.domain.Notification.GuestNotificationSettings;
 
 public class Guest extends Account {
     private GuestNotificationSettings notificationSettings;

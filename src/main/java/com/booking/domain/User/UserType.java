@@ -1,4 +1,4 @@
-package com.booking.domain;
+package com.booking.domain.User;
 
 import org.springframework.security.core.GrantedAuthority;
 

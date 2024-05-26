@@ -1,6 +1,6 @@
-package com.booking.domain;
+package com.booking.domain.Reservation;
 
-import com.booking.dto.ReservationDTO;
+import com.booking.dto.Reservation.ReservationDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,13 +8,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import jakarta.persistence.*;
+
 import lombok.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Date;
-import java.util.List;
-import com.booking.dto.ReservationDTO;
 
 @ToString
 @EqualsAndHashCode
