@@ -1,7 +1,7 @@
 package com.booking.service;
 
-import com.booking.domain.Reservation;
-import com.booking.dto.ReservationDTO;
+import com.booking.domain.Reservation.Reservation;
+import com.booking.dto.Reservation.ReservationDTO;
 import com.booking.repository.ReservationRepository;
 import lombok.Getter;
 import lombok.Setter;

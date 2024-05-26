@@ -1,9 +1,6 @@
 package com.booking.repository;
 
-import com.booking.domain.Accommodation;
-import com.booking.domain.Reservation;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import com.booking.domain.Reservation.Reservation;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

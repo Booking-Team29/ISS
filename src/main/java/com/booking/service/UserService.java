@@ -1,6 +1,6 @@
 package com.booking.service;
 
-import com.booking.domain.Account;
+import com.booking.domain.User.Account;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;

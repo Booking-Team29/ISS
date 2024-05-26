@@ -1,6 +1,6 @@
 package com.booking.repository;
 
-import com.booking.domain.Review;
+import com.booking.domain.Review.Review;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;

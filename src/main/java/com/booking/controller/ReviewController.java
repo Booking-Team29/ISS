@@ -1,8 +1,8 @@
 package com.booking.controller;
-import com.booking.dto.CreateAccommodationReviewDTO;
-import com.booking.dto.RetrieveAccommodationReviewDTO;
-import com.booking.dto.CreateOwnerReviewDTO;
-import com.booking.dto.RetrieveOwnerReviewDTO;
+import com.booking.dto.Review.CreateAccommodationReviewDTO;
+import com.booking.dto.Review.RetrieveAccommodationReviewDTO;
+import com.booking.dto.Review.CreateOwnerReviewDTO;
+import com.booking.dto.Review.RetrieveOwnerReviewDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

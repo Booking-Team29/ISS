@@ -1,7 +1,8 @@
 package com.booking.controller;
 
-import com.booking.domain.Account;
-import com.booking.dto.*;
+import com.booking.domain.User.Account;
+import com.booking.dto.FinancialReportDTO;
+import com.booking.dto.User.*;
 import com.booking.security.TokenUtils;
 import com.booking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +85,7 @@ public class AccountController {
     )
     @PreAuthorize("hasAnyAuthority('Guest', 'Owner', 'Admin')")
     public ResponseEntity<ChangeUserDataDTO> changeUserData(@RequestBody ChangeUserDataDTO userChangeData,
-                                                                      @PathVariable int id) {
+                                                            @PathVariable int id) {
         //IMPLEMENT SERVICE
         return new ResponseEntity<>(userChangeData, HttpStatus.OK);
     }

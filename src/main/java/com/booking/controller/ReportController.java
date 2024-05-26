@@ -1,7 +1,7 @@
 package com.booking.controller;
 
-import com.booking.dto.ReviewReportDTO;
-import com.booking.dto.UserReportDTO;
+import com.booking.dto.Report.ReviewReportDTO;
+import com.booking.dto.Report.UserReportDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
