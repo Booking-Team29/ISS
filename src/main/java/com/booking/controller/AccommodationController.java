@@ -1,7 +1,9 @@
 package com.booking.controller;
 
 import com.booking.domain.Accommodation.Accommodation;
+import com.booking.domain.Accommodation.AccommodationFreeSlot;
 import com.booking.dto.Accommodation.*;
+import com.booking.service.AccommodationFreeSlotService;
 import com.booking.service.AccommodationService;
 import com.booking.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,14 @@ import java.util.stream.Collectors;
 public class AccommodationController {
     private AccommodationService accommodationService;
     private ReviewService reviewService;
+    private AccommodationFreeSlotService slotService;
 
     @Autowired
-    public AccommodationController(AccommodationService service, ReviewService review) {
+    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService) {
         this.accommodationService = service;
         this.reviewService = review;
+        this.slotService = accommodationFreeSlotService;
     }
-
-
 
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE

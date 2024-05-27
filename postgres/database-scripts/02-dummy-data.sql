@@ -75,3 +75,18 @@ VALUES
     (1, 2),  -- John Doe's another favorite accommodation
     (2, 3),  -- Jane Smith's favorite accommodation
     (3, 1);  -- Bob Johnson's favorite accommodation
+
+INSERT INTO accommodationfreeslot (StartDate, EndDate, AccommodationId) VALUES
+    ('2024-06-01', '2024-06-05', 1),
+    ('2024-06-10', '2024-06-15', 1),
+    ('2024-06-20', '2024-06-25', 1);
+
+INSERT INTO accommodationfreeslot (StartDate, EndDate, AccommodationId) VALUES
+    ('2024-06-02', '2024-06-06', 2),
+    ('2024-06-11', '2024-06-16', 2),
+    ('2024-06-21', '2024-06-26', 2);
+
+INSERT INTO accommodationfreeslot (StartDate, EndDate, AccommodationId) VALUES
+    ('2024-06-03', '2024-06-07', 3),
+    ('2024-06-12', '2024-06-17', 3),
+    ('2024-06-22', '2024-06-27', 3);

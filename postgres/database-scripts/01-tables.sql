@@ -44,6 +44,15 @@ CREATE TABLE Accommodation (
     AutoAccept BOOLEAN
 );
 
+CREATE TABLE AccommodationFreeSlot
+(
+    id               SERIAL PRIMARY KEY,
+    StartDate       DATE,
+    EndDate         DATE,
+    AccommodationID INT,
+    FOREIGN KEY (AccommodationID) REFERENCES accommodation (id)
+);
+
 -- Create Reservation table
 CREATE TABLE Reservation (
     ID SERIAL PRIMARY KEY,
