@@ -67,14 +67,11 @@ public class Accommodation {
     @Enumerated(EnumType.STRING)
     private AccommodationType type;
 
-    @Column(name = "availabledates")
-    private List<List<LocalDate>> availableDates;
-
     @Column(name = "confirmationmethod")
     @Enumerated(EnumType.STRING)
     private ConfirmationMethod confirmationMethod;
 
-    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, List<List<LocalDate>> availableDates, ConfirmationMethod confirmationMethod) {
+    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, ConfirmationMethod confirmationMethod) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -89,7 +86,6 @@ public class Accommodation {
         this.accommodationStatus = accommodationStatus;
         this.images = images;
         this.type = type;
-        this.availableDates = availableDates;
         this.confirmationMethod = confirmationMethod;
     }
 
@@ -109,7 +105,6 @@ public class Accommodation {
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
         accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
-        accommodation.setAvailableDates(dto.getAvaliableDates());
         accommodation.setConfirmationMethod(dto.getConfirmationMethod());
         return accommodation;
     }
@@ -132,7 +127,6 @@ public class Accommodation {
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
         accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
-        accommodation.setAvailableDates(dto.getAvaliableDates());
         return accommodation;
     }
 
@@ -152,7 +146,6 @@ public class Accommodation {
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
         accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
-        accommodation.setAvailableDates(dto.getAvaliableDates());
         accommodation.setConfirmationMethod(dto.getConfirmationMethod());
         return accommodation;
     }

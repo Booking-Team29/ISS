@@ -29,7 +29,6 @@ public class AccommodationDTO {
     private com.booking.domain.Accommodation.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
-    private List<List<LocalDate>> AvaliableDates;
 
     public static AccommodationDTO fromAccommodation(Accommodation acc) {
         AccommodationDTO dto = new AccommodationDTO();
@@ -47,7 +46,6 @@ public class AccommodationDTO {
         dto.setAccommodationStatus(acc.getAccommodationStatus());
         dto.setImages(acc.getImages());
         dto.setType(acc.getType());
-        dto.setAvaliableDates(acc.getAvailableDates());
         return dto;
     }
 

@@ -28,7 +28,6 @@ public class AccommodationFilterDTO {
     private com.booking.domain.Accommodation.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
-    private List<List<LocalDate>> AvaliableDates;
     private Double rating;
      public static AccommodationFilterDTO fromAccommodation(Accommodation acc, Double rating) {
         AccommodationFilterDTO dto = new AccommodationFilterDTO();
@@ -46,7 +45,6 @@ public class AccommodationFilterDTO {
         dto.setAccommodationStatus(acc.getAccommodationStatus());
         dto.setImages(acc.getImages());
         dto.setType(acc.getType());
-        dto.setAvaliableDates(acc.getAvailableDates());
         dto.rating = rating;
         return dto;
     }
