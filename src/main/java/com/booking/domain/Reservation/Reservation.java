@@ -1,6 +1,7 @@
 package com.booking.domain.Reservation;
 
 import com.booking.dto.Reservation.ReservationDTO;
+import com.booking.dto.Reservation.ReservationRequestDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,11 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name = "accommodation")
+@Table(name = "reservation")
 @NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Reservation {
 
@@ -31,33 +33,60 @@ public class Reservation {
     @Column(name = "enddate")
     private LocalDate endDate;
 
-    @Column(name = "guestcount")
-    private int guestCount;
+    @Column(name = "guestscount")
+    private int guestsCount;
 
-    @Column(name = "reservationstatus")
+    @Column(name = "status")
     private ReservationStatus status;
 
     @Column(name = "totalprice")
     private int totalPrice;
 
-    public Reservation(Long id, LocalDate startDate, LocalDate endDate, int guestCount,
-                       ReservationStatus status, int totalPrice) {
-        this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.guestCount = guestCount;
-        this.status = status;
-        this.totalPrice = totalPrice;
-    }
+    @Column(name = "userid")
+    private Long userId;
+
+    @Column(name = "accommodationid")
+    private Long accommodationId;
 
     public static Reservation fromReservationDTO(ReservationDTO reservationDTO) {
         return new Reservation(
                 reservationDTO.getId(),
                 reservationDTO.getStartDate(),
                 reservationDTO.getEndDate(),
-                reservationDTO.getGuestCount(),
+                reservationDTO.getGuestsCount(),
                 reservationDTO.getStatus(),
-                reservationDTO.getTotalPrice()
+                reservationDTO.getTotalPrice(),
+                reservationDTO.getUserId(),
+                reservationDTO.getAccommodationId()
         );
     }
+
+    public static Reservation fromReservationRequest(ReservationRequest reservationRequest) {
+        return new Reservation(
+                reservationRequest.getId(),
+                reservationRequest.getStartDate(),
+                reservationRequest.getEndDate(),
+                reservationRequest.getGuestsCount(),
+                reservationRequest.getStatus(),
+                reservationRequest.getTotalPrice(),
+                reservationRequest.getUserId(),
+                reservationRequest.getAccommodationId()
+        );
+
+    }
+
+    public static Reservation fromReservationRequestDTO(ReservationRequestDTO reservationRequest, Long userId) {
+        return new Reservation(
+                reservationRequest.getId(),
+                reservationRequest.getStartDate(),
+                reservationRequest.getEndDate(),
+                reservationRequest.getGuestsCount(),
+                reservationRequest.getStatus(),
+                reservationRequest.getTotalPrice(),
+                userId,
+                reservationRequest.getAccommodationId()
+        );
+
+    }
+
 }

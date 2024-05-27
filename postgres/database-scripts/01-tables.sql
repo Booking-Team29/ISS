@@ -39,9 +39,17 @@ CREATE TABLE Accommodation (
     Status VARCHAR(255),
     Images TEXT[],
     Type VARCHAR(255),
-    AvailableDates DATE[][],
     ConfirmationMethod VARCHAR(255),
     AutoAccept BOOLEAN
+);
+
+CREATE TABLE AccommodationFreeSlot
+(
+    id               SERIAL PRIMARY KEY,
+    StartDate       DATE,
+    EndDate         DATE,
+    AccommodationID INT,
+    FOREIGN KEY (AccommodationID) REFERENCES accommodation (id)
 );
 
 -- Create Reservation table
@@ -52,7 +60,20 @@ CREATE TABLE Reservation (
     GuestsCount INT,
     Status VARCHAR(255),
     TotalPrice INT,
-    UserId INT REFERENCES Account (UserId)
+    UserId INT REFERENCES Account (UserId),
+    AccommodationId INT REFERENCES Accommodation (id)
+);
+
+CREATE TABLE ReservationRequest (
+    ID SERIAL PRIMARY KEY,
+    StartDate DATE,
+    EndDate DATE,
+    GuestsCount INT,
+    Status VARCHAR(255),
+    TotalPrice INT,
+    UserId INT REFERENCES Account (UserId),
+    AccommodationId INT REFERENCES Accommodation (id),
+    SlotId INT REFERENCES AccommodationFreeSlot (id)
 );
 
 -- Create Review table
