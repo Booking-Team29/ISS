@@ -9,6 +9,8 @@ import com.booking.service.ReviewService;
 import com.booking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.booking.dto.Review.*;
+import com.booking.service.ReviewService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,13 @@ public class ReviewController {
         this.userService = userService;
         this.reviewService = reviewService;
         this.reviewReportService = reviewReportService;
+    }
+
+    private ReviewService _reviewService;
+
+    @Autowired
+    public ReviewController(ReviewService service) {
+        this._reviewService = service;
     }
 
     @PostMapping (
@@ -164,8 +173,7 @@ public class ReviewController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<CreateUserReviewDTO> createUserReview(@RequestBody CreateUserReviewDTO review, @PathVariable Long userId) {
-        // implement service
-
+        this._reviewService.createUserReview(review);
         return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 }
