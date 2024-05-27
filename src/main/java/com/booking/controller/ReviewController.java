@@ -159,7 +159,7 @@ public class ReviewController {
         return new ResponseEntity<>(new RatingDTO(rating), HttpStatus.OK);
     }
     @PostMapping(
-            path = "/user/{userId}",
+            path = "/user",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )

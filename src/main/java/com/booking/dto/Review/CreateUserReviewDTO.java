@@ -8,12 +8,12 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class CreateUserReviewDTO extends ReviewDTO {
-    private Long OwnerId;
+    private Long UserId;
 
     public CreateUserReviewDTO() {}
 
-    public CreateUserReviewDTO(LocalDate reviewDate, String description, float rating, long ownerId) {
+    public CreateUserReviewDTO(LocalDate reviewDate, String description, float rating, long UserId) {
         super(reviewDate, description, rating);
-        OwnerId = ownerId;
+        this.UserId = UserId;
     }
 }
