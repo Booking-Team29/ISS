@@ -1,5 +1,6 @@
 package com.booking.controller;
 
+import com.booking.Helpers;
 import com.booking.domain.Accommodation.Accommodation;
 import com.booking.domain.Accommodation.AccommodationFreeSlot;
 import com.booking.dto.Accommodation.*;
@@ -98,8 +99,6 @@ public class AccommodationController {
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
-    // NOTE:  the last 2 methods are unimplemented
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping(
             path = "/accommodationSearch",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -112,9 +111,8 @@ public class AccommodationController {
             ) {
         Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
         if (start != null && end != null) {
-            accs = accs.stream().filter(a -> a.getAvailableDates().stream().anyMatch(availableRange ->
-                    (start.isAfter(availableRange.get(0)) || start.isEqual(availableRange.get(0))) && (end.isBefore(availableRange.get(1)) || end.isEqual(availableRange.get(1)))
-                )).collect(Collectors.toList());
+            accs = accs.stream().filter(a -> Helpers.isAccommodationFreeInPeriod(slotService.findByAccommodationId(a.getID()), start, end))
+                    .collect(Collectors.toList());
         }
         Collection<AccommodationFilterDTO> filterDTOS =
                 accs
