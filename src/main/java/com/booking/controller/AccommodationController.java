@@ -2,7 +2,6 @@ package com.booking.controller;
 
 import com.booking.Helpers;
 import com.booking.domain.Accommodation.Accommodation;
-import com.booking.domain.Accommodation.AccommodationFreeSlot;
 import com.booking.dto.Accommodation.*;
 import com.booking.service.AccommodationFreeSlotService;
 import com.booking.service.AccommodationService;
@@ -93,9 +92,10 @@ public class AccommodationController {
             value = "/{accommodationId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<AccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
+    public ResponseEntity<GetAccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
         Accommodation acc =  accommodationService.findOne(accommodationId);
-        AccommodationDTO accommodation = AccommodationDTO.fromAccommodation(acc);
+        GetAccommodationDTO accommodation = GetAccommodationDTO.fromAccommodation(acc);
+        accommodation.setSlots(slotService.findByAccommodationId(accommodationId));
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
@@ -111,7 +111,7 @@ public class AccommodationController {
             ) {
         Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
         if (start != null && end != null) {
-            accs = accs.stream().filter(a -> Helpers.isAccommodationFreeInPeriod(slotService.findByAccommodationId(a.getID()), start, end))
+            accs = accs.stream().filter(a -> Helpers.isAccommodationFreeInAnyPeriod(slotService.findByAccommodationId(a.getID()), start, end))
                     .collect(Collectors.toList());
         }
         Collection<AccommodationFilterDTO> filterDTOS =

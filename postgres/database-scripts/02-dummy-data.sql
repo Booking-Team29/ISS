@@ -1,4 +1,14 @@
-INSERT INTO Account (FirstName, LastName, EmailAddress, HashedPassword, HomeAddress, PhoneNumber, UserStatus, UserType)
+INSERT INTO Account (FiCREATE TABLE ReservationRequest (
+    ID SERIAL PRIMARY KEY,
+    StartDate DATE,
+    EndDate DATE,
+    GuestsCount INT,
+    Status VARCHAR(255),
+    TotalPrice INT,
+    UserId INT REFERENCES Account (UserId),
+    AccommodationId INT REFERENCES Accommodation (id),
+    SlotId INT REFERENCES AccommodationFreeSlot (id)
+);rstName, LastName, EmailAddress, HashedPassword, HomeAddress, PhoneNumber, UserStatus, UserType)
 VALUES
     ('John', 'Doe', 'john.doe@example.com', '$2a$10$vudjSlPv/HU4rH9n/uwXXezmoG9zCZb1KKhTvErQTWRp9Ln5gwdQe', '123 Main St', '555-1234', 'ACTIVATED', 'GUEST'),
     ('Jane', 'Smith', 'jane.smith@example.com', '$2a$10$vudjSlPv/HU4rH9n/uwXXezmoG9zCZb1KKhTvErQTWRp9Ln5gwdQe', '456 Oak St', '555-5678', 'ACTIVATED', 'ADMIN'),
@@ -13,11 +23,17 @@ VALUES
 
 
 -- Insert dummy data into Reservation table
-INSERT INTO Reservation (StartDate, EndDate, GuestsCount, Status, TotalPrice, UserId, SlotId)
+INSERT INTO Reservation (StartDate, EndDate, GuestsCount, Status, TotalPrice, UserId, AccommodationId)
 VALUES
     ('2023-01-05', '2023-01-10', 2, 'APPROVED', 150, 1, 1),
     ('2023-02-10', '2023-02-15', 3, 'REQUESTED', 250, 2, 2),
     ('2023-03-15', '2023-03-20', 4, 'ACTIVE', 400, 3, 3);
+
+INSERT INTO ReservationRequest (StartDate, EndDate, GuestsCount, Status, TotalPrice, UserId, AccommodationId, SlotId)
+VALUES
+    ('2023-01-05', '2023-01-10', 2, 'APPROVED', 150, 1, 1, 1),
+    ('2023-02-10', '2023-02-15', 3, 'REQUESTED', 250, 2, 2, 2),
+    ('2023-03-15', '2023-03-20', 4, 'ACTIVE', 400, 3, 3, 3);
 
 -- Insert dummy data into Review table
 INSERT INTO Review (ReviewDate, Description, Rating, Approved, ReservationId, UserId, AccommodationId)

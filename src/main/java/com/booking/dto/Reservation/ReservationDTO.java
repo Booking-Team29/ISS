@@ -17,9 +17,11 @@ public class ReservationDTO {
     private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int guestCount;
+    private int guestsCount;
     private ReservationStatus status;
     private int totalPrice;
+    private Long userId;
+    private Long accommodationId;
     private Long slotId;
 
     public static ReservationDTO fromReservation(Reservation reservation) {
@@ -27,10 +29,12 @@ public class ReservationDTO {
                 reservation.getId(),
                 reservation.getStartDate(),
                 reservation.getEndDate(),
-                reservation.getGuestCount(),
+                reservation.getGuestsCount(),
                 reservation.getStatus(),
                 reservation.getTotalPrice(),
-                reservation.getSlotId()
+                reservation.getUserId(),
+                reservation.getAccommodationId(),
+                -1L
         );
     }
 }
