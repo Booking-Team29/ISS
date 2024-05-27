@@ -73,7 +73,7 @@ CREATE TABLE ReservationRequest (
     TotalPrice INT,
     UserId INT REFERENCES Account (UserId),
     AccommodationId INT REFERENCES Accommodation (id),
-    SlotId INT REFERENCES AccommodationFreeSlot (id),
+    SlotId INT REFERENCES AccommodationFreeSlot (id)
 );
 
 -- Create Review table
