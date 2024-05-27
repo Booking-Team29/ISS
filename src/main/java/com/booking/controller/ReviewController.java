@@ -8,6 +8,7 @@ import com.booking.service.ReviewReportService;
 import com.booking.service.ReviewService;
 import com.booking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.booking.dto.Review.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -156,6 +157,16 @@ public class ReviewController {
     public ResponseEntity<RatingDTO> getRating(@PathVariable Long accommodationId) {
         Double rating = reviewService.accommodationRating(accommodationId).orElse(0d);
         return new ResponseEntity<>(new RatingDTO(rating), HttpStatus.OK);
+    }
+    @PostMapping(
+            path = "/user/{userId}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<CreateUserReviewDTO> createUserReview(@RequestBody CreateUserReviewDTO review, @PathVariable Long userId) {
+        // implement service
+
+        return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 }
 
