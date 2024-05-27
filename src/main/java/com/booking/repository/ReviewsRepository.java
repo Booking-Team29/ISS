@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import java.time.LocalDate;
+
 @Repository
 public interface ReviewsRepository extends GenericRepository<Review> {
     @Query(value = "select avg(r.rating) from Review r where r.accommodationId = :accommodationId", nativeQuery = true)
@@ -22,4 +24,7 @@ public interface ReviewsRepository extends GenericRepository<Review> {
 
     @Query("SELECT r FROM Review r WHERE r.reviewId = :reviewId")
     public Optional<Review> findById(Long reviewId);
+
+    @Query(value = "insert into Review (reviewDate, description, rating, userId) values (:reviewDate, :description, :rating, :userId)", nativeQuery = true)
+    public void createUserReview(@Param("reviewDate") LocalDate reviewDate, @Param("description") String description, @Param("rating") float rating, @Param("userId") Long userId);
 }
