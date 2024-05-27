@@ -60,7 +60,9 @@ CREATE TABLE Reservation (
     GuestsCount INT,
     Status VARCHAR(255),
     TotalPrice INT,
-    UserId INT REFERENCES Account (UserId)
+    SlotId INT,
+    UserId INT REFERENCES Account (UserId),
+    FOREIGN KEY (SlotId) REFERENCES AccommodationFreeSlot (id)
 );
 
 -- Create Review table
