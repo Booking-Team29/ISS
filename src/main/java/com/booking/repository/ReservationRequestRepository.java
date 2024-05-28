@@ -1,9 +1,12 @@
 package com.booking.repository;
 
 import com.booking.domain.Reservation.ReservationRequest;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface ReservationRequestRepository extends GenericRepository<ReservationRequest> {
     public ReservationRequest save(ReservationRequest slot);
@@ -14,4 +17,16 @@ public interface ReservationRequestRepository extends GenericRepository<Reservat
 
     @Query("SELECT r FROM ReservationRequest r WHERE r.accommodationId = :accommodationId")
     public Collection<ReservationRequest> findAllForAccommodation(Long accommodationId);
+
+    public Optional<ReservationRequest> findById(Long requestId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ReservationRequest  r SET r.status = 5 WHERE r.id = :requestId")
+    public void markRequestDeleted(Long requestId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ReservationRequest  r SET r.status = 2 WHERE r.id = :requestId")
+    public void markRequestDenied(Long requestId);
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class ReservationRequestServiceImpl implements  ReservationRequestService {
@@ -22,5 +23,17 @@ public class ReservationRequestServiceImpl implements  ReservationRequestService
 
     public Collection<ReservationRequest> findAllForAccommodation(Long accommodationId) {
         return repository.findAllForAccommodation(accommodationId);
+    }
+
+    public Optional<ReservationRequest> findById(Long requestId) {
+        return repository.findById(requestId);
+    }
+
+    public void markRequestDeleted(Long requestId) {
+        this.repository.markRequestDeleted(requestId);
+    }
+
+    public void markRequestDenied(Long requestId) {
+        this.repository.markRequestDenied(requestId);
     }
 }

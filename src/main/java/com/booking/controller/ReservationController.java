@@ -161,11 +161,44 @@ public class ReservationController {
     }
 
     @DeleteMapping(
-            path = "/reservationRequest/{reservationId}"
+            path = "/reservationRequests/delete/{reservationRequestId}"
     )
-    public ResponseEntity<Void> deleteReservationRequest(@PathVariable Long reservationId) {
-        ReservationDTO reservation = new ReservationDTO();
-        if (reservation.equals(null)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PreAuthorize("hasAnyAuthority('GUEST')")
+    public ResponseEntity<Void> deleteReservationRequest(@PathVariable Long reservationRequestId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+
+        Optional<ReservationRequest> requestOptional = reservationRequestService.findById(reservationRequestId);
+        if (requestOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ReservationRequest request = requestOptional.get();
+        if (request.getStatus() != ReservationStatus.REQUESTED) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        if (request.getUserId() != acc.getUserId()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        this.reservationRequestService.markRequestDeleted(reservationRequestId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping(
+            path = "/reservationRequests/deny/{reservationRequestId}"
+    )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
+    public ResponseEntity<Void> denyReservationRequest(@PathVariable Long reservationRequestId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+
+        Optional<ReservationRequest> requestOptional = reservationRequestService.findById(reservationRequestId);
+        if (requestOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ReservationRequest request = requestOptional.get();
+        if (request.getStatus() != ReservationStatus.REQUESTED) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        Accommodation accommodation = this.accommodationService.findOne(request.getAccommodationId());
+        if (accommodation.getOwnerId() != acc.getUserId()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        this.reservationRequestService.markRequestDenied(reservationRequestId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
