@@ -1,6 +1,8 @@
 package com.booking.controller;
 import com.booking.dto.Notification.CreateNotificationDTO;
 import com.booking.dto.Notification.RetrieveNotificationDTO;
+import com.booking.service.NotificationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,13 @@ import java.util.List;
 @RequestMapping("/api/v1/notification")
 public class NotificationController {
 
+    private final NotificationService notificationService;
+
+    @Autowired
+    public NotificationController(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+
     @PostMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
@@ -31,7 +40,8 @@ public class NotificationController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<List<RetrieveNotificationDTO>> getAllNotifications() {
-        List<RetrieveNotificationDTO> notifications = new ArrayList<>(); // implement service
+        List<RetrieveNotificationDTO> notifications = this.notificationService.getAllNotifications();
+
         return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
