@@ -51,8 +51,7 @@ public class ReviewController {
             path = "/accommodation"
     )
     public ResponseEntity<CreateAccommodationReviewDTO> createAccommodationReview(@RequestBody CreateAccommodationReviewDTO review) {
-        // implement service
-
+        this._reviewService.createAccommodationReview(review);
         return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 

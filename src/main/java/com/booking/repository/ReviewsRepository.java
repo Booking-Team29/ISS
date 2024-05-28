@@ -27,4 +27,7 @@ public interface ReviewsRepository extends GenericRepository<Review> {
 
     @Query(value = "insert into Review (reviewDate, description, rating, userId) values (:reviewDate, :description, :rating, :userId)", nativeQuery = true)
     public void createUserReview(@Param("reviewDate") LocalDate reviewDate, @Param("description") String description, @Param("rating") float rating, @Param("userId") Long userId);
+
+    @Query(value = "insert into Review (reviewDate, description, rating, accommodationId) values (:reviewDate, :description, :rating, :accommodationId)", nativeQuery = true)
+    public void createAccommodationReview(@Param("reviewDate") LocalDate reviewDate, @Param("description") String description, @Param("rating") float rating, @Param("accommodationId") Long accommodationId);
 }

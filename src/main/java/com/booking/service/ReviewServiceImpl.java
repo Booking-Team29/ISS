@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.booking.dto.Review.CreateAccommodationReviewDTO;
 
 import java.util.Optional;
 
@@ -30,5 +31,9 @@ public class ReviewServiceImpl implements ReviewService {
     // this method creates a review for a user
     public void createUserReview(CreateUserReviewDTO review) {
         reviewsRepository.createUserReview(review.getReviewDate(), review.getDescription(), review.getRating(), review.getUserId());
+    }
+
+    public void createAccommodationReview(CreateAccommodationReviewDTO review) {
+        reviewsRepository.createAccommodationReview(review.getReviewDate(), review.getDescription(), review.getRating(), review.getAccommodationId());
     }
 }
