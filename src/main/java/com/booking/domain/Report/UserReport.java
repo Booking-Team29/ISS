@@ -1,9 +1,17 @@
 package com.booking.domain.Report;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 
+@Entity
 public class UserReport {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
     private LocalDate reportDate;
     private String description;
