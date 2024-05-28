@@ -27,6 +27,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     public void deleteById(Long reviewId) {
         reviewsRepository.deleteById(reviewId);
+    }
 
     // this method creates a review for a user
     public void createUserReview(CreateUserReviewDTO review) {
@@ -35,5 +36,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     public void createAccommodationReview(CreateAccommodationReviewDTO review) {
         reviewsRepository.createAccommodationReview(review.getReviewDate(), review.getDescription(), review.getRating(), review.getAccommodationId());
+    }
+
+    public void deleteReview(Long reviewId) {
+        reviewsRepository.deleteById(reviewId);
     }
 }

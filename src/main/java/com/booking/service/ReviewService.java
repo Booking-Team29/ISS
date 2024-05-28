@@ -13,4 +13,6 @@ public interface ReviewService {
     public void createUserReview(CreateUserReviewDTO review);
 
     public void createAccommodationReview(CreateAccommodationReviewDTO review);
+
+    public void deleteReview(Long reviewId);
 }
