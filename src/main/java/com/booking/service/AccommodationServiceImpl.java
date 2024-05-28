@@ -71,4 +71,8 @@ public class AccommodationServiceImpl implements AccommodationService {
     public List<Accommodation> filterAccommodation(String destination, int numberOfPeople) {
         return accommodationRepository.filterAccommodation(destination, numberOfPeople);
     }
+
+    public List<Accommodation> findAccommodationByUserId(Long userId) {
+        return accommodationRepository.findAccommodationByUserId(userId);
+    }
 }

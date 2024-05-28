@@ -16,12 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/reservation")
@@ -56,6 +55,29 @@ public class ReservationController {
     public ResponseEntity<Collection<ReservationDTO>> getReservationRequests() {
         List<ReservationDTO> reservations = this._reservationService.findAll();
         return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
+    @GetMapping(
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            path = "/reservationRequests"
+    )
+    @PreAuthorize("hasAnyAuthority('OWNER', 'GUEST')")
+    public ResponseEntity<Collection<ReservationRequest>> getReservationCreationRequests() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+        String role = String.valueOf(SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().findFirst().get());
+
+        if (role.equals("OWNER"))  {
+            Collection<Accommodation> accommodations = accommodationService.findAccommodationByUserId(acc.getUserId());
+            Collection<ReservationRequest> res = new ArrayList<>();
+            for (Accommodation accommodation : accommodations)
+                res.addAll(reservationRequestService.findAllForAccommodation(accommodation.getID()));
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } else {
+            // guest
+            Collection<ReservationRequest> res = reservationRequestService.findAllForuser(acc.getUserId());
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        }
     }
 
     @PostMapping(

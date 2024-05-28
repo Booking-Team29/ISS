@@ -57,7 +57,7 @@ public class Accommodation {
     private List<String> amenities;
 
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     private AccommodationStatus accommodationStatus;
 
     @Column(name = "images")
@@ -70,6 +70,9 @@ public class Accommodation {
     @Column(name = "confirmationmethod")
     @Enumerated(EnumType.STRING)
     private ConfirmationMethod confirmationMethod;
+
+    @Column(name = "ownerid")
+    private Long ownerId;
 
     public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, ConfirmationMethod confirmationMethod) {
         this.ID = ID;
