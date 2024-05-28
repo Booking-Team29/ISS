@@ -24,4 +24,5 @@ public interface AccommodationService {
     public void deleteAccommodation(Accommodation accommodation);
 
     public List<Accommodation> filterAccommodation(String destination, int numberOfPeople);
+    public List<Accommodation> findAccommodationByUserId(Long userId);
 }

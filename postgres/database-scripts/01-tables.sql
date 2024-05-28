@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Reservation, Notification, UserReport, Account, Guest, Owner, Admin, Accommodation, ReviewReport, Review, Price, OwnerReview, AccommodationReview, Favorite CASCADE;
+DROP TABLE IF EXISTS Reservation, Notification, UserReport, Account, Guest, Owner, Admin, Accommodation, ReviewReport, Review, Price, OwnerReview, AccommodationReview, Favorite, AccommodationFreeSlot, ReservationRequest CASCADE;
 
 -- Define custom ENUM types
 
@@ -40,7 +40,8 @@ CREATE TABLE Accommodation (
     Images TEXT[],
     Type VARCHAR(255),
     ConfirmationMethod VARCHAR(255),
-    AutoAccept BOOLEAN
+    AutoAccept BOOLEAN,
+    OwnerId INT REFERENCES Account (UserId)
 );
 
 CREATE TABLE AccommodationFreeSlot
