@@ -60,7 +60,7 @@ CREATE TABLE Reservation (
     StartDate DATE,
     EndDate DATE,
     GuestsCount INT,
-    Status VARCHAR(255),
+    Status INT,
     TotalPrice INT,
     UserId INT REFERENCES Account (UserId),
     AccommodationId INT REFERENCES Accommodation (id)
