@@ -63,7 +63,7 @@ public class Reservation {
 
     public static Reservation fromReservationRequest(ReservationRequest reservationRequest) {
         return new Reservation(
-                reservationRequest.getId(),
+                null,
                 reservationRequest.getStartDate(),
                 reservationRequest.getEndDate(),
                 reservationRequest.getGuestsCount(),

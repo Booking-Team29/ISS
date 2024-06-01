@@ -3,6 +3,7 @@ package com.booking.repository;
 import com.booking.domain.Reservation.ReservationRequest;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
@@ -29,4 +30,14 @@ public interface ReservationRequestRepository extends GenericRepository<Reservat
     @Transactional
     @Query("UPDATE ReservationRequest  r SET r.status = 2 WHERE r.id = :requestId")
     public void markRequestDenied(Long requestId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ReservationRequest  r SET r.status = 1 WHERE r.id = :requestId")
+    public void markRequestApproved(Long requestId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ReservationRequest  r SET r.status = 2 WHERE r.status = 0 and r.slotId = :slotId")
+    public void denyAllRequestsForASlot(@Param("slotId") Long slotId);
 }

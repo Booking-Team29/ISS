@@ -95,7 +95,7 @@ public class AccommodationController {
     public ResponseEntity<GetAccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
         Accommodation acc =  accommodationService.findOne(accommodationId);
         GetAccommodationDTO accommodation = GetAccommodationDTO.fromAccommodation(acc);
-        accommodation.setSlots(slotService.findByAccommodationId(accommodationId));
+        accommodation.setSlots(slotService.findAvailableByAccommodationId(accommodationId));
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
@@ -111,7 +111,7 @@ public class AccommodationController {
             ) {
         Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
         if (start != null && end != null) {
-            accs = accs.stream().filter(a -> Helpers.isAccommodationFreeInAnyPeriod(slotService.findByAccommodationId(a.getID()), start, end))
+            accs = accs.stream().filter(a -> Helpers.isAccommodationFreeInAnyPeriod(slotService.findAvailableByAccommodationId(a.getID()), start, end))
                     .collect(Collectors.toList());
         }
         Collection<AccommodationFilterDTO> filterDTOS =

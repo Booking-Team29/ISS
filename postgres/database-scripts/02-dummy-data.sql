@@ -2,29 +2,32 @@ INSERT INTO Account (FirstName, LastName, EmailAddress, HashedPassword, HomeAddr
 VALUES
     ('John', 'Doe', 'john.doe@example.com', '$2a$10$vudjSlPv/HU4rH9n/uwXXezmoG9zCZb1KKhTvErQTWRp9Ln5gwdQe', '123 Main St', '555-1234', 'ACTIVATED', 'GUEST'),
     ('Jane', 'Smith', 'jane.smith@example.com', '$2a$10$vudjSlPv/HU4rH9n/uwXXezmoG9zCZb1KKhTvErQTWRp9Ln5gwdQe', '456 Oak St', '555-5678', 'ACTIVATED', 'ADMIN'),
-    ('Bob', 'Johnson', 'bob.johnson@example.com', '$2a$10$vudjSlPv/HU4rH9n/uwXXezmoG9zCZb1KKhTvErQTWRp9Ln5gwdQe', '789 Pine St', '555-9876', 'BLOCKED', 'OWNER');
+    ('Bob', 'Johnson', 'bob.johnson@example.com', '$2a$10$vudjSlPv/HU4rH9n/uwXXezmoG9zCZb1KKhTvErQTWRp9Ln5gwdQe', '789 Pine St', '555-9876', 'BLOCKED', 'OWNER'),
+    ('Bob', 'Johnson', 'admin@admin.com', '$2a$10$zITsHb46e5Gmj0owG79LHe8o0xcc8yRHhVlnUoiaBwMRCaOmliO0u', '789 Pine St', '555-9876', 'ACTIVATED', 'ADMIN'),
+    ('Bob', 'Johnson', 'owner@admin.com', '$2a$10$upRLxAG3UdHBYhDpLBppGuQtwLFL3yQ6ZXCfPoVVrlHsjqMm5d62m', '789 Pine St', '555-9876', 'ACTIVATED', 'OWNER'),
+    ('Bob', 'Johnson', 'guest@admin.com', '$2a$10$mdTo1bdBguWAMcu5w1Iix.qIOiSVYHQZUi1agRqNYr0ugNgdmlOsu', '789 Pine St', '555-9876', 'ACTIVATED', 'GUEST');
 
 -- Insert dummy data into Accommodation table
 INSERT INTO Accommodation (Name, Description, Location, LocationCoordinates, MinGuests, MaxGuests, Prices, PricingType, DaysForCancellation, Amenities, Status, Images, Type, ConfirmationMethod, AutoAccept, OwnerId)
 VALUES
-    ('Cozy Studio', 'A small and cozy studio apartment', 'Nevada', ARRAY[40.7128, -74.0060], 1, 2, '{100, 150}', 'GUEST', 7, '{"Wi-Fi", "Pet"}', 0, '{"https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'STUDIO', 'MANUAL', true, 1),
-    ('Spacious Apartment', 'A spacious and modern apartment', 'Ohio', ARRAY[34.0522, -118.2437], 2, 4, '{200, 250}', 'ACCOMMODATION', 14, '{"Balcony"}', 0, '{"https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/172872/pexels-photo-172872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'APARTMENT', 'MANUAL', false, 2),
-    ('Luxury Hotel', 'A luxurious hotel with all amenities', 'Oregon', ARRAY[51.5074, -0.1278], 2, 6, '{300, 400}', 'GUEST', 30, '{}', 0, '{"https://images.pexels.com/photos/97083/pexels-photo-97083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'HOTEL', 'MANUAL', true, 3);
+    ('Cozy Studio', 'A small and cozy studio apartment', 'Nevada', ARRAY[40.7128, -74.0060], 1, 2, '{100, 150}', 'GUEST', 7, '{"Wi-Fi", "Pet"}', 0, '{"https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'STUDIO', 'MANUAL', true, 5),
+    ('Spacious Apartment', 'A spacious and modern apartment', 'Ohio', ARRAY[34.0522, -118.2437], 2, 4, '{200, 250}', 'ACCOMMODATION', 14, '{"Balcony"}', 0, '{"https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/172872/pexels-photo-172872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'APARTMENT', 'MANUAL', false, 5),
+    ('Luxury Hotel', 'A luxurious hotel with all amenities', 'Oregon', ARRAY[51.5074, -0.1278], 2, 6, '{300, 400}', 'GUEST', 30, '{}', 0, '{"https://images.pexels.com/photos/97083/pexels-photo-97083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'HOTEL', 'MANUAL', true, 5);
 
-INSERT INTO accommodationfreeslot (StartDate, EndDate, AccommodationId) VALUES
-    ('2024-06-01', '2024-06-05', 1),
-    ('2024-06-10', '2024-06-15', 1),
-    ('2024-06-20', '2024-06-25', 1);
+INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationId) VALUES
+    ('2024-06-01', '2024-06-05', true, 1),
+    ('2024-06-10', '2024-06-15', true, 1),
+    ('2024-06-20', '2024-06-25', true, 1);
 
-INSERT INTO accommodationfreeslot (StartDate, EndDate, AccommodationId) VALUES
-    ('2024-06-02', '2024-06-06', 2),
-    ('2024-06-11', '2024-06-16', 2),
-    ('2024-06-21', '2024-06-26', 2);
+INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationId) VALUES
+    ('2024-06-02', '2024-06-06', true, 2),
+    ('2024-06-11', '2024-06-16', true, 2),
+    ('2024-06-21', '2024-06-26', true, 2);
 
-INSERT INTO accommodationfreeslot (StartDate, EndDate, AccommodationId) VALUES
-    ('2024-06-03', '2024-06-07', 3),
-    ('2024-06-12', '2024-06-17', 3),
-    ('2024-06-22', '2024-06-27', 3);
+INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationId) VALUES
+    ('2024-06-03', '2024-06-07', true, 3),
+    ('2024-06-12', '2024-06-17', true, 3),
+    ('2024-06-22', '2024-06-27', true, 3);
 
 
 -- Insert dummy data into Reservation table

@@ -9,6 +9,7 @@ import com.booking.domain.Reservation.Reservation;
 import com.booking.domain.Reservation.ReservationRequest;
 import com.booking.domain.Reservation.ReservationStatus;
 import com.booking.domain.User.Account;
+import com.booking.dto.Accommodation.GetAccommodationDTO;
 import com.booking.dto.Reservation.ReservationDTO;
 import com.booking.dto.Reservation.ReservationRequestDTO;
 import com.booking.service.*;
@@ -87,7 +88,6 @@ public class ReservationController {
     public ResponseEntity<ReservationRequest> createReservationRequest(@RequestBody ReservationRequestDTO reservation) {
         reservation.setId(null);
 
-        reservation.setStatus(ReservationStatus.REQUESTED);
         Accommodation accommodation = accommodationService.findOne(reservation.getAccommodationId());
 
         if (reservation.getGuestsCount() > accommodation.getMaxGuests() || reservation.getGuestsCount() < accommodation.getMinGuests())
@@ -107,28 +107,33 @@ public class ReservationController {
         if (accOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         Account acc = accOptional.get();
 
+        ReservationRequest res = ReservationRequest.fromReservationRequestDTO(reservation, acc.getUserId());
+        res.setStatus(ReservationStatus.REQUESTED);
+
         // approve reservation if its automatic
         if (accommodation.getConfirmationMethod() == ConfirmationMethod.AUTOMATIC) {
+            res.setStatus(ReservationStatus.APPROVED);
+            this.reservationRequestService.denyAllRequestsForASlot(slot.getID());
+
+            ReservationRequest resRequest = ReservationRequest.fromReservationRequestDTO(reservation, acc.getUserId());
+            Reservation resClass = Reservation.fromReservationRequest(resRequest);
+            ReservationDTO reservationDTO = ReservationDTO.fromReservation(resClass);
+            reservationDTO.setStatus(ReservationStatus.APPROVED);
+            _reservationService.saveReservation(reservationDTO);
+
             List<DateRange> newSlots = Helpers.useUpASlot(slot, reservation.getStartDate(), reservation.getEndDate());
-            accommodationFreeSlotService.deleteAccommodationFreeSlot(slot);
             for(DateRange range : newSlots) {
                 AccommodationFreeSlot newSlot = new AccommodationFreeSlot();
                 newSlot.setAccommodationId(reservation.getAccommodationId());
                 newSlot.setStartDate(range.getStartDate());
                 newSlot.setEndDate(range.getEndDate());
+                newSlot.setAvailable(true);
                 accommodationFreeSlotService.saveAccommodationFreeSlot(newSlot);
             }
-            reservation.setStatus(ReservationStatus.APPROVED);
-
-            ReservationRequest resRequest = ReservationRequest.fromReservationRequestDTO(reservation, acc.getUserId());
-            Reservation resClass = Reservation.fromReservationRequest(resRequest);
-            ReservationDTO res = ReservationDTO.fromReservation(resClass);
-            _reservationService.saveReservation(res);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } else {
-            ReservationRequest res = ReservationRequest.fromReservationRequestDTO(reservation, acc.getUserId());
-            return new ResponseEntity<>(reservationRequestService.save(res), HttpStatus.CREATED);
+            this.accommodationFreeSlotService.disableSlot(reservation.getSlotId());
         }
+
+        return new ResponseEntity<>(reservationRequestService.save(res), HttpStatus.CREATED);
     }
 
     @GetMapping(
@@ -198,6 +203,55 @@ public class ReservationController {
         if (accommodation.getOwnerId() != acc.getUserId()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         this.reservationRequestService.markRequestDenied(reservationRequestId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(
+            value = "/reservationRequests/approve/{reservationRequestId}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
+    public ResponseEntity<Void> approveReservationRequest(@PathVariable Long reservationRequestId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+
+        Optional<ReservationRequest> requestOptional = reservationRequestService.findById(reservationRequestId);
+        if (requestOptional.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        ReservationRequest request = requestOptional.get();
+        if (request.getStatus() != ReservationStatus.REQUESTED) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        Accommodation accommodation = this.accommodationService.findOne(request.getAccommodationId());
+        if (accommodation.getOwnerId() != acc.getUserId()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        // deny all overlapping requests
+        this.reservationRequestService.denyAllRequestsForASlot(request.getSlotId());
+
+        this.reservationRequestService.markRequestApproved(reservationRequestId);
+
+        // create the reservation
+        Reservation reservation = Reservation.fromReservationRequest(request);
+        reservation.setStatus(ReservationStatus.APPROVED);
+        ReservationDTO reservationDTO = ReservationDTO.fromReservation(reservation);
+        this._reservationService.saveReservation(reservationDTO);
+
+        // create new slot if necessary
+        Optional<AccommodationFreeSlot> optionaLSlot = accommodationFreeSlotService.findOne(request.getSlotId());
+        if (optionaLSlot.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        AccommodationFreeSlot slot = optionaLSlot.get();
+
+        List<DateRange> newSlots = Helpers.useUpASlot(slot, reservation.getStartDate(), reservation.getEndDate());
+        for(DateRange range : newSlots) {
+            AccommodationFreeSlot newSlot = new AccommodationFreeSlot();
+            newSlot.setAccommodationId(reservation.getAccommodationId());
+            newSlot.setStartDate(range.getStartDate());
+            newSlot.setEndDate(range.getEndDate());
+            newSlot.setAvailable(true);
+            accommodationFreeSlotService.saveAccommodationFreeSlot(newSlot);
+        }
+
+        this.accommodationFreeSlotService.disableSlot(request.getSlotId());
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

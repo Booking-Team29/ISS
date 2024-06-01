@@ -1,8 +1,10 @@
 package com.booking.service;
 
+import com.booking.domain.Accommodation.AccommodationFreeSlot;
 import com.booking.domain.Reservation.ReservationRequest;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface ReservationRequestService {
@@ -12,4 +14,6 @@ public interface ReservationRequestService {
     public Optional<ReservationRequest> findById(Long requestId);
     public void markRequestDeleted(Long requestId);
     public void markRequestDenied(Long requestId);
+    public void markRequestApproved(Long requestId);
+    public void denyAllRequestsForASlot(Long slotId);
 }

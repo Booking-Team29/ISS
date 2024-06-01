@@ -50,6 +50,7 @@ CREATE TABLE AccommodationFreeSlot
     StartDate       DATE,
     EndDate         DATE,
     AccommodationID INT,
+    Available BOOL,
     FOREIGN KEY (AccommodationID) REFERENCES accommodation (id)
 );
 
@@ -70,7 +71,7 @@ CREATE TABLE ReservationRequest (
     StartDate DATE,
     EndDate DATE,
     GuestsCount INT,
-    Status VARCHAR(255),
+    Status INT,
     TotalPrice INT,
     UserId INT REFERENCES Account (UserId),
     AccommodationId INT REFERENCES Accommodation (id),
