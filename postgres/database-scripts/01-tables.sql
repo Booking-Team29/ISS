@@ -113,7 +113,8 @@ CREATE TABLE ReviewReport (
     ReportId SERIAL PRIMARY KEY,
     ReportDate DATE,
     Description TEXT,
-    Type VARCHAR(255),
+    Type INT,
+    ReporterId INT REFERENCES Account (UserId),
     ReviewId INT REFERENCES Review (ReviewId)
 );
 

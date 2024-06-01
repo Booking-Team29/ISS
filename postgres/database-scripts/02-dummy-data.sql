@@ -65,10 +65,10 @@ VALUES
     ('2023-03-30', 'Concerns about account account', 1, 3);
 
 -- Insert dummy data into ReviewReport table
-INSERT INTO ReviewReport (ReportDate, Description, Type, ReviewId)
+INSERT INTO ReviewReport (ReportDate, Description, Type, ReporterId, ReviewId)
 VALUES
-    ('2023-02-20', 'Inappropriate content in review', 'OWNER', 3),
-    ('2023-03-25', 'Review contains false information', 'ACCOMMODATION', 1);
+    ('2023-02-20', 'Inappropriate content in review', 1, 1, 3),
+    ('2023-03-25', 'Review contains false information', 1, 1, 1);
 
 -- Insert dummy data into Price table
 INSERT INTO Price (Type, Amount, StartDate, EndDate, AccommodationId)
