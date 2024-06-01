@@ -33,9 +33,9 @@ INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationI
 -- Insert dummy data into Reservation table
 INSERT INTO Reservation (StartDate, EndDate, GuestsCount, Status, TotalPrice, UserId, AccommodationId)
 VALUES
-    ('2023-01-05', '2023-01-10', 2, 'APPROVED', 150, 1, 1),
-    ('2023-02-10', '2023-02-15', 3, 'REQUESTED', 250, 2, 2),
-    ('2023-03-15', '2023-03-20', 4, 'ACTIVE', 400, 3, 3);
+    ('2023-01-05', '2023-01-10', 2, 1, 150, 1, 1),
+    ('2023-02-10', '2023-02-15', 3, 1, 250, 2, 2),
+    ('2023-03-15', '2023-03-20', 4, 1, 400, 3, 3);
 
 INSERT INTO ReservationRequest (StartDate, EndDate, GuestsCount, Status, TotalPrice, UserId, AccommodationId, SlotId)
 VALUES
