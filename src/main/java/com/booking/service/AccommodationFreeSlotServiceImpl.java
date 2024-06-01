@@ -34,4 +34,8 @@ public class AccommodationFreeSlotServiceImpl implements AccommodationFreeSlotSe
         return repository.findAvailableByAccommodationId(accommodationId);
     }
 
+    public void disableSlot(Long slotId) {
+        repository.disableSlot(slotId);
+    }
+
 }

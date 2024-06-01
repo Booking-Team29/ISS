@@ -36,4 +36,12 @@ public class ReservationRequestServiceImpl implements  ReservationRequestService
     public void markRequestDenied(Long requestId) {
         this.repository.markRequestDenied(requestId);
     }
+
+    public void markRequestApproved(Long requestId) {
+        this.repository.markRequestApproved(requestId);
+    }
+
+    public void denyAllRequestsForASlot(Long slotId) {
+        this.repository.denyAllRequestsForASlot(slotId);
+    }
 }
