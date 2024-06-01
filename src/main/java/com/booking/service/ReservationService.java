@@ -13,4 +13,8 @@ public interface ReservationService {
     public Reservation saveReservation(ReservationDTO accommodation);
 
     public void deleteReservation(Reservation accommodation);
+
+    public List<Reservation> findReservationByUserId(Long userId);
+
+    public void markReservationCancelled(Long reservationId);
 }

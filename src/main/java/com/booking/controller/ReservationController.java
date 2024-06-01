@@ -12,6 +12,7 @@ import com.booking.domain.User.Account;
 import com.booking.dto.Accommodation.GetAccommodationDTO;
 import com.booking.dto.Reservation.ReservationDTO;
 import com.booking.dto.Reservation.ReservationRequestDTO;
+import com.booking.repository.AccommodationFreeSlotRepository;
 import com.booking.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @RestController
@@ -40,7 +42,7 @@ public class ReservationController {
 
 
     @Autowired
-    public ReservationController(ReservationService service, AccommodationService accommodationService, AccommodationFreeSlotService accommodationFreeSlotService, ReservationRequestService reservationRequestService, UserService userService, ReservationServiceImpl reservationServiceImpl) {
+    public ReservationController(ReservationService service, AccommodationService accommodationService, AccommodationFreeSlotService accommodationFreeSlotService, ReservationRequestService reservationRequestService, UserService userService, ReservationServiceImpl reservationServiceImpl, AccommodationFreeSlotRepository accommodationFreeSlotRepository) {
         this._reservationService = service;
         this.accommodationService = accommodationService;
         this.accommodationFreeSlotService = accommodationFreeSlotService;
@@ -53,8 +55,11 @@ public class ReservationController {
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Collection<ReservationDTO>> getReservationRequests() {
-        List<ReservationDTO> reservations = this._reservationService.findAll();
+    @PreAuthorize("hasAnyAuthority('GUEST')")
+    public ResponseEntity<Collection<Reservation>> getReservations() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+        List<Reservation> reservations = this._reservationService.findReservationByUserId(acc.getUserId());
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
@@ -154,15 +159,35 @@ public class ReservationController {
         return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
     }
 
-    @PutMapping(
-            path = "/{reservationId}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+    @DeleteMapping(
+            path = "/{reservationId}"
     )
-    public ResponseEntity<ReservationDTO> updateReservation(@RequestBody ReservationDTO reservationDTO, @PathVariable Long reservationId) {
-        ReservationDTO reservation = new ReservationDTO();
-        if (reservation.equals(null)) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(reservation, HttpStatus.OK);
+    @PreAuthorize("hasAnyAuthority('GUEST')")
+    public ResponseEntity<ReservationDTO> cancelReservation(@PathVariable Long reservationId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+        Reservation reservation = this._reservationService.findOne(reservationId);
+        Accommodation accommodation = this.accommodationService.findOne(reservation.getAccommodationId());
+
+        if (reservation.getUserId() != acc.getUserId()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (reservation.getStatus() != ReservationStatus.APPROVED) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        LocalDate lastDayToCancel = reservation.getStartDate().minusDays(accommodation.getDaysForCancellation());
+        LocalDate today = LocalDate.now();
+        if(lastDayToCancel.isBefore(today)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        this._reservationService.markReservationCancelled(reservationId);
+
+        AccommodationFreeSlot slot = new AccommodationFreeSlot();
+        slot.setAvailable(true);
+        slot.setID(-1L);
+        slot.setStartDate(reservation.getStartDate());
+        slot.setEndDate(reservation.getEndDate());
+        slot.setAccommodationId(reservation.getAccommodationId());
+
+        this.accommodationFreeSlotService.saveAccommodationFreeSlot(slot);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(
