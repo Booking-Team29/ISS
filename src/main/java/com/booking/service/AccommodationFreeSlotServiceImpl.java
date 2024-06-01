@@ -30,4 +30,8 @@ public class AccommodationFreeSlotServiceImpl implements AccommodationFreeSlotSe
         return repository.findByAccommodationId(id);
     }
 
+    public List<AccommodationFreeSlot> findAvailableByAccommodationId(Long accommodationId) {
+        return repository.findAvailableByAccommodationId(accommodationId);
+    }
+
 }

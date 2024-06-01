@@ -13,5 +13,6 @@ public interface AccommodationFreeSlotService {
     public void deleteAccommodationFreeSlot(AccommodationFreeSlot slot);
 
     public List<AccommodationFreeSlot> findByAccommodationId(Long id);
+    public List<AccommodationFreeSlot> findAvailableByAccommodationId(Long accommodationId);
 
 }

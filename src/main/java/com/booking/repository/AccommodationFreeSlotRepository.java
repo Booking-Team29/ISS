@@ -8,5 +8,8 @@ public interface AccommodationFreeSlotRepository extends GenericRepository<Accom
     @Query(value = "select u from AccommodationFreeSlot u where u.accommodationId = ?1")
     public List<AccommodationFreeSlot> findByAccommodationId(Long accommodationId);
 
+    @Query(value = "select u from AccommodationFreeSlot u where u.accommodationId = ?1 and u.available = true")
+    public List<AccommodationFreeSlot> findAvailableByAccommodationId(Long accommodationId);
+
     public AccommodationFreeSlot save(AccommodationFreeSlot slot);
 }

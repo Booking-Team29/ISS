@@ -11,20 +11,20 @@ VALUES
     ('Spacious Apartment', 'A spacious and modern apartment', 'Ohio', ARRAY[34.0522, -118.2437], 2, 4, '{200, 250}', 'ACCOMMODATION', 14, '{"Balcony"}', 0, '{"https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/172872/pexels-photo-172872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'APARTMENT', 'MANUAL', false, 2),
     ('Luxury Hotel', 'A luxurious hotel with all amenities', 'Oregon', ARRAY[51.5074, -0.1278], 2, 6, '{300, 400}', 'GUEST', 30, '{}', 0, '{"https://images.pexels.com/photos/97083/pexels-photo-97083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'HOTEL', 'MANUAL', true, 3);
 
-INSERT INTO accommodationfreeslot (StartDate, EndDate, AccommodationId) VALUES
-    ('2024-06-01', '2024-06-05', 1),
-    ('2024-06-10', '2024-06-15', 1),
-    ('2024-06-20', '2024-06-25', 1);
+INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationId) VALUES
+    ('2024-06-01', '2024-06-05', true, 1),
+    ('2024-06-10', '2024-06-15', true, 1),
+    ('2024-06-20', '2024-06-25', true, 1);
 
-INSERT INTO accommodationfreeslot (StartDate, EndDate, AccommodationId) VALUES
-    ('2024-06-02', '2024-06-06', 2),
-    ('2024-06-11', '2024-06-16', 2),
-    ('2024-06-21', '2024-06-26', 2);
+INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationId) VALUES
+    ('2024-06-02', '2024-06-06', true, 2),
+    ('2024-06-11', '2024-06-16', true, 2),
+    ('2024-06-21', '2024-06-26', true, 2);
 
-INSERT INTO accommodationfreeslot (StartDate, EndDate, AccommodationId) VALUES
-    ('2024-06-03', '2024-06-07', 3),
-    ('2024-06-12', '2024-06-17', 3),
-    ('2024-06-22', '2024-06-27', 3);
+INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationId) VALUES
+    ('2024-06-03', '2024-06-07', true, 3),
+    ('2024-06-12', '2024-06-17', true, 3),
+    ('2024-06-22', '2024-06-27', true, 3);
 
 
 -- Insert dummy data into Reservation table

@@ -50,6 +50,7 @@ CREATE TABLE AccommodationFreeSlot
     StartDate       DATE,
     EndDate         DATE,
     AccommodationID INT,
+    Available BOOL,
     FOREIGN KEY (AccommodationID) REFERENCES accommodation (id)
 );
 
