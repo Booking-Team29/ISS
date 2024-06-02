@@ -17,7 +17,7 @@ public class ReviewServiceImpl implements ReviewService {
     public ReviewsRepository reviewsRepository;
 
     @Override
-    public Double accommodationRating(Long accommodationId) { return reviewsRepository.ratingForAccommodation(accommodationId); }
+    public Optional<Double> accommodationRating(Long accommodationId) { return reviewsRepository.ratingForAccommodation(accommodationId); }
 
     public Optional<Review> findById(Long id) {
         return reviewsRepository.findById(id);
