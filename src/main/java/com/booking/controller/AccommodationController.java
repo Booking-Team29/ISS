@@ -117,7 +117,7 @@ public class AccommodationController {
         Collection<AccommodationFilterDTO> filterDTOS =
                 accs
                 .stream()
-                .map(a -> AccommodationFilterDTO.fromAccommodation(a, this.reviewService.accommodationRating(a.getID())))
+                .map(a -> AccommodationFilterDTO.fromAccommodation(a, this.reviewService.accommodationRating(a.getID()).orElse(0d)))
                 .toList();
 
         return new ResponseEntity<Collection<AccommodationFilterDTO>>(filterDTOS, HttpStatus.OK);
