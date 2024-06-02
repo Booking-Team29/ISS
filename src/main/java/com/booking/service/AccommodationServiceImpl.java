@@ -1,10 +1,10 @@
 package com.booking.service;
 
-import com.booking.domain.Accommodation;
-import com.booking.dto.AccommodationDTO;
-import com.booking.dto.ApproveAccommodationDTO;
-import com.booking.dto.ChangeAccommodationDTO;
-import com.booking.dto.CreateAccommodationDTO;
+import com.booking.domain.Accommodation.Accommodation;
+import com.booking.dto.Accommodation.AccommodationDTO;
+import com.booking.dto.Accommodation.ApproveAccommodationDTO;
+import com.booking.dto.Accommodation.ChangeAccommodationDTO;
+import com.booking.dto.Accommodation.CreateAccommodationDTO;
 import com.booking.repository.AccommodationRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Getter
@@ -71,5 +70,9 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     public List<Accommodation> filterAccommodation(String destination, int numberOfPeople) {
         return accommodationRepository.filterAccommodation(destination, numberOfPeople);
+    }
+
+    public List<Accommodation> findAccommodationByUserId(Long userId) {
+        return accommodationRepository.findAccommodationByUserId(userId);
     }
 }

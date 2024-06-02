@@ -1,6 +1,6 @@
 package com.booking.service;
 
-import com.booking.domain.Account;
+import com.booking.domain.User.Account;
 import com.booking.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;

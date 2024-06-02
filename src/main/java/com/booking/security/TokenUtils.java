@@ -1,6 +1,6 @@
 package com.booking.security;
 
-import com.booking.domain.Account;
+import com.booking.domain.User.Account;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

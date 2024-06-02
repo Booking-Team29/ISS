@@ -1,7 +1,7 @@
 package com.booking.service;
 
-import com.booking.domain.Reservation;
-import com.booking.dto.ReservationDTO;
+import com.booking.domain.Reservation.Reservation;
+import com.booking.dto.Reservation.ReservationDTO;
 import com.booking.repository.ReservationRepository;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,5 +43,13 @@ public class ReservationServiceImpl implements ReservationService {
 
     public void deleteReservation(Reservation reservation) {
         reservationRepository.delete(reservation);
+    }
+
+    public List<Reservation> findReservationByUserId(Long userId) {
+        return this.reservationRepository.findReservationByUserId(userId);
+    }
+
+    public void markReservationCancelled(Long reservationId) {
+        this.reservationRepository.markReservationCancelled(reservationId);
     }
 }

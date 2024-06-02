@@ -1,11 +1,10 @@
 package com.booking.repository;
 
-import com.booking.domain.Accommodation;
+import com.booking.domain.Accommodation.Accommodation;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -16,6 +15,9 @@ public interface AccommodationRepository extends GenericRepository<Accommodation
     public Accommodation save(Accommodation accommodation);
 
     public void delete(Accommodation accommodation);
+
+    @Query("SELECT a FROM Accommodation a WHERE a.ownerId = :userid")
+    List<Accommodation> findAccommodationByUserId(Long userid);
 
     @Query("SELECT f.accommodation FROM Favorite f WHERE f.account.userId = :userId")
     List<Accommodation> findFavoritesByUserId(Long userId);

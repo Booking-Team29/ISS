@@ -1,10 +1,10 @@
 package com.booking.service;
 
-import com.booking.domain.Accommodation;
-import com.booking.dto.AccommodationDTO;
-import com.booking.dto.ApproveAccommodationDTO;
-import com.booking.dto.ChangeAccommodationDTO;
-import com.booking.dto.CreateAccommodationDTO;
+import com.booking.domain.Accommodation.Accommodation;
+import com.booking.dto.Accommodation.AccommodationDTO;
+import com.booking.dto.Accommodation.ApproveAccommodationDTO;
+import com.booking.dto.Accommodation.ChangeAccommodationDTO;
+import com.booking.dto.Accommodation.CreateAccommodationDTO;
 
 import java.util.List;
 
@@ -24,4 +24,5 @@ public interface AccommodationService {
     public void deleteAccommodation(Accommodation accommodation);
 
     public List<Accommodation> filterAccommodation(String destination, int numberOfPeople);
+    public List<Accommodation> findAccommodationByUserId(Long userId);
 }

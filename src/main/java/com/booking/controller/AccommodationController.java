@@ -1,19 +1,20 @@
 package com.booking.controller;
 
-import com.booking.domain.Accommodation;
-import com.booking.dto.*;
+import com.booking.Helpers;
+import com.booking.domain.Accommodation.Accommodation;
+import com.booking.dto.Accommodation.*;
+import com.booking.service.AccommodationFreeSlotService;
 import com.booking.service.AccommodationService;
 import com.booking.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,14 +28,14 @@ import java.util.stream.Collectors;
 public class AccommodationController {
     private AccommodationService accommodationService;
     private ReviewService reviewService;
+    private AccommodationFreeSlotService slotService;
 
     @Autowired
-    public AccommodationController(AccommodationService service, ReviewService review) {
+    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService) {
         this.accommodationService = service;
         this.reviewService = review;
+        this.slotService = accommodationFreeSlotService;
     }
-
-
 
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -49,6 +50,7 @@ public class AccommodationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     public ResponseEntity<?> createAccommodation(@RequestBody CreateAccommodationDTO newAccommodation) {
         Accommodation accommodation = accommodationService.saveAccommodation(newAccommodation);
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
@@ -59,6 +61,7 @@ public class AccommodationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> approveAccommodation(@RequestBody ApproveAccommodationDTO approveAccommodation,
                                                   @PathVariable Long accommodationId) {
 
@@ -72,6 +75,7 @@ public class AccommodationController {
             consumes = MediaType.APPLICATION_JSON_VALUE
 
     )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     public ResponseEntity<?> changeAccommodationData(@PathVariable Long accommodationId,
                                                                      @RequestBody ChangeAccommodationDTO changeAccommodationData) {
         Accommodation accommodation = accommodationService.changeAccommodation(changeAccommodationData);
@@ -82,6 +86,7 @@ public class AccommodationController {
             path = "/favorite/{guestId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAnyAuthority('GUEST')")
     public ResponseEntity<List<Accommodation>> getFavoriteAccommodations(@PathVariable Long guestId) {
 
         List<Accommodation> accommodations = accommodationService.getFavoriteAccommodations(guestId);
@@ -92,14 +97,13 @@ public class AccommodationController {
             value = "/{accommodationId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<AccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
+    public ResponseEntity<GetAccommodationDTO> getAccommodation(@PathVariable Long accommodationId) {
         Accommodation acc =  accommodationService.findOne(accommodationId);
-        AccommodationDTO accommodation = AccommodationDTO.fromAccommodation(acc);
+        GetAccommodationDTO accommodation = GetAccommodationDTO.fromAccommodation(acc);
+        accommodation.setSlots(slotService.findAvailableByAccommodationId(accommodationId));
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
-    // NOTE:  the last 2 methods are unimplemented
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping(
             path = "/accommodationSearch",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -112,14 +116,13 @@ public class AccommodationController {
             ) {
         Collection<Accommodation> accs = accommodationService.filterAccommodation(location, peopleNumber);
         if (start != null && end != null) {
-            accs = accs.stream().filter(a -> a.getAvailableDates().stream().anyMatch(availableRange ->
-                    (start.isAfter(availableRange.get(0)) || start.isEqual(availableRange.get(0))) && (end.isBefore(availableRange.get(1)) || end.isEqual(availableRange.get(1)))
-                )).collect(Collectors.toList());
+            accs = accs.stream().filter(a -> Helpers.isAccommodationFreeInAnyPeriod(slotService.findAvailableByAccommodationId(a.getID()), start, end))
+                    .collect(Collectors.toList());
         }
         Collection<AccommodationFilterDTO> filterDTOS =
                 accs
                 .stream()
-                .map(a -> AccommodationFilterDTO.fromAccommodation(a, this.reviewService.accommodationRating(a.getID())))
+                .map(a -> AccommodationFilterDTO.fromAccommodation(a, this.reviewService.accommodationRating(a.getID()).orElse(0d)))
                 .toList();
 
         return new ResponseEntity<Collection<AccommodationFilterDTO>>(filterDTOS, HttpStatus.OK);
@@ -130,6 +133,7 @@ public class AccommodationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     public ResponseEntity<?> defineReservationType(@RequestBody AccommodationDTO defineReservationType,
                                                   @PathVariable Long accommodationId) {
         //IMPLEMENT SERVICE
