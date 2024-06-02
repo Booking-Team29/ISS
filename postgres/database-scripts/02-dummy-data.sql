@@ -79,18 +79,8 @@ VALUES
     ('CUSTOM', 100.0, '2023-01-01', '2023-03-31', 3);
 
 -- Insert dummy data into OwnerReview table
-INSERT INTO OwnerReview (ReviewId, OwnerId)
-VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3);
 
 -- Insert dummy data into AccommodationReview table
-INSERT INTO AccommodationReview (ReviewId, AccommodationId)
-VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3);
 
 -- Insert dummy data into Favorite table
 INSERT INTO Favorite (UserId, AccommodationId)
