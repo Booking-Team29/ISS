@@ -90,6 +90,7 @@ public class ReservationController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces =  MediaType.APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAnyAuthority('GUEST')")
     public ResponseEntity<ReservationRequest> createReservationRequest(@RequestBody ReservationRequestDTO reservation) {
         reservation.setId(null);
 
@@ -139,24 +140,6 @@ public class ReservationController {
         }
 
         return new ResponseEntity<>(reservationRequestService.save(res), HttpStatus.CREATED);
-    }
-
-    @GetMapping(
-            path = "/reservationRequests/{ownerId}",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<Collection<ReservationDTO>> getReservationRequests(@PathVariable Long ownerId) {
-        return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
-    }
-
-    @GetMapping(
-            path = "/{userId}",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<Collection<ReservationDTO>> getReservations(@PathVariable Long userId) {
-         this._reservationService.findOne(userId);
-
-        return new ResponseEntity<>(Collections.emptyList(), HttpStatus.OK);
     }
 
     @DeleteMapping(

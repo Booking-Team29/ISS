@@ -117,7 +117,7 @@ public class AccountController {
             path = "/financialReport/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @PreAuthorize("hasAnyAuthority('Guest', 'Owner', 'Admin')")
+    @PreAuthorize("hasAnyAuthority('Admin')")
     public ResponseEntity<FinancialReportDTO> getFinancialReport() {
         // implement service
 
