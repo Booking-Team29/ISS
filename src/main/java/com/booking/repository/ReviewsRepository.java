@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface ReviewsRepository extends GenericRepository<Review> {
     @Query(value = "select avg(r.rating) from Review r where r.accommodationId = :accommodationId", nativeQuery = true)
-    public Double ratingForAccommodation(@Param("accommodationId") Long accommodationId);
+    public Optional<Double> ratingForAccommodation(@Param("accommodationId") Long accommodationId);
 
     @Modifying
     @Transactional

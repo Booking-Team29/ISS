@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -49,6 +50,7 @@ public class AccommodationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     public ResponseEntity<?> createAccommodation(@RequestBody CreateAccommodationDTO newAccommodation) {
         Accommodation accommodation = accommodationService.saveAccommodation(newAccommodation);
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
@@ -59,6 +61,7 @@ public class AccommodationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> approveAccommodation(@RequestBody ApproveAccommodationDTO approveAccommodation,
                                                   @PathVariable Long accommodationId) {
 
@@ -72,6 +75,7 @@ public class AccommodationController {
             consumes = MediaType.APPLICATION_JSON_VALUE
 
     )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     public ResponseEntity<?> changeAccommodationData(@PathVariable Long accommodationId,
                                                                      @RequestBody ChangeAccommodationDTO changeAccommodationData) {
         Accommodation accommodation = accommodationService.changeAccommodation(changeAccommodationData);
@@ -82,6 +86,7 @@ public class AccommodationController {
             path = "/favorite/{guestId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAnyAuthority('GUEST')")
     public ResponseEntity<List<Accommodation>> getFavoriteAccommodations(@PathVariable Long guestId) {
 
         List<Accommodation> accommodations = accommodationService.getFavoriteAccommodations(guestId);
@@ -117,7 +122,7 @@ public class AccommodationController {
         Collection<AccommodationFilterDTO> filterDTOS =
                 accs
                 .stream()
-                .map(a -> AccommodationFilterDTO.fromAccommodation(a, this.reviewService.accommodationRating(a.getID())))
+                .map(a -> AccommodationFilterDTO.fromAccommodation(a, this.reviewService.accommodationRating(a.getID()).orElse(0d)))
                 .toList();
 
         return new ResponseEntity<Collection<AccommodationFilterDTO>>(filterDTOS, HttpStatus.OK);
@@ -128,6 +133,7 @@ public class AccommodationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     public ResponseEntity<?> defineReservationType(@RequestBody AccommodationDTO defineReservationType,
                                                   @PathVariable Long accommodationId) {
         //IMPLEMENT SERVICE

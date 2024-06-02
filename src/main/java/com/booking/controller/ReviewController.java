@@ -150,5 +150,12 @@ public class ReviewController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
+    @GetMapping(
+            path = "/rating/{accommodationId}"
+    )
+    public ResponseEntity<RatingDTO> getRating(@PathVariable Long accommodationId) {
+        Double rating = reviewService.accommodationRating(accommodationId).orElse(0d);
+        return new ResponseEntity<>(new RatingDTO(rating), HttpStatus.OK);
+    }
 }
 
