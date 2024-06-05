@@ -62,7 +62,7 @@ public class ReviewController {
 
     @GetMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
-            path = "/accommodation/{ownerId}"
+            path = "/accommodation/owner/{ownerId}"
     )
     public ResponseEntity<List<ReviewDTO>> getAccommodationReviewsByOwnerId(@PathVariable Long ownerId) {
         List<ReviewDTO> reviews = new ArrayList<>(); // implement service
