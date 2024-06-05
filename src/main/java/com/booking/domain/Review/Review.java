@@ -56,6 +56,7 @@ public class Review {
 
     public ReviewDTO toDTO() {
         return new ReviewDTO(
+                this.reviewId,
                 this.reviewDate,
                 this.description,
                 this.rating,
