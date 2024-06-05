@@ -70,17 +70,6 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-    @PostMapping (
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            path = "/owner"
-    )
-    public ResponseEntity<ReviewDTO> createOwnerReview(@RequestBody ReviewDTO review) {
-        // implement service
-
-        return new ResponseEntity<>(review, HttpStatus.CREATED);
-    }
-
     @GetMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/owner/{ownerId}"
