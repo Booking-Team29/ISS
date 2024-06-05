@@ -40,6 +40,7 @@ public class ReviewController {
 
     private ReviewService _reviewService;
 
+    // NOTE: create accommodation review by setting accommodationId in request body and keep rest empty
     @PostMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -161,6 +162,8 @@ public class ReviewController {
         Double rating = reviewService.accommodationRating(accommodationId).orElse(0d);
         return new ResponseEntity<>(new RatingDTO(rating), HttpStatus.OK);
     }
+
+    // NOTE: create user review by setting userId in request body and keep rest empty
     @PostMapping(
             path = "/user",
             consumes = MediaType.APPLICATION_JSON_VALUE,
