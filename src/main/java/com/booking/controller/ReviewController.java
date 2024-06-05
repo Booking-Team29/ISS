@@ -47,7 +47,7 @@ public class ReviewController {
             path = "/accommodation"
     )
     public ResponseEntity<ReviewDTO> createAccommodationReview(@RequestBody ReviewDTO review) {
-        this._reviewService.createAccommodationReview(review);
+        this.reviewService.createAccommodationReview(review);
         return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 
@@ -169,8 +169,8 @@ public class ReviewController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<ReviewDTO> createUserReview(@RequestBody ReviewDTO review, @PathVariable Long userId) {
-        this._reviewService.createUserReview(review);
+    public ResponseEntity<ReviewDTO> createUserReview(@RequestBody ReviewDTO review) {
+        this.reviewService.createUserReview(review);
         return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 }
