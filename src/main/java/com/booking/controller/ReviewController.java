@@ -40,11 +40,6 @@ public class ReviewController {
 
     private ReviewService _reviewService;
 
-    @Autowired
-    public ReviewController(ReviewService service) {
-        this._reviewService = service;
-    }
-
     @PostMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
