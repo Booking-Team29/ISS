@@ -54,8 +54,8 @@ public class ReviewController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/accommodation"
     )
-    public ResponseEntity<List<ReviewDTO>> getAccommodationReviews() {
-        ArrayList<ReviewDTO> reviews = new ArrayList<ReviewDTO>() {}; // implement service
+    public ResponseEntity<List<ReviewDTO>> getAllAccommodationReviews() {
+        List<ReviewDTO> reviews = this.reviewService.getAllAccommodationReviews();
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 

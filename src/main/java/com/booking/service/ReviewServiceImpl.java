@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Getter
@@ -26,6 +28,14 @@ public class ReviewServiceImpl implements ReviewService {
 
     public void deleteById(Long reviewId) {
         reviewsRepository.deleteById(reviewId);
+    }
+
+    public List<ReviewDTO> getAllAccommodationReviews() {
+        List<ReviewDTO> dtos = new ArrayList<>();
+        for (Review review : reviewsRepository.getAllAccommodationReviews()) {
+            dtos.add(review.toDTO());
+        }
+        return dtos;
     }
 
     public void createUserReview(ReviewDTO dto) {
