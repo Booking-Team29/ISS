@@ -50,7 +50,7 @@ public class ReviewController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             path = "/accommodation"
     )
-    public ResponseEntity<CreateAccommodationReviewDTO> createAccommodationReview(@RequestBody CreateAccommodationReviewDTO review) {
+    public ResponseEntity<ReviewDTO> createAccommodationReview(@RequestBody ReviewDTO review) {
         this._reviewService.createAccommodationReview(review);
         return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
@@ -59,8 +59,8 @@ public class ReviewController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/accommodation"
     )
-    public ResponseEntity<List<RetrieveAccommodationReviewDTO>> getAccommodationReviews() {
-        ArrayList<RetrieveAccommodationReviewDTO> reviews = new ArrayList<RetrieveAccommodationReviewDTO>() {}; // implement service
+    public ResponseEntity<List<ReviewDTO>> getAccommodationReviews() {
+        ArrayList<ReviewDTO> reviews = new ArrayList<ReviewDTO>() {}; // implement service
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
@@ -68,8 +68,8 @@ public class ReviewController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/accommodation/{ownerId}"
     )
-    public ResponseEntity<List<RetrieveAccommodationReviewDTO>> getAccommodationReviewsByOwnerId(@PathVariable Long ownerId) {
-        List<RetrieveAccommodationReviewDTO> reviews = new ArrayList<>(); // implement service
+    public ResponseEntity<List<ReviewDTO>> getAccommodationReviewsByOwnerId(@PathVariable Long ownerId) {
+        List<ReviewDTO> reviews = new ArrayList<>(); // implement service
 
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
@@ -79,7 +79,7 @@ public class ReviewController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             path = "/owner"
     )
-    public ResponseEntity<CreateOwnerReviewDTO> createOwnerReview(@RequestBody CreateOwnerReviewDTO review) {
+    public ResponseEntity<ReviewDTO> createOwnerReview(@RequestBody ReviewDTO review) {
         // implement service
 
         return new ResponseEntity<>(review, HttpStatus.CREATED);
@@ -89,8 +89,8 @@ public class ReviewController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/owner/{ownerId}"
     )
-    public ResponseEntity<List<RetrieveOwnerReviewDTO>> getOwnerReviewsById(@PathVariable Long ownerId) {
-        List<RetrieveOwnerReviewDTO> reviews = new ArrayList<>(); // implement service
+    public ResponseEntity<List<ReviewDTO>> getOwnerReviewsById(@PathVariable Long ownerId) {
+        List<ReviewDTO> reviews = new ArrayList<>(); // implement service
 
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
@@ -171,7 +171,7 @@ public class ReviewController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<CreateUserReviewDTO> createUserReview(@RequestBody CreateUserReviewDTO review, @PathVariable Long userId) {
+    public ResponseEntity<ReviewDTO> createUserReview(@RequestBody ReviewDTO review, @PathVariable Long userId) {
         this._reviewService.createUserReview(review);
         return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
