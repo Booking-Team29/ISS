@@ -1,13 +1,12 @@
 package com.booking.service;
 
 import com.booking.domain.Review.Review;
-import com.booking.dto.Review.CreateUserReviewDTO;
+import com.booking.dto.Review.ReviewDTO;
 import com.booking.repository.ReviewsRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.booking.dto.Review.CreateAccommodationReviewDTO;
 
 import java.util.Optional;
 
@@ -30,11 +29,13 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     // this method creates a review for a user
-    public void createUserReview(CreateUserReviewDTO review) {
-        reviewsRepository.createUserReview(review.getReviewDate(), review.getDescription(), review.getRating(), review.getUserId());
+    public void createUserReview(ReviewDTO dto) {
+        Review review = new Review(dto.getReviewDate(), dto.getDescription(), dto.getRating());
+
+        reviewsRepository.save(review.getReviewDate(), review.getDescription(), review.getRating(), review.getUserId());
     }
 
-    public void createAccommodationReview(CreateAccommodationReviewDTO review) {
+    public void createAccommodationReview(ReviewDTO review) {
         reviewsRepository.createAccommodationReview(review.getReviewDate(), review.getDescription(), review.getRating(), review.getAccommodationId());
     }
 
