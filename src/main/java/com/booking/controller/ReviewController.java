@@ -62,6 +62,15 @@ public class ReviewController {
 
     @GetMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
+            path = "/accommodation/{accommodationId}"
+    )
+    public ResponseEntity<List<ReviewDTO>> getAccommodationReviewsByAccommodationID(@PathVariable Long accommodationId) {
+        List<ReviewDTO> reviews = this.reviewService.getAccommodationReviewsByAccommodationId(accommodationId);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @GetMapping (
+            produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/accommodation/owner/{ownerId}"
     )
     public ResponseEntity<List<ReviewDTO>> getAccommodationReviewsByOwnerId(@PathVariable Long ownerId) {
@@ -153,6 +162,7 @@ public class ReviewController {
     }
 
     // NOTE: create user review by setting userId in request body and keep rest empty
+    @PreAuthorize("hasAnyAuthority('GUEST')")
     @PostMapping(
             path = "/user",
             consumes = MediaType.APPLICATION_JSON_VALUE,
