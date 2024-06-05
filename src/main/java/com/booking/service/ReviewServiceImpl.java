@@ -38,6 +38,16 @@ public class ReviewServiceImpl implements ReviewService {
         return dtos;
     }
 
+    public List<ReviewDTO> getAccommodationReviewsByAccommodationId(Long accommodationId) {
+        List<ReviewDTO> dtos = new ArrayList<>();
+        for (Review review : reviewsRepository.getAccommodationReviewsByAccommodationId(accommodationId)) {
+            if (review.getAccommodationId().equals(accommodationId)) {
+                dtos.add(review.toDTO());
+            }
+        }
+        return dtos;
+    }
+
     public void createUserReview(ReviewDTO dto) {
         Review review = Review.fromDTO(dto);
         reviewsRepository.save(review);

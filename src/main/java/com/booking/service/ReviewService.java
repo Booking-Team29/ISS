@@ -13,6 +13,8 @@ public interface ReviewService {
     public void createUserReview(ReviewDTO review);
 
     public List<ReviewDTO> getAllAccommodationReviews();
+    public List<ReviewDTO> getAccommodationReviewsByAccommodationId(Long accommodationId);
+
     public void createAccommodationReview(ReviewDTO review);
 
     public void deleteReview(Long reviewId);
