@@ -27,4 +27,7 @@ public interface ReviewsRepository extends GenericRepository<Review> {
 
     @Query("SELECT r FROM Review r WHERE r.accommodationId != null")
     public List<Review> getAllAccommodationReviews();
+
+    @Query("SELECT r FROM Review r WHERE r.accommodationId = :accommodationId")
+    public List<Review> getAccommodationReviewsByAccommodationId(Long accommodationId);
 }
