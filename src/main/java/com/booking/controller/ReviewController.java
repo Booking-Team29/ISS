@@ -8,6 +8,9 @@ import com.booking.service.ReviewReportService;
 import com.booking.service.ReviewService;
 import com.booking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.booking.dto.Review.*;
+import com.booking.service.ReviewService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +38,16 @@ public class ReviewController {
         this.reviewReportService = reviewReportService;
     }
 
+    private ReviewService _reviewService;
+
+    // NOTE: create accommodation review by setting accommodationId in request body and keep rest empty
     @PostMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             path = "/accommodation"
     )
-    public ResponseEntity<CreateAccommodationReviewDTO> createAccommodationReview(@RequestBody CreateAccommodationReviewDTO review) {
-        // implement service
-
+    public ResponseEntity<ReviewDTO> createAccommodationReview(@RequestBody ReviewDTO review) {
+        this.reviewService.createAccommodationReview(review);
         return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 
@@ -50,38 +55,36 @@ public class ReviewController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/accommodation"
     )
-    public ResponseEntity<List<RetrieveAccommodationReviewDTO>> getAccommodationReviews() {
-        ArrayList<RetrieveAccommodationReviewDTO> reviews = new ArrayList<RetrieveAccommodationReviewDTO>() {}; // implement service
+    public ResponseEntity<List<ReviewDTO>> getAllAccommodationReviews() {
+        List<ReviewDTO> reviews = this.reviewService.getAllAccommodationReviews();
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @GetMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
-            path = "/accommodation/{ownerId}"
+            path = "/accommodation/{accommodationId}"
     )
-    public ResponseEntity<List<RetrieveAccommodationReviewDTO>> getAccommodationReviewsByOwnerId(@PathVariable Long ownerId) {
-        List<RetrieveAccommodationReviewDTO> reviews = new ArrayList<>(); // implement service
-
+    public ResponseEntity<List<ReviewDTO>> getAccommodationReviewsByAccommodationID(@PathVariable Long accommodationId) {
+        List<ReviewDTO> reviews = this.reviewService.getAccommodationReviewsByAccommodationId(accommodationId);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-    @PostMapping (
+    @GetMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            path = "/owner"
+            path = "/accommodation/owner/{ownerId}"
     )
-    public ResponseEntity<CreateOwnerReviewDTO> createOwnerReview(@RequestBody CreateOwnerReviewDTO review) {
-        // implement service
+    public ResponseEntity<List<ReviewDTO>> getAccommodationReviewsByOwnerId(@PathVariable Long ownerId) {
+        List<ReviewDTO> reviews = new ArrayList<>(); // implement service
 
-        return new ResponseEntity<>(review, HttpStatus.CREATED);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @GetMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/owner/{ownerId}"
     )
-    public ResponseEntity<List<RetrieveOwnerReviewDTO>> getOwnerReviewsById(@PathVariable Long ownerId) {
-        List<RetrieveOwnerReviewDTO> reviews = new ArrayList<>(); // implement service
+    public ResponseEntity<List<ReviewDTO>> getOwnerReviewsById(@PathVariable Long ownerId) {
+        List<ReviewDTO> reviews = new ArrayList<>(); // implement service
 
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
@@ -156,6 +159,18 @@ public class ReviewController {
     public ResponseEntity<RatingDTO> getRating(@PathVariable Long accommodationId) {
         Double rating = reviewService.accommodationRating(accommodationId).orElse(0d);
         return new ResponseEntity<>(new RatingDTO(rating), HttpStatus.OK);
+    }
+
+    // NOTE: create user review by setting userId in request body and keep rest empty
+    @PreAuthorize("hasAnyAuthority('GUEST')")
+    @PostMapping(
+            path = "/user",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<ReviewDTO> createUserReview(@RequestBody ReviewDTO review) {
+        this.reviewService.createUserReview(review);
+        return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 }
 
