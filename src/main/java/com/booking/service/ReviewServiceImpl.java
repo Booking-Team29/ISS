@@ -28,15 +28,14 @@ public class ReviewServiceImpl implements ReviewService {
         reviewsRepository.deleteById(reviewId);
     }
 
-    // this method creates a review for a user
     public void createUserReview(ReviewDTO dto) {
-        Review review = new Review(dto.getReviewDate(), dto.getDescription(), dto.getRating());
-
-        reviewsRepository.save(review.getReviewDate(), review.getDescription(), review.getRating(), review.getUserId());
+        Review review = Review.fromDTO(dto);
+        reviewsRepository.save(review);
     }
 
-    public void createAccommodationReview(ReviewDTO review) {
-        reviewsRepository.createAccommodationReview(review.getReviewDate(), review.getDescription(), review.getRating(), review.getAccommodationId());
+    public void createAccommodationReview(ReviewDTO dto) {
+        Review newReview = Review.fromDTO(dto);
+        reviewsRepository.save(newReview);
     }
 
     public void deleteReview(Long reviewId) {
