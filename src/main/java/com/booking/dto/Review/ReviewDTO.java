@@ -1,32 +1,22 @@
 package com.booking.dto.Review;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Setter
 @Getter
-public abstract class ReviewDTO {
-
-    protected Long reviewId;
-    protected LocalDate reviewDate;
-    protected String description;
-    protected float rating;
-
-    protected ReviewDTO() {}
-
-    protected ReviewDTO(LocalDate reviewDate, String description, float rating) {
-        this.reviewDate = reviewDate;
-        this.description = description;
-        this.rating = rating;
-    }
-
-    protected ReviewDTO(Long id, LocalDate reviewDate, String description, float rating) {
-        this.reviewId = id;
-        this.reviewDate = reviewDate;
-        this.description = description;
-        this.rating = rating;
-    }
+@NoArgsConstructor
+@AllArgsConstructor
+public class ReviewDTO {
+    private LocalDate reviewDate;
+    private String description;
+    private Double rating;
+    private Boolean approved;
+    private Long reservationId;
+    private Long userId;
+    private Long accommodationId;
 }
-
