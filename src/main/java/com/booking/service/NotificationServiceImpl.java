@@ -24,15 +24,21 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public List<NotificationDTO> getAllNotifications() {
         return notificationRepository.findAll().stream()
-                .map(notification -> new NotificationDTO()) // You need to map the Notification entity to RetrieveNotificationDTO
+                .map(Notification::toNotificationDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public NotificationDTO getNotificationById(Long id) {
         Notification notification = notificationRepository.findById(id).orElse(null); // Find the notification
-        NotificationDTO dto = new NotificationDTO(); // Map entity to DTO
-        // Populate DTO fields
+        NotificationDTO dto = Notification.toNotificationDTO(notification);
         return dto;
+    }
+
+    @Override
+    public List<NotificationDTO> getNotificationsByUserId(Long id) {
+        return notificationRepository.findByUserId(id).stream()
+                .map(Notification::toNotificationDTO)
+                .collect(Collectors.toList());
     }
 }

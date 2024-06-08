@@ -50,8 +50,7 @@ public class NotificationController {
             path = "/{id}"
     )
     public ResponseEntity<NotificationDTO> getNotificationById(@PathVariable Long id) {
-        NotificationDTO notification = new NotificationDTO(); // implement service
-        return new ResponseEntity<>(notification, HttpStatus.OK);
+        return new ResponseEntity<>(this.notificationService.getNotificationById(id), HttpStatus.OK);
     }
 
     @GetMapping (
@@ -59,7 +58,6 @@ public class NotificationController {
             value = "/user/{id}"
     )
     public ResponseEntity<List<NotificationDTO>> getNotificationsByUserId(@PathVariable Long id) {
-        List<NotificationDTO> notifications = new ArrayList<>(); // implement service
-        return new ResponseEntity<>(notifications, HttpStatus.OK);
+        return new ResponseEntity<>(this.notificationService.getNotificationsByUserId(id), HttpStatus.OK);
     }
 }
