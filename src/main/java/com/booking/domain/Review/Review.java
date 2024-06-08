@@ -87,6 +87,7 @@ public class Review {
                 review.rating,
                 review.approved,
                 review.reservationId,
+                review.userId,
                 review.accommodationId
         );
     }
