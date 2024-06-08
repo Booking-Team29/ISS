@@ -22,7 +22,6 @@ public class ReservationDTO {
     private int totalPrice;
     private Long userId;
     private Long accommodationId;
-    private Long slotId;
 
     public static ReservationDTO fromReservation(Reservation reservation) {
         return new ReservationDTO (
@@ -33,8 +32,7 @@ public class ReservationDTO {
                 reservation.getStatus(),
                 reservation.getTotalPrice(),
                 reservation.getUserId(),
-                reservation.getAccommodationId(),
-                -1L
+                reservation.getAccommodationId()
         );
     }
 }

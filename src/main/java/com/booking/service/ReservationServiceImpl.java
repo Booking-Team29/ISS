@@ -44,4 +44,12 @@ public class ReservationServiceImpl implements ReservationService {
     public void deleteReservation(Reservation reservation) {
         reservationRepository.delete(reservation);
     }
+
+    public List<Reservation> findReservationByUserId(Long userId) {
+        return this.reservationRepository.findReservationByUserId(userId);
+    }
+
+    public void markReservationCancelled(Long reservationId) {
+        this.reservationRepository.markReservationCancelled(reservationId);
+    }
 }

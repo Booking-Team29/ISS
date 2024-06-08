@@ -27,4 +27,7 @@ public class AccommodationFreeSlot {
 
     @Column(name = "accommodationid")
     private Long accommodationId;
+
+    @Column(name = "available")
+    private Boolean available;
 }

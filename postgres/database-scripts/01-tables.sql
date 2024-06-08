@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS Reservation, Notification, UserReport, Account, Guest, Owner, Admin, Accommodation, ReviewReport, Review, Price, OwnerReview, AccommodationReview, Favorite CASCADE;
+DROP TABLE IF EXISTS Reservation, Notification, UserReport, Account, Guest, Owner, Admin, Accommodation, ReviewReport, Review, Price, OwnerReview, AccommodationReview, Favorite, AccommodationFreeSlot, ReservationRequest CASCADE;
 
 -- Define custom ENUM types
 
@@ -40,7 +40,8 @@ CREATE TABLE Accommodation (
     Images TEXT[],
     Type VARCHAR(255),
     ConfirmationMethod VARCHAR(255),
-    AutoAccept BOOLEAN
+    AutoAccept BOOLEAN,
+    OwnerId INT REFERENCES Account (UserId)
 );
 
 CREATE TABLE AccommodationFreeSlot
@@ -49,6 +50,7 @@ CREATE TABLE AccommodationFreeSlot
     StartDate       DATE,
     EndDate         DATE,
     AccommodationID INT,
+    Available BOOL,
     FOREIGN KEY (AccommodationID) REFERENCES accommodation (id)
 );
 
@@ -58,7 +60,7 @@ CREATE TABLE Reservation (
     StartDate DATE,
     EndDate DATE,
     GuestsCount INT,
-    Status VARCHAR(255),
+    Status INT,
     TotalPrice INT,
     UserId INT REFERENCES Account (UserId),
     AccommodationId INT REFERENCES Accommodation (id)
@@ -69,7 +71,7 @@ CREATE TABLE ReservationRequest (
     StartDate DATE,
     EndDate DATE,
     GuestsCount INT,
-    Status VARCHAR(255),
+    Status INT,
     TotalPrice INT,
     UserId INT REFERENCES Account (UserId),
     AccommodationId INT REFERENCES Accommodation (id),
@@ -111,7 +113,8 @@ CREATE TABLE ReviewReport (
     ReportId SERIAL PRIMARY KEY,
     ReportDate DATE,
     Description TEXT,
-    Type VARCHAR(255),
+    Type INT,
+    ReporterId INT REFERENCES Account (UserId),
     ReviewId INT REFERENCES Review (ReviewId)
 );
 

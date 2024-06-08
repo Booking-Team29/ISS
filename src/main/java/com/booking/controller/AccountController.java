@@ -1,6 +1,7 @@
 package com.booking.controller;
 
 import com.booking.domain.User.Account;
+import com.booking.domain.User.UserStatus;
 import com.booking.dto.FinancialReportDTO;
 import com.booking.dto.User.*;
 import com.booking.security.TokenUtils;
@@ -58,6 +59,7 @@ public class AccountController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         Account account = (Account) authentication.getPrincipal();
+        if (account.getUserStatus() != UserStatus.ACTIVATED) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         String jwt = tokenUtils.generateToken(account);
         Long valid_for = tokenUtils.getExpiration();
         TokenDTO token = new TokenDTO(jwt, valid_for);
@@ -74,6 +76,7 @@ public class AccountController {
         if (!acc.isEmpty()) throw new RuntimeException("Email already exists");
         Account new_acc = new Account();
         new_acc.fromRegisterDTO(registerData);
+        new_acc.setUserStatus(UserStatus.ACTIVATED);
         userService.save(new_acc);
         return new ResponseEntity<>(registerData, HttpStatus.CREATED);
     }
@@ -114,12 +117,24 @@ public class AccountController {
             path = "/financialReport/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @PreAuthorize("hasAnyAuthority('Guest', 'Owner', 'Admin')")
+    @PreAuthorize("hasAnyAuthority('Admin')")
     public ResponseEntity<FinancialReportDTO> getFinancialReport() {
         // implement service
 
         FinancialReportDTO report = new FinancialReportDTO();
 
         return new ResponseEntity<>(report, HttpStatus.OK);
+    }
+
+    // the following method is used to block a user
+    @PostMapping(
+            path = "/block/{email}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('Admin')")
+    public ResponseEntity<ChangeUserDataDTO> blockUser(@PathVariable String email) {
+        userService.blockUser(email);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
