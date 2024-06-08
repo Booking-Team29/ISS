@@ -40,7 +40,6 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewDTO> getAllAccommodationReviews() {
         List<ReviewDTO> dtos = new ArrayList<>();
         for (Review review : reviewsRepository.getAllAccommodationReviews()) {
-            System.out.println(review);
             dtos.add(Review.toDTO(review, userRepository));
         }
         return dtos;
