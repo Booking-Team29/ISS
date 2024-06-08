@@ -1,6 +1,5 @@
 package com.booking.repository;
 
-import com.booking.dto.Notification.CreateNotificationDTO;
 import org.springframework.stereotype.Repository;
 import com.booking.domain.Notification.Notification;
 

@@ -1,8 +1,7 @@
 package com.booking.service;
 
 import com.booking.domain.Notification.Notification;
-import com.booking.dto.Notification.CreateNotificationDTO;
-import com.booking.dto.Notification.RetrieveNotificationDTO;
+import com.booking.dto.Notification.NotificationDTO;
 import com.booking.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,24 +15,24 @@ public class NotificationServiceImpl implements NotificationService {
     private NotificationRepository notificationRepository;
 
     @Override
-    public void createNotification(CreateNotificationDTO notificationDTO) {
+    public void createNotification(NotificationDTO notificationDTO) {
         Notification notification = new Notification(); // Assume Notification is an entity class
         // Map fields from DTO to entity
         notificationRepository.save(notification); // Save to database
     }
 
     @Override
-    public List<RetrieveNotificationDTO> getAllNotifications() {
+    public List<NotificationDTO> getAllNotifications() {
         return notificationRepository.findAll().stream()
-                .map(notification -> new RetrieveNotificationDTO()) // You need to map the Notification entity to RetrieveNotificationDTO
+                .map(notification -> new NotificationDTO()) // You need to map the Notification entity to RetrieveNotificationDTO
                 .collect(Collectors.toList());
     }
 
     @Override
-    public RetrieveNotificationDTO getNotificationById(Long id) {
+    public NotificationDTO getNotificationById(Long id) {
         Notification notification = notificationRepository.findById(id).orElse(null); // Find the notification
-        RetrieveNotificationDTO notificationDTO = new RetrieveNotificationDTO(); // Map entity to DTO
+        NotificationDTO dto = new NotificationDTO(); // Map entity to DTO
         // Populate DTO fields
-        return notificationDTO;
+        return dto;
     }
 }

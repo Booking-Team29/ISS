@@ -1,6 +1,5 @@
 package com.booking.controller;
-import com.booking.dto.Notification.CreateNotificationDTO;
-import com.booking.dto.Notification.RetrieveNotificationDTO;
+import com.booking.dto.Notification.NotificationDTO;
 import com.booking.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +30,7 @@ public class NotificationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<CreateNotificationDTO> createNotification(@RequestBody CreateNotificationDTO notification) {
+    public ResponseEntity<NotificationDTO> createNotification(@RequestBody NotificationDTO notification) {
         // implement service
         return new ResponseEntity<>(notification, HttpStatus.CREATED);
     }
@@ -39,8 +38,8 @@ public class NotificationController {
     @GetMapping (
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<RetrieveNotificationDTO>> getAllNotifications() {
-        List<RetrieveNotificationDTO> notifications = this.notificationService.getAllNotifications();
+    public ResponseEntity<List<NotificationDTO>> getAllNotifications() {
+        List<NotificationDTO> notifications = this.notificationService.getAllNotifications();
 
         return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
@@ -50,8 +49,8 @@ public class NotificationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/{id}"
     )
-    public ResponseEntity<RetrieveNotificationDTO> getNotificationById(@PathVariable Long id) {
-        RetrieveNotificationDTO notification = new RetrieveNotificationDTO(); // implement service
+    public ResponseEntity<NotificationDTO> getNotificationById(@PathVariable Long id) {
+        NotificationDTO notification = new NotificationDTO(); // implement service
         return new ResponseEntity<>(notification, HttpStatus.OK);
     }
 
@@ -59,9 +58,8 @@ public class NotificationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             value = "/user/{id}"
     )
-    public ResponseEntity<List<RetrieveNotificationDTO>> getNotificationsByUserId(@PathVariable Long id) {
-        List<RetrieveNotificationDTO> notifications = new ArrayList<>(); // implement service
+    public ResponseEntity<List<NotificationDTO>> getNotificationsByUserId(@PathVariable Long id) {
+        List<NotificationDTO> notifications = new ArrayList<>(); // implement service
         return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 }
-
