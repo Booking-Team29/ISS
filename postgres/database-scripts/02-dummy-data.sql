@@ -44,23 +44,23 @@ VALUES
     ('2023-03-15', '2023-03-20', 4, 0, 400, 3, 3, 3);
 
 -- Insert dummy data into Review table
-INSERT INTO Review (ReviewDate, Description, Rating, Approved, ReservationId, UserId, AccommodationId)
+INSERT INTO Review (ReviewerId, ReviewDate, Description, Rating, Approved, ReservationId, UserId, AccommodationId)
 VALUES
-    ('2023-04-10', 'The hotel had stunning ocean views and a very relaxing atmosphere.', 5.0, true, NULL, NULL, 2),
-    ('2023-05-15', 'Reservation process was smooth and quick, without any issues.', 3.0, true, 3, NULL, NULL),
-    ('2023-06-20', 'User was extremely polite and helpful throughout the interaction.', 2.5, false, NULL, 2, NULL),
-    ('2023-07-22', 'The booking was well-organized, including timely notifications.', 4.8, true, 1, NULL, NULL),
-    ('2023-08-15', 'The apartment was centrally located but surprisingly quiet.', 3.5, false, NULL, NULL, 2),
-    ('2023-09-10', 'Customer service was outstanding, the staff member was very attentive.', 4.9, true, NULL, 3, NULL),
-    ('2023-10-05', 'User provided great feedback that improved our service quality.', 3.7, true, NULL, 2, NULL),
-    ('2023-11-25', 'Reservation included all requested amenities and special arrangements.', 4.4, true, 1, NULL, NULL),
-    ('2023-12-16', 'The luxury suite had a panoramic city view, well worth the price.', 4.6, true, NULL, NULL, 2),
-    ('2024-01-10', 'Booking was canceled last minute, which was very inconvenient.', 2.0, false, 3, NULL, NULL),
-    ('2024-02-20', 'The villa provided a private beachfront that was absolutely pristine.', 5.0, true, NULL, NULL, 1),
-    ('2024-03-30', 'User went above and beyond to ensure our comfort during the stay.', 4.2, true, NULL, 2, NULL),
-    ('2024-04-12', 'The hostel location is perfect for tourists looking to explore downtown.', 3.5, true, NULL, NULL, 1),
-    ('2024-05-18', 'Reservation was handled professionally, including accommodation for a late check-in.', 4.8, true, 3, NULL, NULL),
-    ('2024-06-01', 'Customer service by the user was mediocre, somewhat disinterested.', 3.0, false, NULL, 1, NULL);
+    ('1', '2023-04-10', 'The hotel had stunning ocean views and a very relaxing atmosphere.', 5.0, true, NULL, NULL, 2),
+    ('2', '2023-05-15', 'Reservation process was smooth and quick, without any issues.', 3.0, true, 3, NULL, NULL),
+    ('3', '2023-06-20', 'User was extremely polite and helpful throughout the interaction.', 2.5, false, NULL, 2, NULL),
+    ('1', '2023-07-22', 'The booking was well-organized, including timely notifications.', 4.8, true, 1, NULL, NULL),
+    ('2', '2023-08-15', 'The apartment was centrally located but surprisingly quiet.', 3.5, false, NULL, NULL, 2),
+    ('3', '2023-09-10', 'Customer service was outstanding, the staff member was very attentive.', 4.9, true, NULL, 3, NULL),
+    ('1', '2023-10-05', 'User provided great feedback that improved our service quality.', 3.7, true, NULL, 2, NULL),
+    ('2', '2023-11-25', 'Reservation included all requested amenities and special arrangements.', 4.4, true, 1, NULL, NULL),
+    ('3', '2023-12-16', 'The luxury suite had a panoramic city view, well worth the price.', 4.6, true, NULL, NULL, 2),
+    ('1', '2024-01-10', 'Booking was canceled last minute, which was very inconvenient.', 2.0, false, 3, NULL, NULL),
+    ('2', '2024-02-20', 'The villa provided a private beachfront that was absolutely pristine.', 5.0, true, NULL, NULL, 1),
+    ('3', '2024-03-30', 'User went above and beyond to ensure our comfort during the stay.', 4.2, true, NULL, 2, NULL),
+    ('1', '2024-04-12', 'The hostel location is perfect for tourists looking to explore downtown.', 3.5, true, NULL, NULL, 1),
+    ('2', '2024-05-18', 'Reservation was handled professionally, including accommodation for a late check-in.', 4.8, true, 3, NULL, NULL),
+    ('3', '2024-06-01', 'Customer service by the user was mediocre, somewhat disinterested.', 3.0, false, NULL, 1, NULL);
 
 -- Insert dummy data into Notification table
 INSERT INTO Notification (Content, CreationTime, Read, UserId)
