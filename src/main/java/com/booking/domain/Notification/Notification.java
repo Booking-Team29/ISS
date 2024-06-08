@@ -32,4 +32,25 @@ public class Notification {
 
     @Column(name = "userid")
     private Long userId;
+
+    public static Notification fromNotificationDTO(NotificationDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+        Notification notification = new Notification();
+        notification.setContent(dto.getContent());
+        notification.setCreationTime(dto.getCreationTime());
+        notification.setRead(dto.isRead());
+        notification.setUserId(dto.getUserId());
+        return notification;
+    }
+
+    public static NotificationDTO toNotificationDTO(Notification notification) {
+        return new NotificationDTO(
+                notification.getContent(),
+                notification.getCreationTime(),
+                notification.isRead(),
+                notification.getUserId()
+        );
+    }
 }
