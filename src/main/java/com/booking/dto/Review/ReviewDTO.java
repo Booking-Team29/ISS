@@ -13,6 +13,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ReviewDTO {
     private Long reviewId;
+
+    private String reviewerEmail;
+
     private LocalDate reviewDate;
     private String description;
     private Double rating;
