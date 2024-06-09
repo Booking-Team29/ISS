@@ -1,6 +1,7 @@
 package com.booking.controller;
-import com.booking.dto.Notification.CreateNotificationDTO;
-import com.booking.dto.Notification.RetrieveNotificationDTO;
+import com.booking.dto.Notification.NotificationDTO;
+import com.booking.service.NotificationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +19,18 @@ import java.util.List;
 @RequestMapping("/api/v1/notification")
 public class NotificationController {
 
+    private final NotificationService notificationService;
+
+    @Autowired
+    public NotificationController(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
+
     @PostMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<CreateNotificationDTO> createNotification(@RequestBody CreateNotificationDTO notification) {
+    public ResponseEntity<NotificationDTO> createNotification(@RequestBody NotificationDTO notification) {
         // implement service
         return new ResponseEntity<>(notification, HttpStatus.CREATED);
     }
@@ -30,8 +38,9 @@ public class NotificationController {
     @GetMapping (
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<List<RetrieveNotificationDTO>> getAllNotifications() {
-        List<RetrieveNotificationDTO> notifications = new ArrayList<>(); // implement service
+    public ResponseEntity<List<NotificationDTO>> getAllNotifications() {
+        List<NotificationDTO> notifications = this.notificationService.getAllNotifications();
+
         return new ResponseEntity<>(notifications, HttpStatus.OK);
     }
 
@@ -40,18 +49,15 @@ public class NotificationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             path = "/{id}"
     )
-    public ResponseEntity<RetrieveNotificationDTO> getNotificationById(@PathVariable Long id) {
-        RetrieveNotificationDTO notification = new RetrieveNotificationDTO(); // implement service
-        return new ResponseEntity<>(notification, HttpStatus.OK);
+    public ResponseEntity<NotificationDTO> getNotificationById(@PathVariable Long id) {
+        return new ResponseEntity<>(this.notificationService.getNotificationById(id), HttpStatus.OK);
     }
 
     @GetMapping (
             produces = MediaType.APPLICATION_JSON_VALUE,
             value = "/user/{id}"
     )
-    public ResponseEntity<List<RetrieveNotificationDTO>> getNotificationsByUserId(@PathVariable Long id) {
-        List<RetrieveNotificationDTO> notifications = new ArrayList<>(); // implement service
-        return new ResponseEntity<>(notifications, HttpStatus.OK);
+    public ResponseEntity<List<NotificationDTO>> getNotificationsByUserId(@PathVariable Long id) {
+        return new ResponseEntity<>(this.notificationService.getNotificationsByUserId(id), HttpStatus.OK);
     }
 }
-
