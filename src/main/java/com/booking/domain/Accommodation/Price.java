@@ -31,18 +31,26 @@ public class Price {
     @Column(name = "enddate")
     private LocalDate end;
 
-    @ManyToOne(
-            fetch = FetchType.EAGER
-    )
-    @JoinColumn(name = "accommodationid")
-    @JsonIgnore // avoid infinite recursion (dont serialize ?)
+//    @ManyToOne(
+//            fetch = FetchType.EAGER
+//    )
+//    @JoinColumn(name = "accommodationid")
+//    @JsonIgnore // avoid infinite recursion (dont serialize ?)
+//    private Accommodation accommodation;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "accommodationid", insertable = false, updatable = false)
+    @JsonIgnore
     private Accommodation accommodation;
 
-    public Price(String type, double amount, LocalDate start, LocalDate end, Accommodation accommodation) {
+    @Column(name = "accommodationid")
+    private Long accommodationId;
+
+    public Price(String type, double amount, LocalDate start, LocalDate end, Long accommodationId) {
         Type = type;
         this.amount = amount;
         this.start = start;
         this.end = end;
-        this.accommodation = accommodation;
+        this.accommodationId = accommodationId;
     }
 }

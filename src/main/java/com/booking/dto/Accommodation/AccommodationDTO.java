@@ -29,6 +29,7 @@ public class AccommodationDTO {
     private com.booking.domain.Accommodation.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
+    private int ownerid;
 
     public static AccommodationDTO fromAccommodation(Accommodation acc) {
         AccommodationDTO dto = new AccommodationDTO();

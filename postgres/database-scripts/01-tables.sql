@@ -40,8 +40,9 @@ CREATE TABLE Accommodation (
     Images TEXT[],
     Type VARCHAR(255),
     ConfirmationMethod VARCHAR(255),
-    AutoAccept BOOLEAN,
-    OwnerId INT REFERENCES Account (UserId)
+    FOREIGN KEY (OwnerId) INT REFERENCES Account (UserId),
+    FreeSlots INT[],
+    AutoAccept BOOLEAN
 );
 
 CREATE TABLE AccommodationFreeSlot
@@ -126,7 +127,7 @@ CREATE TABLE Price (
     Amount FLOAT,
     StartDate DATE,
     EndDate DATE,
-    AccommodationId INT REFERENCES Accommodation (id)
+    FOREIGN KEY (AccommodationId) INT REFERENCES Accommodation (id)
 );
 
 -- Create OwnerReview table

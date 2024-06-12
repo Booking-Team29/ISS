@@ -1,6 +1,9 @@
 package com.booking.service;
 
+import com.booking.domain.Accommodation.Accommodation;
 import com.booking.domain.Accommodation.AccommodationFreeSlot;
+import com.booking.dto.Accommodation.AccommodationFreeSlotDTO;
+import com.booking.dto.Accommodation.CreateAccommodationDTO;
 import com.booking.repository.AccommodationFreeSlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,8 @@ import java.util.Optional;
 public class AccommodationFreeSlotServiceImpl implements AccommodationFreeSlotService {
     @Autowired
     private AccommodationFreeSlotRepository repository;
+    @Autowired
+    private AccommodationFreeSlotRepository accommodationFreeSlotRepository;
 
 
     public Optional<AccommodationFreeSlot> findOne(Long id) {
@@ -20,6 +25,11 @@ public class AccommodationFreeSlotServiceImpl implements AccommodationFreeSlotSe
 
     public AccommodationFreeSlot saveAccommodationFreeSlot(AccommodationFreeSlot slot) {
         return repository.save(slot);
+    }
+
+    public AccommodationFreeSlot createAccommodationFreeSlot(AccommodationFreeSlotDTO dto) {
+        AccommodationFreeSlot accommodationFreeSlot = AccommodationFreeSlot.fromCreateDTO(dto);
+        return accommodationFreeSlotRepository.save(accommodationFreeSlot);
     }
 
     public void deleteAccommodationFreeSlot(AccommodationFreeSlot slot) {

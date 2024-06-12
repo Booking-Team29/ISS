@@ -35,7 +35,7 @@ public class AccountController {
             path = "/{email}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @PreAuthorize("hasAnyAuthority('Guest', 'Owner', 'Admin')")
+    @PreAuthorize("hasAnyAuthority('GUEST', 'OWNER', 'ADMIN')")
     public ResponseEntity<UserDTO> getByEmail(@PathVariable String email) {
         Optional<Account> acc = userService.findByEmail(email);
         if (acc.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
