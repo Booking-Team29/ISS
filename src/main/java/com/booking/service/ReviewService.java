@@ -10,12 +10,12 @@ public interface ReviewService {
     public Optional<Double> accommodationRating(Long accommodationId);
     public Optional<Review> findById(Long id);
     public void deleteById(Long reviewId);
-    public void createUserReview(ReviewDTO review);
+    public ReviewDTO createUserReview(ReviewDTO review);
 
     public List<ReviewDTO> getAllAccommodationReviews();
     public List<ReviewDTO> getAccommodationReviewsByAccommodationId(Long accommodationId);
 
-    public void createAccommodationReview(ReviewDTO review);
+    public ReviewDTO createAccommodationReview(ReviewDTO review);
 
     public void deleteReview(Long reviewId);
 }

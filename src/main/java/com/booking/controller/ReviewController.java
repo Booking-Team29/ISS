@@ -47,8 +47,12 @@ public class ReviewController {
             path = "/accommodation"
     )
     public ResponseEntity<ReviewDTO> createAccommodationReview(@RequestBody ReviewDTO review) {
-        this.reviewService.createAccommodationReview(review);
-        return new ResponseEntity<>(review, HttpStatus.CREATED);
+        if (review.getAccommodationId() == null || review.getReviewerEmail() == null || review.getRating() == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        if (review.getRating() < 0 || review.getRating() > 5) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        var response = this.reviewService.createAccommodationReview(review);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping (

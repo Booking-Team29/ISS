@@ -3,6 +3,7 @@ package com.booking.service;
 import com.booking.domain.Review.Review;
 import com.booking.dto.Review.ReviewDTO;
 import com.booking.repository.ReviewsRepository;
+import com.booking.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,12 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     public ReviewsRepository reviewsRepository;
 
+    @Autowired
+    public UserService userService;
+
+    @Autowired
+    public UserRepository userRepository;
+
     @Override
     public Optional<Double> accommodationRating(Long accommodationId) { return reviewsRepository.ratingForAccommodation(accommodationId); }
 
@@ -33,7 +40,7 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewDTO> getAllAccommodationReviews() {
         List<ReviewDTO> dtos = new ArrayList<>();
         for (Review review : reviewsRepository.getAllAccommodationReviews()) {
-            dtos.add(review.toDTO());
+            dtos.add(Review.toDTO(review, userRepository));
         }
         return dtos;
     }
@@ -42,20 +49,22 @@ public class ReviewServiceImpl implements ReviewService {
         List<ReviewDTO> dtos = new ArrayList<>();
         for (Review review : reviewsRepository.getAccommodationReviewsByAccommodationId(accommodationId)) {
             if (review.getAccommodationId().equals(accommodationId)) {
-                dtos.add(review.toDTO());
+                dtos.add(Review.toDTO(review, userRepository));
             }
         }
         return dtos;
     }
 
-    public void createUserReview(ReviewDTO dto) {
-        Review review = Review.fromDTO(dto);
-        reviewsRepository.save(review);
+    public ReviewDTO createUserReview(ReviewDTO dto) {
+        Review review = Review.fromDTO(dto, userService);
+
+        return Review.toDTO(reviewsRepository.save(review), userRepository);
     }
 
-    public void createAccommodationReview(ReviewDTO dto) {
-        Review newReview = Review.fromDTO(dto);
-        reviewsRepository.save(newReview);
+    public ReviewDTO createAccommodationReview(ReviewDTO dto) {
+        Review review = Review.fromDTO(dto, userService);
+
+        return Review.toDTO(reviewsRepository.save(review), userRepository);
     }
 
     public void deleteReview(Long reviewId) {
