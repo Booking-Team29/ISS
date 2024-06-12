@@ -70,4 +70,12 @@ public class ReviewServiceImpl implements ReviewService {
     public void deleteReview(Long reviewId) {
         reviewsRepository.deleteById(reviewId);
     }
+
+    public List<ReviewDTO> getUserReviewsById(Long userId) {
+        List<ReviewDTO> dtos = new ArrayList<>();
+        for (Review review : reviewsRepository.getUserReviewsById(userId)) {
+            dtos.add(Review.toDTO(review, userRepository));
+        }
+        return dtos;
+    }
 }

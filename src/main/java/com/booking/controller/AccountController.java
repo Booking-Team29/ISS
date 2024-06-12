@@ -137,4 +137,16 @@ public class AccountController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(
+            path = "/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('GUEST')")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        Account acc = userService.findById(id);
+        UserDTO accDto = new UserDTO();
+        accDto.FromUser(acc);
+        return new ResponseEntity<>(accDto, HttpStatus.OK);
+    }
 }

@@ -88,7 +88,7 @@ public class ReviewController {
             path = "/owner/{ownerId}"
     )
     public ResponseEntity<List<ReviewDTO>> getOwnerReviewsById(@PathVariable Long ownerId) {
-        List<ReviewDTO> reviews = new ArrayList<>(); // implement service
+        List<ReviewDTO> reviews = this.reviewService.getUserReviewsById(ownerId);
 
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }

@@ -22,6 +22,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
+    public Account findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 
     @Override
     public Account save(Account account) {

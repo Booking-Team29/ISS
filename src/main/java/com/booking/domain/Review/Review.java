@@ -57,6 +57,7 @@ public class Review {
         review.setRating(dto.getRating());
         review.setApproved(dto.getApproved());
         review.setReservationId(dto.getReservationId());
+        review.setUserId(dto.getUserId());
 
         Optional<Account> acc = userService.findByEmail(dto.getReviewerEmail());
         if (acc.isEmpty()) {

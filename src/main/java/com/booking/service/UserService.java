@@ -9,4 +9,5 @@ public interface UserService extends UserDetailsService {
     public Account save(Account account);
     public Optional<Account> findByEmail(String email);
     public void blockUser(String email);
+    public Account findById(Long id);
 }
