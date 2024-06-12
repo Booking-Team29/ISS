@@ -14,6 +14,7 @@ public interface ReviewService {
 
     public List<ReviewDTO> getAllAccommodationReviews();
     public List<ReviewDTO> getAccommodationReviewsByAccommodationId(Long accommodationId);
+    public List<ReviewDTO> getUserReviewsById(Long userId);
 
     public ReviewDTO createAccommodationReview(ReviewDTO review);
 

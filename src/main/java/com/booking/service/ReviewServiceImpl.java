@@ -58,6 +58,11 @@ public class ReviewServiceImpl implements ReviewService {
     public ReviewDTO createUserReview(ReviewDTO dto) {
         Review review = Review.fromDTO(dto, userService);
 
+        System.out.println("gaming: "+ review);
+        System.out.println("gaming2:");
+        System.out.println(dto.getUserId());
+
+
         return Review.toDTO(reviewsRepository.save(review), userRepository);
     }
 
@@ -69,5 +74,18 @@ public class ReviewServiceImpl implements ReviewService {
 
     public void deleteReview(Long reviewId) {
         reviewsRepository.deleteById(reviewId);
+    }
+
+    public List<ReviewDTO> getUserReviewsById(Long userId) {
+        System.out.println("hello");
+        for (Review review : reviewsRepository.findAll()) {
+            System.out.println(review);
+        }
+        List<ReviewDTO> dtos = new ArrayList<>();
+        for (Review review : reviewsRepository.getUserReviewsById(userId)) {
+            System.out.println(review);
+            dtos.add(Review.toDTO(review, userRepository));
+        }
+        return dtos;
     }
 }

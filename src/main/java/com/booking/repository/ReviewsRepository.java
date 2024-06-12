@@ -30,4 +30,7 @@ public interface ReviewsRepository extends GenericRepository<Review> {
 
     @Query("SELECT r FROM Review r WHERE r.accommodationId = :accommodationId")
     public List<Review> getAccommodationReviewsByAccommodationId(Long accommodationId);
+
+    @Query("SELECT r FROM Review r WHERE r.userId = :userId")
+    public List<Review> getUserReviewsById(Long userId);
 }

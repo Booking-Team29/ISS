@@ -2,10 +2,13 @@ package com.booking.controller;
 
 import com.booking.Helpers;
 import com.booking.domain.Accommodation.Accommodation;
+import com.booking.domain.User.Account;
 import com.booking.dto.Accommodation.*;
+import com.booking.dto.User.UserDTO;
 import com.booking.service.AccommodationFreeSlotService;
 import com.booking.service.AccommodationService;
 import com.booking.service.ReviewService;
+import com.booking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,12 +32,14 @@ public class AccommodationController {
     private AccommodationService accommodationService;
     private ReviewService reviewService;
     private AccommodationFreeSlotService slotService;
+    private UserService userService;
 
     @Autowired
-    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService) {
+    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService, UserService userService) {
         this.accommodationService = service;
         this.reviewService = review;
         this.slotService = accommodationFreeSlotService;
+        this.userService = userService;
     }
 
     @GetMapping(
@@ -138,5 +143,26 @@ public class AccommodationController {
                                                   @PathVariable Long accommodationId) {
         //IMPLEMENT SERVICE
         return new ResponseEntity<>(defineReservationType, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyAuthority('GUEST')")
+    @GetMapping(
+            path = "/{accommodationId}/owner",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<UserDTO> getAccmOwnerInfo(@PathVariable Long accommodationId) {
+        Accommodation accm = accommodationService.findOne(accommodationId);
+
+        // TODO: FIND OUT WHY THE SECOND AND THIRD ACCOMMODATIONS HAVE OWNERID NULL
+        Account acc = userService.findById(accm.getOwnerId());
+        UserDTO owner = new UserDTO();
+        owner.setEmailAddress(acc.getEmailAddress());
+        owner.setFirstName(acc.getFirstName());
+        owner.setLastName(acc.getLastName());
+        owner.setPhoneNumber(acc.getPhoneNumber());
+        owner.setUserStatus(acc.getUserStatus());
+        owner.setUserId(acc.getUserId());
+
+        return new ResponseEntity<>(owner, HttpStatus.OK);
     }
 }
