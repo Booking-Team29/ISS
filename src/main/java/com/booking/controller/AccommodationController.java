@@ -75,7 +75,7 @@ public class AccommodationController {
             consumes = MediaType.APPLICATION_JSON_VALUE
 
     )
-    @PreAuthorize("hasAnyAuthority('OWNER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'OWNER')")
     public ResponseEntity<?> changeAccommodationData(@PathVariable Long accommodationId,
                                                                      @RequestBody ChangeAccommodationDTO changeAccommodationData) {
         Accommodation accommodation = accommodationService.changeAccommodation(changeAccommodationData);
