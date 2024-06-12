@@ -80,6 +80,7 @@ public class WebSecurityConfiguration {
                     .requestMatchers(HttpMethod.POST, "/api/v1/account/login").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/v1/account/register").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/review/rating/{accommodatinoId}").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/review/accommodation/{accommodatinoId}").permitAll()
 
                     .anyRequest().authenticated();
         });
