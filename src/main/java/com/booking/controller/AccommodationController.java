@@ -2,6 +2,10 @@ package com.booking.controller;
 
 import com.booking.Helpers;
 import com.booking.domain.Accommodation.Accommodation;
+import com.booking.domain.Accommodation.AccommodationFreeSlot;
+import com.booking.domain.Accommodation.Price;
+import com.booking.dto.Accommodation.*;
+import com.booking.service.*;
 import com.booking.domain.User.Account;
 import com.booking.dto.Accommodation.*;
 import com.booking.dto.User.UserDTO;
@@ -33,13 +37,20 @@ public class AccommodationController {
     private ReviewService reviewService;
     private AccommodationFreeSlotService slotService;
     private UserService userService;
+    private PriceService priceService;
+
+
+    private UserService userService;
+    private PriceService priceService;
+
 
     @Autowired
-    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService, UserService userService) {
+    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService, UserService userService, PriceService priceService) {
         this.accommodationService = service;
         this.reviewService = review;
         this.slotService = accommodationFreeSlotService;
         this.userService = userService;
+        this.priceService = priceService;
     }
 
     @GetMapping(
@@ -58,7 +69,29 @@ public class AccommodationController {
     @PreAuthorize("hasAnyAuthority('OWNER')")
     public ResponseEntity<?> createAccommodation(@RequestBody CreateAccommodationDTO newAccommodation) {
         Accommodation accommodation = accommodationService.saveAccommodation(newAccommodation);
+
+        for (Price price : accommodation.getPrices()) {
+            price.setAccommodation(accommodation);
+            priceService.savePrice(price);
+        }
+        for (CreateAccommodationFreeSlotDTO freeSlot : newAccommodation.getFreeSlots()) {
+            freeSlot.setAccommodationId(accommodation.getID());
+            AccommodationFreeSlot x = AccommodationFreeSlot.fromCreateDTO(freeSlot);
+            slotService.saveAccommodationFreeSlot(x);
+        }
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
+    }
+
+
+    @PostMapping(
+            path = "/free-slot/{accommodationId}",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
+    public ResponseEntity<?> createAccommodationFreeSlot(@RequestBody AccommodationFreeSlot newAccommodationFreeSlot) {
+        AccommodationFreeSlot accommodationFreeSlot = slotService.saveAccommodationFreeSlot(newAccommodationFreeSlot);
+        return new ResponseEntity<>(accommodationFreeSlot, HttpStatus.OK);
     }
 
     @PutMapping(
@@ -69,8 +102,8 @@ public class AccommodationController {
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> approveAccommodation(@RequestBody ApproveAccommodationDTO approveAccommodation,
                                                   @PathVariable Long accommodationId) {
-
-        Accommodation accommodation = accommodationService.approveAccommodation(approveAccommodation);
+        Accommodation accommodation = accommodationService.findOne(accommodationId);
+        accommodationService.approveAccommodation(approveAccommodation);
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
@@ -95,6 +128,17 @@ public class AccommodationController {
     public ResponseEntity<List<Accommodation>> getFavoriteAccommodations(@PathVariable Long guestId) {
 
         List<Accommodation> accommodations = accommodationService.getFavoriteAccommodations(guestId);
+        return new ResponseEntity<>(accommodations, HttpStatus.OK);
+    }
+
+    @GetMapping(
+            path = "/owner/{ownerId}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
+    public ResponseEntity<List<Accommodation>> getAccommodationsByOwnerId(@PathVariable Long ownerId) {
+
+        List<Accommodation> accommodations = accommodationService.getAccommodationsByOwnerId(ownerId);
         return new ResponseEntity<>(accommodations, HttpStatus.OK);
     }
 

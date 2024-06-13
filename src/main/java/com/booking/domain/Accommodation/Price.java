@@ -46,3 +46,4 @@ public class Price {
         this.accommodation = accommodation;
     }
 }
+

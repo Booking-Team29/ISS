@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Getter
@@ -66,6 +67,18 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     public List<Accommodation> getFavoriteAccommodations(Long guestId) {
         return accommodationRepository.findFavoritesByUserId(guestId);
+    }
+
+    @Override
+    public List<Accommodation> getAccommodationsByOwnerId(Long ownerId) {
+        List<Accommodation> ownerAccommodations = new ArrayList<>();
+        List<Accommodation> allAccommodation = accommodationRepository.findAll();
+        for(Accommodation accommodation: allAccommodation) {
+            if(Objects.equals(accommodation.getOwnerId(), ownerId)) {
+                ownerAccommodations.add(accommodation);
+            }
+        }
+        return ownerAccommodations;
     }
 
     public List<Accommodation> filterAccommodation(String destination, int numberOfPeople) {

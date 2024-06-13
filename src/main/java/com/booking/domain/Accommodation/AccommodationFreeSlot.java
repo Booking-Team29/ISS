@@ -1,5 +1,9 @@
 package com.booking.domain.Accommodation;
 
+import com.booking.dto.Accommodation.AccommodationFreeSlotDTO;
+import com.booking.dto.Accommodation.CreateAccommodationDTO;
+import com.booking.dto.Accommodation.CreateAccommodationFreeSlotDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,4 +34,15 @@ public class AccommodationFreeSlot {
 
     @Column(name = "available")
     private Boolean available;
+
+    public static AccommodationFreeSlot fromCreateDTO(CreateAccommodationFreeSlotDTO dto) {
+        AccommodationFreeSlot accommodationFreeSlot = new AccommodationFreeSlot();
+        accommodationFreeSlot.setStartDate(dto.getStartDate());
+        accommodationFreeSlot.setEndDate(dto.getEndDate());
+        accommodationFreeSlot.setAccommodationId(dto.getAccommodationId());
+        accommodationFreeSlot.setAvailable(dto.getAvailable());
+        return accommodationFreeSlot;
+    }
+
 }
+
