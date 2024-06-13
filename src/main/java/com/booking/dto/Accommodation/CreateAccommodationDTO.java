@@ -1,5 +1,6 @@
 package com.booking.dto.Accommodation;
 
+import com.booking.domain.Accommodation.AccommodationFreeSlot;
 import com.booking.domain.Accommodation.AccommodationType;
 import com.booking.domain.Accommodation.ConfirmationMethod;
 import com.booking.domain.Accommodation.Price;
@@ -14,7 +15,6 @@ import java.util.List;
 @Data
 @EqualsAndHashCode
 public class CreateAccommodationDTO {
-
     private String Name;
     private String Description;
     private String Location;
@@ -29,5 +29,6 @@ public class CreateAccommodationDTO {
     private List<String> Images;
     private AccommodationType Type;
     private ConfirmationMethod confirmationMethod;
-
+    private int ownerId;
+    private List<CreateAccommodationFreeSlotDTO> freeSlots;
 }

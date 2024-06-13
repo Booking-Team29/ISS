@@ -1,6 +1,7 @@
 package com.booking.dto.Accommodation;
 
 import com.booking.domain.Accommodation.AccommodationType;
+import com.booking.domain.Accommodation.ConfirmationMethod;
 import com.booking.domain.Accommodation.Price;
 import lombok.*;
 
@@ -28,4 +29,6 @@ public class ApproveAccommodationDTO {
     private com.booking.domain.Accommodation.AccommodationStatus AccommodationStatus;
     private List<String> Images;
     private AccommodationType Type;
+    private ConfirmationMethod ConfirmationMethod;
+    private Long OwnerID;
 }

@@ -35,7 +35,7 @@ public class AccountController {
             path = "/{email}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @PreAuthorize("hasAnyAuthority('Guest', 'Owner', 'Admin')")
+    @PreAuthorize("hasAnyAuthority('GUEST', 'OWNER', 'ADMIN')")
     public ResponseEntity<UserDTO> getByEmail(@PathVariable String email) {
         Optional<Account> acc = userService.findByEmail(email);
         if (acc.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -81,24 +81,62 @@ public class AccountController {
         return new ResponseEntity<>(registerData, HttpStatus.CREATED);
     }
 
-    @PutMapping(
-            path = "/{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE,
-            consumes = MediaType.APPLICATION_JSON_VALUE
-    )
-    @PreAuthorize("hasAnyAuthority('Guest', 'Owner', 'Admin')")
-    public ResponseEntity<ChangeUserDataDTO> changeUserData(@RequestBody ChangeUserDataDTO userChangeData,
-                                                            @PathVariable int id) {
-        //IMPLEMENT SERVICE
-        return new ResponseEntity<>(userChangeData, HttpStatus.OK);
-    }
+//    @PutMapping(
+//            path = "/{id}",
+//            produces = MediaType.APPLICATION_JSON_VALUE,
+//            consumes = MediaType.APPLICATION_JSON_VALUE
+//    )
+//    @PreAuthorize("hasAnyAuthority('GUEST', 'OWNER', 'ADMIN')")
+//    public ResponseEntity<Account> changeUserData(@RequestBody ChangeUserDataDTO userChangeData,
+//                                                            @PathVariable Long id) {
+//        Optional<Account> acc = userService.findById(id);
+//        if (acc.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//
+//        Account me = acc.get();
+//
+//        if (!userChangeData.getFirstName().isEmpty()) {
+//            me.setFirstName(userChangeData.getFirstName());
+//        }
+//
+//        if (!userChangeData.getLastName().isEmpty()) {
+//            me.setLastName(userChangeData.getLastName());
+//        }
+//
+//        if (!userChangeData.getEmail().isEmpty()) {
+//            Optional<Account> existing = userService.findByEmail(userChangeData.getEmail());
+//            if (!existing.isEmpty()) {
+//                Account x = existing.get();
+//                if (!x.getUserId().equals(me.getUserId())) {
+//                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//                }
+//            }
+//
+//            me.setEmailAddress(userChangeData.getEmail());
+//        }
+//
+//        if (!userChangeData.getPassword().isEmpty()) {
+//            me.setHashedPassword(userChangeData.getPassword());
+//        }
+//
+//        if (!userChangeData.getAddress().isEmpty()) {
+//            me.setHomeAddress(userChangeData.getAddress());
+//        }
+//
+//        if (userChangeData.getPhone() != 0) {
+//            me.setHomeAddress(userChangeData.getAddress());
+//        }
+//
+//
+//        userService.save(me);
+//        return new ResponseEntity<>(userChangeData, HttpStatus.OK);
+//    }
 
     @DeleteMapping(
-            path = "/{id}"
+            path = "/delete/{id}"
     )
-    @PreAuthorize("hasAnyAuthority('Guest', 'Owner', 'Admin')")
+    @PreAuthorize("hasAnyAuthority('GUEST', 'OWNER', 'ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        //IMPLEMENT SERVICE
+        this.userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

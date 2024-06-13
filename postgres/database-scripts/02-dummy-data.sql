@@ -101,3 +101,4 @@ VALUES
     (1, 2),  -- John Doe's another favorite accommodation
     (2, 3),  -- Jane Smith's favorite accommodation
     (3, 1);  -- Bob Johnson's favorite accommodation
+

@@ -30,5 +30,4 @@ public class ChangeAccommodationDTO {
     private List<String> Images;
     private AccommodationType Type;
     private ConfirmationMethod confirmationMethod;
-
 }

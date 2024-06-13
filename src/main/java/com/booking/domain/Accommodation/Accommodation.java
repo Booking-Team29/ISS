@@ -9,6 +9,7 @@ import lombok.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @ToString
@@ -74,7 +75,9 @@ public class Accommodation {
     @Column(name = "ownerid")
     private Long ownerId;
 
-    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, ConfirmationMethod confirmationMethod) {
+
+
+    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, ConfirmationMethod confirmationMethod, Long ownerId) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -90,6 +93,7 @@ public class Accommodation {
         this.images = images;
         this.type = type;
         this.confirmationMethod = confirmationMethod;
+        this.ownerId = ownerId;
     }
 
     // Static factory method
@@ -109,6 +113,7 @@ public class Accommodation {
         accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
         accommodation.setConfirmationMethod(dto.getConfirmationMethod());
+        accommodation.setOwnerId((long) dto.getOwnerId());
         return accommodation;
     }
 
@@ -130,6 +135,8 @@ public class Accommodation {
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
         accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
+        accommodation.setConfirmationMethod(dto.getConfirmationMethod());
+        accommodation.setOwnerId(dto.getOwnerID());
         return accommodation;
     }
 

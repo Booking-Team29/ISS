@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findOneByEmail(email);
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Account> acc = userRepository.findOneByEmail(username);
@@ -50,6 +51,14 @@ public class UserServiceImpl implements UserService {
         Optional<Account> acc = userRepository.findById(userId);
         if (acc.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
         acc.get().setUserStatus(UserStatus.BLOCKED);
+        userRepository.save(acc.get());
+    }
+
+    @Override
+    public void delete(Long id) {
+        Optional<Account> acc = userRepository.findById(id);
+        if (acc.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
+        acc.get().setUserStatus(UserStatus.DELETED);
         userRepository.save(acc.get());
     }
 }
