@@ -22,6 +22,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
+    public Account findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 
     @Override
     public Account save(Account account) {
@@ -43,8 +47,8 @@ public class UserServiceImpl implements UserService {
     }
 
     // the following method is used for blocking a user (setting the users status to BLOCKED)
-    public void blockUser(String email) {
-        Optional<Account> acc = userRepository.findOneByEmail(email);
+    public void blockUser(Long userId) {
+        Optional<Account> acc = userRepository.findById(userId);
         if (acc.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
         acc.get().setUserStatus(UserStatus.BLOCKED);
         userRepository.save(acc.get());

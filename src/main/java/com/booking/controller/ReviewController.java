@@ -47,8 +47,12 @@ public class ReviewController {
             path = "/accommodation"
     )
     public ResponseEntity<ReviewDTO> createAccommodationReview(@RequestBody ReviewDTO review) {
-        this.reviewService.createAccommodationReview(review);
-        return new ResponseEntity<>(review, HttpStatus.CREATED);
+        if (review.getAccommodationId() == null || review.getReviewerEmail() == null || review.getRating() == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        if (review.getRating() < 0 || review.getRating() > 5) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        var response = this.reviewService.createAccommodationReview(review);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping (
@@ -84,7 +88,7 @@ public class ReviewController {
             path = "/owner/{ownerId}"
     )
     public ResponseEntity<List<ReviewDTO>> getOwnerReviewsById(@PathVariable Long ownerId) {
-        List<ReviewDTO> reviews = new ArrayList<>(); // implement service
+        List<ReviewDTO> reviews = this.reviewService.getUserReviewsById(ownerId);
 
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }

@@ -1,10 +1,15 @@
 package com.booking.domain.Review;
 
+import com.booking.domain.User.Account;
 import com.booking.dto.Review.ReviewDTO;
+import com.booking.repository.UserRepository;
+import com.booking.service.UserService;
+import com.booking.service.UserServiceImpl;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Entity
 @NoArgsConstructor
@@ -17,6 +22,9 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reviewid")
     protected Long reviewId;
+
+    @Column(name = "reviewerid")
+    protected Long reviewerId;
 
     @Column(name = "reviewdate")
     protected LocalDate reviewDate;
@@ -39,7 +47,7 @@ public class Review {
     @Column(name = "accommodationid", nullable = true)
     protected Long accommodationId;
 
-    public static Review fromDTO(ReviewDTO dto) {
+    public static Review fromDTO(ReviewDTO dto, UserService userService) {
         if (dto == null) {
             return null;
         }
@@ -50,20 +58,38 @@ public class Review {
         review.setApproved(dto.getApproved());
         review.setReservationId(dto.getReservationId());
         review.setUserId(dto.getUserId());
+
+        Optional<Account> acc = userService.findByEmail(dto.getReviewerEmail());
+        if (acc.isEmpty()) {
+            throw new IllegalArgumentException("User with email (" + dto.getReviewerEmail() + ") not found");
+        }
+
+        Long reviewerId = acc.get().getUserId();
+        review.setReviewerId(reviewerId);
+
         review.setAccommodationId(dto.getAccommodationId());
+
+        assert review.reviewerId != null;
         return review;
     }
 
-    public ReviewDTO toDTO() {
+    public static ReviewDTO toDTO(Review review, UserRepository userRepo) {
+        Optional<Account> acc = userRepo.findById(review.getReviewerId());
+        if (acc.isEmpty()) {
+            throw new IllegalArgumentException("User with id (" + review.getReviewerId() + ") not found");
+        }
+        String email = acc.get().getEmailAddress();
+
         return new ReviewDTO(
-                this.reviewId,
-                this.reviewDate,
-                this.description,
-                this.rating,
-                this.approved,
-                this.reservationId,
-                this.userId,
-                this.accommodationId
+                review.reviewId,
+                email,
+                review.reviewDate,
+                review.description,
+                review.rating,
+                review.approved,
+                review.reservationId,
+                review.userId,
+                review.accommodationId
         );
     }
 }
