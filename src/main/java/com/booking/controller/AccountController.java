@@ -128,12 +128,12 @@ public class AccountController {
 
     // the following method is used to block a user
     @PostMapping(
-            path = "/block/{email}",
+            path = "/block/{userId}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @PreAuthorize("hasAnyAuthority('Admin')")
-    public ResponseEntity<ChangeUserDataDTO> blockUser(@PathVariable String email) {
-        userService.blockUser(email);
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public ResponseEntity<ChangeUserDataDTO> blockUser(@PathVariable Long userId) {
+        userService.blockUser(userId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
