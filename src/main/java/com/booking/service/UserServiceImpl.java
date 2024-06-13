@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.booking.domain.User.UserStatus;
 
 import java.util.Optional;
 
@@ -21,6 +22,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Override
+    public Account findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 
     @Override
     public Account save(Account account) {
@@ -38,5 +43,13 @@ public class UserServiceImpl implements UserService {
         Optional<Account> acc = userRepository.findOneByEmail(username);
         if (acc.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
         return acc.get();
+    }
+
+    // the following method is used for blocking a user (setting the users status to BLOCKED)
+    public void blockUser(String email) {
+        Optional<Account> acc = userRepository.findOneByEmail(email);
+        if (acc.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
+        acc.get().setUserStatus(UserStatus.BLOCKED);
+        userRepository.save(acc.get());
     }
 }

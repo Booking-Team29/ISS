@@ -81,6 +81,7 @@ CREATE TABLE ReservationRequest (
 -- Create Review table
 CREATE TABLE Review (
     ReviewId SERIAL PRIMARY KEY,
+    ReviewerId INT REFERENCES Account (UserId),
     ReviewDate DATE,
     Description TEXT,
     Rating FLOAT,
