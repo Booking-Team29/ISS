@@ -5,10 +5,7 @@ import com.booking.domain.Accommodation.Accommodation;
 import com.booking.domain.Accommodation.AccommodationFreeSlot;
 import com.booking.domain.Accommodation.Price;
 import com.booking.dto.Accommodation.*;
-import com.booking.service.AccommodationFreeSlotService;
-import com.booking.service.AccommodationService;
-import com.booking.service.PriceService;
-import com.booking.service.ReviewService;
+import com.booking.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,14 +29,17 @@ public class AccommodationController {
     private AccommodationService accommodationService;
     private ReviewService reviewService;
     private AccommodationFreeSlotService slotService;
+
+    private UserService userService;
     private PriceService priceService;
 
 
     @Autowired
-    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService, PriceService priceService) {
+    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService, UserService userService, PriceService priceService) {
         this.accommodationService = service;
         this.reviewService = review;
         this.slotService = accommodationFreeSlotService;
+        this.userService = userService;
         this.priceService = priceService;
     }
 
