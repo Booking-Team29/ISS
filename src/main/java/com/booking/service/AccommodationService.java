@@ -21,6 +21,8 @@ public interface AccommodationService {
 
     public List<Accommodation> getFavoriteAccommodations(Long guestId);
 
+    public List<Accommodation> getAccommodationsByOwnerId(Long ownerId);
+
     public void deleteAccommodation(Accommodation accommodation);
 
     public List<Accommodation> filterAccommodation(String destination, int numberOfPeople);

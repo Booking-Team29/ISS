@@ -61,12 +61,13 @@ public class AccommodationController {
         Accommodation accommodation = accommodationService.saveAccommodation(newAccommodation);
 
         for (Price price : accommodation.getPrices()) {
-            price.setAccommodationId(accommodation.getID());
+            price.setAccommodation(accommodation);
             priceService.savePrice(price);
         }
-        for (AccommodationFreeSlot freeSlot : accommodation.getFreeSlots()) {
+        for (CreateAccommodationFreeSlotDTO freeSlot : newAccommodation.getFreeSlots()) {
             freeSlot.setAccommodationId(accommodation.getID());
-            slotService.saveAccommodationFreeSlot(freeSlot);
+            AccommodationFreeSlot x = AccommodationFreeSlot.fromCreateDTO(freeSlot);
+            slotService.saveAccommodationFreeSlot(x);
         }
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
@@ -91,8 +92,8 @@ public class AccommodationController {
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> approveAccommodation(@RequestBody ApproveAccommodationDTO approveAccommodation,
                                                   @PathVariable Long accommodationId) {
-
-        Accommodation accommodation = accommodationService.approveAccommodation(approveAccommodation);
+        Accommodation accommodation = accommodationService.findOne(accommodationId);
+        accommodationService.approveAccommodation(approveAccommodation);
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
 
@@ -117,6 +118,17 @@ public class AccommodationController {
     public ResponseEntity<List<Accommodation>> getFavoriteAccommodations(@PathVariable Long guestId) {
 
         List<Accommodation> accommodations = accommodationService.getFavoriteAccommodations(guestId);
+        return new ResponseEntity<>(accommodations, HttpStatus.OK);
+    }
+
+    @GetMapping(
+            path = "/owner/{ownerId}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('OWNER')")
+    public ResponseEntity<List<Accommodation>> getAccommodationsByOwnerId(@PathVariable Long ownerId) {
+
+        List<Accommodation> accommodations = accommodationService.getAccommodationsByOwnerId(ownerId);
         return new ResponseEntity<>(accommodations, HttpStatus.OK);
     }
 

@@ -15,7 +15,6 @@ import java.util.List;
 @Data
 @EqualsAndHashCode
 public class CreateAccommodationDTO {
-
     private String Name;
     private String Description;
     private String Location;
@@ -31,5 +30,5 @@ public class CreateAccommodationDTO {
     private AccommodationType Type;
     private ConfirmationMethod confirmationMethod;
     private int ownerId;
-    private List<AccommodationFreeSlot> freeSlots;
+    private List<CreateAccommodationFreeSlotDTO> freeSlots;
 }

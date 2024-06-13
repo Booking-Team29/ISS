@@ -1,10 +1,8 @@
 package com.booking.dto.Accommodation;
 
-import com.booking.domain.Accommodation.Accommodation;
-import com.booking.domain.Accommodation.AccommodationFreeSlot;
-import com.booking.domain.Accommodation.AccommodationType;
-import com.booking.domain.Accommodation.Price;
+import com.booking.domain.Accommodation.*;
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,6 +29,9 @@ public class GetAccommodationDTO {
     private List<String> Images;
     private AccommodationType Type;
     private List<AccommodationFreeSlot> slots;
+    private ConfirmationMethod ConfirmationMethod;
+    private Long ownerID;
+
 
     public static GetAccommodationDTO fromAccommodation(Accommodation accommodationDTO) {
         GetAccommodationDTO res = new GetAccommodationDTO();
@@ -48,6 +49,8 @@ public class GetAccommodationDTO {
         res.AccommodationStatus = accommodationDTO.getAccommodationStatus();
         res.Images = accommodationDTO.getImages();
         res.Type = accommodationDTO.getType();
+        res.ConfirmationMethod = accommodationDTO.getConfirmationMethod();
+        res.ownerID = accommodationDTO.getOwnerId();
         return res;
     }
 

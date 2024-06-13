@@ -75,16 +75,9 @@ public class Accommodation {
     @Column(name = "ownerid")
     private Long ownerId;
 
-    @OneToMany(
-            mappedBy = "accommodation",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
-    private List<AccommodationFreeSlot> freeSlots;
 
 
-
-    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, ConfirmationMethod confirmationMethod, Long ownerId, List<AccommodationFreeSlot> freeSlots) {
+    public Accommodation(Long ID, String name, String description, String location, List<Float> locationCoordinates, int minGuests, int maxGuests, List<Price> prices, String pricingType, int daysForCancellation, List<String> amenities, AccommodationStatus accommodationStatus, List<String> images, AccommodationType type, ConfirmationMethod confirmationMethod, Long ownerId) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -101,7 +94,6 @@ public class Accommodation {
         this.type = type;
         this.confirmationMethod = confirmationMethod;
         this.ownerId = ownerId;
-        this.freeSlots = freeSlots;
     }
 
     // Static factory method
@@ -122,7 +114,6 @@ public class Accommodation {
         accommodation.setType(dto.getType());
         accommodation.setConfirmationMethod(dto.getConfirmationMethod());
         accommodation.setOwnerId((long) dto.getOwnerId());
-        accommodation.setFreeSlots(dto.getFreeSlots());
         return accommodation;
     }
 
@@ -144,6 +135,8 @@ public class Accommodation {
         accommodation.setAccommodationStatus(dto.getAccommodationStatus());
         accommodation.setImages(dto.getImages());
         accommodation.setType(dto.getType());
+        accommodation.setConfirmationMethod(dto.getConfirmationMethod());
+        accommodation.setOwnerId(dto.getOwnerID());
         return accommodation;
     }
 

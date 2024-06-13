@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<Account> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Account> acc = userRepository.findOneByEmail(username);
         if (acc.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
@@ -46,6 +51,14 @@ public class UserServiceImpl implements UserService {
         Optional<Account> acc = userRepository.findOneByEmail(email);
         if (acc.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
         acc.get().setUserStatus(UserStatus.BLOCKED);
+        userRepository.save(acc.get());
+    }
+
+    @Override
+    public void delete(Long id) {
+        Optional<Account> acc = userRepository.findById(id);
+        if (acc.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
+        acc.get().setUserStatus(UserStatus.DELETED);
         userRepository.save(acc.get());
     }
 }

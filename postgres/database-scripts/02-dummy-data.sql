@@ -10,24 +10,24 @@ VALUES
 -- Insert dummy data into Accommodation table
 INSERT INTO Accommodation (Name, Description, Location, LocationCoordinates, MinGuests, MaxGuests, Prices, PricingType, DaysForCancellation, Amenities, Status, Images, Type, ConfirmationMethod, AutoAccept, OwnerId)
 VALUES
-    ('Cozy Studio', 'A small and cozy studio apartment', 'Nevada', ARRAY[40.7128, -74.0060], 1, 2, '{100, 150}', 'GUEST', 7, '{"Wi-Fi", "Pet"}', 0, '{"https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'STUDIO', 'MANUAL', true, 5, [[]]),
-    ('Spacious Apartment', 'A spacious and modern apartment', 'Ohio', ARRAY[34.0522, -118.2437], 2, 4, '{200, 250}', 'ACCOMMODATION', 14, '{"Balcony"}', 0, '{"https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/172872/pexels-photo-172872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'APARTMENT', 'MANUAL', false, 5,[[]]),
-    ('Luxury Hotel', 'A luxurious hotel with all amenities', 'Oregon', ARRAY[51.5074, -0.1278], 2, 6, '{300, 400}', 'GUEST', 30, '{}', 0, '{"https://images.pexels.com/photos/97083/pexels-photo-97083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'HOTEL', 'MANUAL', true, 5,[[]]);
+    ('Cozy Studio', 'A small and cozy studio apartment', 'Nevada', ARRAY[40.7128, -74.0060], 1, 2, '{100, 150}', 'GUEST', 7, '{"Wi-Fi", "Pet"}', 0, '{"https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'STUDIO', 'MANUAL', true, 5),
+    ('Spacious Apartment', 'A spacious and modern apartment', 'Ohio', ARRAY[34.0522, -118.2437], 2, 4, '{200, 250}', 'ACCOMMODATION', 14, '{"Balcony"}', 0, '{"https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/172872/pexels-photo-172872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'APARTMENT', 'MANUAL', false, 5),
+    ('Luxury Hotel', 'A luxurious hotel with all amenities', 'Oregon', ARRAY[51.5074, -0.1278], 2, 6, '{300, 400}', 'GUEST', 30, '{}', 0, '{"https://images.pexels.com/photos/97083/pexels-photo-97083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"}', 'HOTEL', 'MANUAL', true, 5);
 
 INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationId) VALUES
-    ('2024-06-01', '2024-06-05', true, 1),
-    ('2024-06-10', '2024-06-15', true, 1),
-    ('2024-06-20', '2024-06-25', true, 1);
+                                                                                       ('2024-06-15', '2024-06-20', true, 1),
+                                                                                       ('2024-06-25', '2024-06-28', true, 1),
+                                                                                       ('2024-07-01', '2024-07-15', true, 1);
 
 INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationId) VALUES
-    ('2024-06-02', '2024-06-06', true, 2),
-    ('2024-06-11', '2024-06-16', true, 2),
-    ('2024-06-21', '2024-06-26', true, 2);
+                                                                                       ('2024-06-15', '2024-06-20', true, 2),
+                                                                                       ('2024-06-25', '2024-06-28', true, 2),
+                                                                                       ('2024-07-01', '2024-07-15', true, 2);
 
 INSERT INTO accommodationfreeslot (StartDate, EndDate, Available, AccommodationId) VALUES
-    ('2024-06-03', '2024-06-07', true, 3),
-    ('2024-06-12', '2024-06-17', true, 3),
-    ('2024-06-22', '2024-06-27', true, 3);
+                                                                                       ('2024-06-15', '2024-06-20', true, 3),
+                                                                                       ('2024-06-25', '2024-06-28', true, 3),
+                                                                                       ('2024-07-01', '2024-07-15', true, 3);
 
 
 -- Insert dummy data into Reservation table
@@ -37,11 +37,11 @@ VALUES
     ('2023-02-10', '2023-02-15', 3, 1, 250, 2, 2),
     ('2023-03-15', '2023-03-20', 4, 1, 400, 3, 3);
 
-INSERT INTO ReservationRequest (StartDate, EndDate, GuestsCount, Status, TotalPrice, UserId, AccommodationId, SlotId)
-VALUES
-    ('2023-01-05', '2023-01-10', 2, 0, 150, 1, 1, 1),
-    ('2023-02-10', '2023-02-15', 3, 0, 250, 2, 2, 2),
-    ('2023-03-15', '2023-03-20', 4, 0, 400, 3, 3, 3);
+-- INSERT INTO ReservationRequest (StartDate, EndDate, GuestsCount, Status, TotalPrice, UserId, AccommodationId, SlotId)
+-- VALUES
+--     ('2023-01-05', '2023-01-10', 2, 0, 150, 1, 1, 1),
+--     ('2023-02-10', '2023-02-15', 3, 0, 250, 2, 2, 2),
+--     ('2023-03-15', '2023-03-20', 4, 0, 400, 3, 3, 3);
 
 -- Insert dummy data into Review table
 INSERT INTO Review (ReviewerId, ReviewDate, Description, Rating, Approved, ReservationId, UserId, AccommodationId)
@@ -85,10 +85,10 @@ VALUES
 -- Insert dummy data into Price table
 INSERT INTO Price (Type, Amount, StartDate, EndDate, AccommodationId)
 VALUES
-    ('CUSTOM', 50.0, '2023-01-01', '2023-02-28', 1),
-    ('WEEKEND', 75.0, '2023-03-01', '2023-03-31', 2),
-    ('WEEKEND', 20.0, '2023-01-01', '2023-03-31', 1),
-    ('CUSTOM', 100.0, '2023-01-01', '2023-03-31', 3);
+    ('CUSTOM', 50.0, '2024-01-01', '2025-02-28', 1),
+    ('WEEKEND', 75.0, '2024-03-01', '2025-03-31', 2),
+    ('WEEKEND', 20.0, '2024-01-01', '2025-03-31', 1),
+    ('CUSTOM', 100.0, '2024-01-01', '2025-03-31', 3);
 
 -- Insert dummy data into OwnerReview table
 

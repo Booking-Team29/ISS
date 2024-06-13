@@ -27,11 +27,6 @@ public class AccommodationFreeSlotServiceImpl implements AccommodationFreeSlotSe
         return repository.save(slot);
     }
 
-    public AccommodationFreeSlot createAccommodationFreeSlot(AccommodationFreeSlotDTO dto) {
-        AccommodationFreeSlot accommodationFreeSlot = AccommodationFreeSlot.fromCreateDTO(dto);
-        return accommodationFreeSlotRepository.save(accommodationFreeSlot);
-    }
-
     public void deleteAccommodationFreeSlot(AccommodationFreeSlot slot) {
         repository.delete(slot);
     }

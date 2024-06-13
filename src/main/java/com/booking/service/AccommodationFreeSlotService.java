@@ -10,7 +10,6 @@ public interface AccommodationFreeSlotService {
     public Optional<AccommodationFreeSlot> findOne(Long id);
 
     public AccommodationFreeSlot saveAccommodationFreeSlot(AccommodationFreeSlot slot);
-    public AccommodationFreeSlot createAccommodationFreeSlot(AccommodationFreeSlotDTO slotDTO);
     public void deleteAccommodationFreeSlot(AccommodationFreeSlot slot);
 
     public List<AccommodationFreeSlot> findByAccommodationId(Long id);
