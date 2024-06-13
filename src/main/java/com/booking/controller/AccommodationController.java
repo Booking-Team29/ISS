@@ -37,8 +37,6 @@ public class AccommodationController {
     private ReviewService reviewService;
     private AccommodationFreeSlotService slotService;
     private UserService userService;
-
-    private UserService userService;
     private PriceService priceService;
 
 
