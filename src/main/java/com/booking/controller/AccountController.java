@@ -81,55 +81,54 @@ public class AccountController {
         return new ResponseEntity<>(registerData, HttpStatus.CREATED);
     }
 
-//    @PutMapping(
-//            path = "/{id}",
-//            produces = MediaType.APPLICATION_JSON_VALUE,
-//            consumes = MediaType.APPLICATION_JSON_VALUE
-//    )
-//    @PreAuthorize("hasAnyAuthority('GUEST', 'OWNER', 'ADMIN')")
-//    public ResponseEntity<Account> changeUserData(@RequestBody ChangeUserDataDTO userChangeData,
-//                                                            @PathVariable Long id) {
-//        Optional<Account> acc = userService.findById(id);
-//        if (acc.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//
-//        Account me = acc.get();
-//
-//        if (!userChangeData.getFirstName().isEmpty()) {
-//            me.setFirstName(userChangeData.getFirstName());
-//        }
-//
-//        if (!userChangeData.getLastName().isEmpty()) {
-//            me.setLastName(userChangeData.getLastName());
-//        }
-//
-//        if (!userChangeData.getEmail().isEmpty()) {
-//            Optional<Account> existing = userService.findByEmail(userChangeData.getEmail());
-//            if (!existing.isEmpty()) {
-//                Account x = existing.get();
-//                if (!x.getUserId().equals(me.getUserId())) {
-//                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//                }
-//            }
-//
-//            me.setEmailAddress(userChangeData.getEmail());
-//        }
-//
-//        if (!userChangeData.getPassword().isEmpty()) {
-//            me.setHashedPassword(userChangeData.getPassword());
-//        }
-//
-//        if (!userChangeData.getAddress().isEmpty()) {
-//            me.setHomeAddress(userChangeData.getAddress());
-//        }
-//
-//        if (userChangeData.getPhone() != 0) {
-//            me.setHomeAddress(userChangeData.getAddress());
-//        }
-//
-//
-//        userService.save(me);
-//        return new ResponseEntity<>(userChangeData, HttpStatus.OK);
-//    }
+    @PutMapping(
+            path = "/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('GUEST', 'OWNER', 'ADMIN')")
+    public ResponseEntity<Account> changeUserData(@RequestBody ChangeUserDataDTO userChangeData,
+                                                            @PathVariable Long id) {
+        Optional<Account> acc = userService.findById(id);
+        if (acc.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        Account me = acc.get();
+
+        if (!userChangeData.getFirstName().trim().isEmpty()) {
+            me.setFirstName(userChangeData.getFirstName());
+        }
+
+        if (!userChangeData.getLastName().trim().isEmpty()) {
+            me.setLastName(userChangeData.getLastName());
+        }
+
+        if (!userChangeData.getEmailAddress().trim().isEmpty()) {
+            Optional<Account> existing = userService.findByEmail(userChangeData.getEmailAddress());
+            if (existing.isPresent()) {
+                Account x = existing.get();
+                if (!x.getUserId().equals(me.getUserId())) {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+            }
+
+            me.setEmailAddress(userChangeData.getEmailAddress());
+        }
+
+        if (!userChangeData.getPassword().trim().isEmpty()) {
+            me.setHashedPassword(userChangeData.getPassword());
+        }
+
+        if (!userChangeData.getHomeAddress().trim().isEmpty()) {
+            me.setHomeAddress(userChangeData.getHomeAddress());
+        }
+
+        if (!userChangeData.getPhoneNumber().trim().isEmpty()) {
+            me.setPhoneNumber(userChangeData.getPhoneNumber());
+        }
+
+        userService.save(me);
+        return new ResponseEntity<>(me, HttpStatus.OK);
+    }
 
     @DeleteMapping(
             path = "/delete/{id}"
@@ -182,7 +181,10 @@ public class AccountController {
     )
     @PreAuthorize("hasAnyAuthority('GUEST')")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        Account acc = userService.findById(id);
+
+        Optional<Account> x = userService.findById(id);
+        if (x.isEmpty()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        Account acc = x.get();
         UserDTO accDto = new UserDTO();
         accDto.FromUser(acc);
         return new ResponseEntity<>(accDto, HttpStatus.OK);

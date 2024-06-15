@@ -10,5 +10,5 @@ public interface UserService extends UserDetailsService {
     public Optional<Account> findByEmail(String email);
     public void delete(Long id);
     public void blockUser(Long userId);
-    public Account findById(Long id);
+    public Optional<Account> findById(Long id);
 }

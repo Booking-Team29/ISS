@@ -15,7 +15,6 @@ import java.util.List;
 @EqualsAndHashCode
 public class ChangeAccommodationDTO {
 
-    private Long ID;
     private String Name;
     private String Description;
     private String Location;
@@ -26,8 +25,7 @@ public class ChangeAccommodationDTO {
     private com.booking.domain.Accommodation.PricingType PricingType;
     private int DaysForCancellation;
     private List<String> Amenities;
-    private com.booking.domain.Accommodation.AccommodationStatus AccommodationStatus;
     private List<String> Images;
-    private AccommodationType Type;
     private ConfirmationMethod confirmationMethod;
+
 }

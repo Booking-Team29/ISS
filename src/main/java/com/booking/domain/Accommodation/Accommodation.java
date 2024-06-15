@@ -142,7 +142,6 @@ public class Accommodation {
 
     public static Accommodation fromChangeDTO(ChangeAccommodationDTO dto) {
         Accommodation accommodation = new Accommodation();
-        accommodation.setID(dto.getID());
         accommodation.setName(dto.getName());
         accommodation.setDescription(dto.getDescription());
         accommodation.setLocation(dto.getLocation());
@@ -153,9 +152,7 @@ public class Accommodation {
         accommodation.setPricingType(dto.getPricingType().toString());
         accommodation.setDaysForCancellation(dto.getDaysForCancellation());
         accommodation.setAmenities(dto.getAmenities());
-        accommodation.setAccommodationStatus(dto.getAccommodationStatus());
         accommodation.setImages(dto.getImages());
-        accommodation.setType(dto.getType());
         accommodation.setConfirmationMethod(dto.getConfirmationMethod());
         return accommodation;
     }
