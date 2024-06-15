@@ -113,7 +113,6 @@ public class AccommodationController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'OWNER')")
     public ResponseEntity<?> changeAccommodationData(@PathVariable Long accommodationId,
                                                                      @RequestBody ChangeAccommodationDTO changeAccommodationData) {
-        System.out.println("asipoipjfasoijISOAJDOJIPFASJIOPASF: " + changeAccommodationData);
         Accommodation accommodation = accommodationService.changeAccommodation(changeAccommodationData);
         return new ResponseEntity<>(accommodation, HttpStatus.OK);
     }
