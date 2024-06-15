@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,10 +37,6 @@ public class AccommodationController {
     private AccommodationService accommodationService;
     private ReviewService reviewService;
     private AccommodationFreeSlotService slotService;
-    private UserService userService;
-    private PriceService priceService;
-
-
     private UserService userService;
     private PriceService priceService;
 
@@ -198,7 +195,8 @@ public class AccommodationController {
         Accommodation accm = accommodationService.findOne(accommodationId);
 
         // TODO: FIND OUT WHY THE SECOND AND THIRD ACCOMMODATIONS HAVE OWNERID NULL
-        Account acc = userService.findById(accm.getOwnerId());
+        Optional<Account> x = userService.findById(accm.getOwnerId());
+        Account acc = x.get();
         UserDTO owner = new UserDTO();
         owner.setEmailAddress(acc.getEmailAddress());
         owner.setFirstName(acc.getFirstName());
