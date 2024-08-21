@@ -1,6 +1,7 @@
 package com.booking.service;
 
 import com.booking.domain.Accommodation.Accommodation;
+import com.booking.domain.Accommodation.ConfirmationMethod;
 import com.booking.dto.Accommodation.AccommodationDTO;
 import com.booking.dto.Accommodation.ApproveAccommodationDTO;
 import com.booking.dto.Accommodation.ChangeAccommodationDTO;
@@ -27,4 +28,5 @@ public interface AccommodationService {
 
     public List<Accommodation> filterAccommodation(String destination, int numberOfPeople);
     public List<Accommodation> findAccommodationByUserId(Long userId);
+    public void setAccommodationConfirmationMethod(Long id, ConfirmationMethod method);
 }

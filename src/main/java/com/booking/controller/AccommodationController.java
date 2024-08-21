@@ -5,6 +5,7 @@ import com.booking.domain.Accommodation.Accommodation;
 import com.booking.domain.Accommodation.AccommodationFreeSlot;
 import com.booking.domain.Accommodation.Price;
 import com.booking.dto.Accommodation.*;
+import com.booking.repository.AccommodationRepository;
 import com.booking.service.*;
 import com.booking.domain.User.Account;
 import com.booking.dto.Accommodation.*;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -34,6 +36,7 @@ import java.util.stream.Collectors;
         allowedHeaders = "*"
 )
 public class AccommodationController {
+    private final AccommodationRepository accommodationRepository;
     private AccommodationService accommodationService;
     private ReviewService reviewService;
     private AccommodationFreeSlotService slotService;
@@ -42,12 +45,13 @@ public class AccommodationController {
 
 
     @Autowired
-    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService, UserService userService, PriceService priceService) {
+    public AccommodationController(AccommodationService service, ReviewService review, AccommodationFreeSlotService accommodationFreeSlotService, UserService userService, PriceService priceService, AccommodationRepository accommodationRepository) {
         this.accommodationService = service;
         this.reviewService = review;
         this.slotService = accommodationFreeSlotService;
         this.userService = userService;
         this.priceService = priceService;
+        this.accommodationRepository = accommodationRepository;
     }
 
     @GetMapping(
@@ -129,13 +133,14 @@ public class AccommodationController {
     }
 
     @GetMapping(
-            path = "/owner/{ownerId}",
+            path = "/owner",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @PreAuthorize("hasAnyAuthority('OWNER')")
-    public ResponseEntity<List<Accommodation>> getAccommodationsByOwnerId(@PathVariable Long ownerId) {
-
-        List<Accommodation> accommodations = accommodationService.getAccommodationsByOwnerId(ownerId);
+    public ResponseEntity<List<Accommodation>> getAccommodationsByOwnerId() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+        List<Accommodation> accommodations = accommodationService.getAccommodationsByOwnerId(acc.getUserId());
         return new ResponseEntity<>(accommodations, HttpStatus.OK);
     }
 
@@ -180,10 +185,14 @@ public class AccommodationController {
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
     @PreAuthorize("hasAnyAuthority('OWNER')")
-    public ResponseEntity<?> defineReservationType(@RequestBody AccommodationDTO defineReservationType,
-                                                  @PathVariable Long accommodationId) {
-        //IMPLEMENT SERVICE
-        return new ResponseEntity<>(defineReservationType, HttpStatus.OK);
+    public ResponseEntity<Void> defineReservationType(@RequestBody AccommodationChangeAcceptingDTO confirmation, @PathVariable Long accommodationId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+        Accommodation accommodation = accommodationService.findOne(accommodationId);
+        if (accommodation == null || acc == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (accommodation.getOwnerId() != acc.getUserId()) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        accommodationRepository.setAccommodationConfirmationMethod(accommodationId, confirmation.getConfirmationMethod());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyAuthority('GUEST')")
