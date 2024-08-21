@@ -15,6 +15,7 @@ public class Favorite {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "favoriteid")
     private Long favoriteId;
 
     @ManyToOne
@@ -22,7 +23,7 @@ public class Favorite {
     private Account account;
 
     @ManyToOne
-    @JoinColumn(name = "AccommodationId", referencedColumnName = "id")
+    @JoinColumn(name = "accommodationid", referencedColumnName = "id")
     private Accommodation accommodation;
 
 }

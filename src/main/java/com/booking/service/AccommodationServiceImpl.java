@@ -93,4 +93,12 @@ public class AccommodationServiceImpl implements AccommodationService {
     public void setAccommodationConfirmationMethod(Long id, ConfirmationMethod method) {
         accommodationRepository.setAccommodationConfirmationMethod(id, method);
     }
+
+    public void saveFavorite(Long userId, Long accommodationId) {
+        accommodationRepository.saveFavorite(userId, accommodationId);
+    }
+
+    public void deleteFavorite(Long userId, Long accommodationId) {
+        accommodationRepository.deleteFavorite(userId, accommodationId);
+    }
 }

@@ -122,14 +122,68 @@ public class AccommodationController {
     }
 
     @GetMapping(
-            path = "/favorite/{guestId}",
+            path = "/favorite",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @PreAuthorize("hasAnyAuthority('GUEST')")
-    public ResponseEntity<List<Accommodation>> getFavoriteAccommodations(@PathVariable Long guestId) {
-
-        List<Accommodation> accommodations = accommodationService.getFavoriteAccommodations(guestId);
+    public ResponseEntity<List<Accommodation>> getFavoriteAccommodations() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+        List<Accommodation> accommodations = accommodationService.getFavoriteAccommodations(acc.getUserId());
         return new ResponseEntity<>(accommodations, HttpStatus.OK);
+    }
+
+    @GetMapping(
+            path = "/favorite/{accommodationId}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('GUEST')")
+    public ResponseEntity<IsAccommodationFavoriteDTO> isUserFavoriteAccommodation(@PathVariable Long accommodationId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+        List<Accommodation> accommodations = accommodationService.getFavoriteAccommodations(acc.getUserId());
+        for (var accomodation : accommodations)
+            if (accomodation.getID() == accommodationId) return new ResponseEntity<>(new IsAccommodationFavoriteDTO(true), HttpStatus.OK);
+        return new ResponseEntity<>(new IsAccommodationFavoriteDTO(false), HttpStatus.OK);
+    }
+
+    @PostMapping(
+            path = "/favorite/{accommodationId}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('GUEST')")
+    public ResponseEntity<Void> putAccommodationInFavorites(@PathVariable Long accommodationId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+        List<Accommodation> accommodations = accommodationService.getFavoriteAccommodations(acc.getUserId());
+        for (var accomodation : accommodations)
+            if (accomodation.getID() == accommodationId)
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        Accommodation accommodation = accommodationService.findOne(accommodationId);
+        if (accommodation == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        // create new favorite accommodation
+        accommodationService.saveFavorite(acc.getUserId(), accommodationId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(
+            path = "/favorite/{accommodationId}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @PreAuthorize("hasAnyAuthority('GUEST')")
+    public ResponseEntity<Void> deleteAccommodationFavorite(@PathVariable Long accommodationId) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Account acc = userService.findByEmail(email).get();
+
+        Accommodation accommodation = accommodationService.findOne(accommodationId);
+        if (accommodation == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        accommodationService.deleteFavorite(acc.getUserId(), accommodationId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(

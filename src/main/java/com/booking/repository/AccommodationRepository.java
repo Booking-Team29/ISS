@@ -25,6 +25,16 @@ public interface AccommodationRepository extends GenericRepository<Accommodation
     @Query("SELECT f.accommodation FROM Favorite f WHERE f.account.userId = :userId")
     List<Accommodation> findFavoritesByUserId(Long userId);
 
+    @Query(value = "INSERT INTO Favorite (userid, accommodationid) VALUES (:userId, :accommodationId)", nativeQuery = true)
+    @Modifying
+    @Transactional
+    public void saveFavorite(@Param("userId") Long userId, @Param("accommodationId") Long accommodationId);
+
+    @Query(value = "DELETE FROM Favorite f WHERE f.userId = :userId and f.accommodationId = :accommodationId", nativeQuery = true)
+    @Modifying
+    @Transactional
+    public void deleteFavorite(@Param("userId") Long userId, @Param("accommodationId") Long accommodationId);
+
     @Query("SELECT a FROM Accommodation a WHERE a.location LIKE %:destination% AND :people >= a.minGuests and :people <= a.maxGuests")
     List<Accommodation> filterAccommodation( @Param("destination") String destination, @Param("people") int people
     );
