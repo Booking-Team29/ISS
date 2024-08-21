@@ -2,9 +2,11 @@ package com.booking.repository;
 
 import com.booking.domain.Review.Review;
 import com.booking.dto.Notification.NotificationDTO;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.booking.domain.Notification.Notification;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,4 +19,9 @@ public interface NotificationRepository extends GenericRepository<Notification> 
 
         @Query("SELECT n FROM Notification n WHERE n.userId = :id")
         public List<Notification> findByUserId(Long id);
+
+        @Modifying
+        @Transactional
+        @Query("UPDATE Notification n SET n.read = true WHERE n.notificationId = :id")
+        public void markNotificationRead(Long id);
 }
