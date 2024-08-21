@@ -1,8 +1,10 @@
 package com.booking.service;
 
 import com.booking.domain.Reservation.Reservation;
+import com.booking.domain.Reservation.ReservationRequest;
 import com.booking.dto.Reservation.ReservationDTO;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface ReservationService {
@@ -17,4 +19,5 @@ public interface ReservationService {
     public List<Reservation> findReservationByUserId(Long userId);
 
     public void markReservationCancelled(Long reservationId);
+    public Collection<Reservation> findAllForAccommodation(Long accommodationId);
 }

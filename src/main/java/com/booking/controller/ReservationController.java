@@ -55,12 +55,22 @@ public class ReservationController {
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @PreAuthorize("hasAnyAuthority('GUEST')")
+    @PreAuthorize("hasAnyAuthority('GUEST', 'OWNER')")
     public ResponseEntity<Collection<Reservation>> getReservations() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Account acc = userService.findByEmail(email).get();
+        String role = String.valueOf(SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().findFirst().get());
+
+        if (role.equals("OWNER"))  {
+            Collection<Accommodation> accommodations = accommodationService.findAccommodationByUserId(acc.getUserId());
+            Collection<Reservation> res = new ArrayList<>();
+            for (Accommodation accommodation : accommodations)
+                res.addAll(_reservationService.findAllForAccommodation(accommodation.getID()));
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } else {
         List<Reservation> reservations = this._reservationService.findReservationByUserId(acc.getUserId());
         return new ResponseEntity<>(reservations, HttpStatus.OK);
+        }
     }
 
     @GetMapping(

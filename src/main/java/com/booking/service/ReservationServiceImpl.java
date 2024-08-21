@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -51,5 +52,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     public void markReservationCancelled(Long reservationId) {
         this.reservationRepository.markReservationCancelled(reservationId);
+    }
+
+    public Collection<Reservation> findAllForAccommodation(Long accommodationId) {
+        return this.reservationRepository.findAllForAccommodation(accommodationId);
     }
 }
