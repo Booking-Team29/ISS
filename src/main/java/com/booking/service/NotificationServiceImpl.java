@@ -36,9 +36,12 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public List<NotificationDTO> getNotificationsByUserId(Long id) {
-        return notificationRepository.findByUserId(id).stream()
-                .map(Notification::toNotificationDTO)
-                .collect(Collectors.toList());
+    public List<Notification> getNotificationsByUserId(Long id) {
+        return notificationRepository.findByUserId(id);
+    }
+
+    @Override
+    public void markNotificationRead(Long id) {
+        notificationRepository.markNotificationRead(id);
     }
 }

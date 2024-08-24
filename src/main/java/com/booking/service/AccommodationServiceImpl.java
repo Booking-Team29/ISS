@@ -1,6 +1,7 @@
 package com.booking.service;
 
 import com.booking.domain.Accommodation.Accommodation;
+import com.booking.domain.Accommodation.ConfirmationMethod;
 import com.booking.dto.Accommodation.AccommodationDTO;
 import com.booking.dto.Accommodation.ApproveAccommodationDTO;
 import com.booking.dto.Accommodation.ChangeAccommodationDTO;
@@ -87,5 +88,17 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     public List<Accommodation> findAccommodationByUserId(Long userId) {
         return accommodationRepository.findAccommodationByUserId(userId);
+    }
+
+    public void setAccommodationConfirmationMethod(Long id, ConfirmationMethod method) {
+        accommodationRepository.setAccommodationConfirmationMethod(id, method);
+    }
+
+    public void saveFavorite(Long userId, Long accommodationId) {
+        accommodationRepository.saveFavorite(userId, accommodationId);
+    }
+
+    public void deleteFavorite(Long userId, Long accommodationId) {
+        accommodationRepository.deleteFavorite(userId, accommodationId);
     }
 }

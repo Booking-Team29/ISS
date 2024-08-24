@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -24,4 +25,7 @@ public interface ReservationRepository extends GenericRepository<Reservation> {
     @Transactional
     @Query("UPDATE Reservation r SET r.status = 6 WHERE r.id = :reservationId")
     public void markReservationCancelled(Long reservationId);
+
+    @Query("SELECT r FROM Reservation r WHERE r.accommodationId = :accommodationId")
+    public Collection<Reservation> findAllForAccommodation(Long accommodationId);
 }
